@@ -12,6 +12,8 @@ include('inc/header.php');
 
 <?php
 
+insert_json_frames('./assets/frames/frames.json');
+
 ?>
 
 <?php

@@ -115,4 +115,44 @@ function hexadecimalCipher($value){
      return implode(".", $ip);
 }
 
+function insert_json_frames($json_file)
+{
+    global $pdo;
+    $data = file_get_contents($json_file);
+    if(mb_strlen($data) == 0) {
+        $frames = json_decode($data);
+
+        foreach ($frames as $frame) {
+            $sql = "SELECT id FROM trames WHERE frame_date = :frame_date AND identification = :identification AND protocol_name = :protocol_name";
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':frame_date', $frame->date, PDO::PARAM_STR);
+            $query->bindValue(':identification', $frame->identification, PDO::PARAM_STR);
+            $query->bindValue(':protocol_name', $frame->protocol->name, PDO::PARAM_STR);
+            $query->execute();
+            $count = $query->rowCount();
+
+            if ($count == 0) {
+                $sql = "INSERT INTO trames (frame_date,version,header_length,service,identification,flags_code,ttl,protocol_name,protocol_checksum_status,protocol_ports_from,protocol_ports_dest,header_checksum,ip_from,ip_dest)
+                VALUES (:dat,:version,:header_length,:service,:identification,:flags_code,:ttl,:protocol_name,:protocol_checksum_status,:protocol_ports_from,:protocol_ports_dest,:header_checksum,:ip_from,:ip_dest)";
+                $query = $pdo->prepare($sql);
+                $query->bindValue(':dat', $frame->date, PDO::PARAM_STR);
+                $query->bindValue(':version', $frame->version, PDO::PARAM_INT);
+                $query->bindValue(':header_length', $frame->headerLength, PDO::PARAM_INT);
+                $query->bindValue(':service', $frame->service, PDO::PARAM_STR);
+                $query->bindValue(':identification', $frame->identification, PDO::PARAM_STR);
+                $query->bindValue(':flags_code', $frame->flags->code, PDO::PARAM_STR);
+                $query->bindValue(':ttl', $frame->ttl, PDO::PARAM_INT);
+                $query->bindValue(':protocol_name', $frame->protocol->name, PDO::PARAM_STR);
+                $query->bindValue(':protocol_checksum_status', $frame->protocol->checksum->status, PDO::PARAM_STR);
+                $query->bindValue(':protocol_ports_from', $frame->protocol->ports->from, PDO::PARAM_INT);
+                $query->bindValue(':protocol_ports_dest', $frame->protocol->ports->dest, PDO::PARAM_INT);
+                $query->bindValue(':header_checksum', $frame->headerChecksum, PDO::PARAM_STR);
+                $query->bindValue(':ip_from', $frame->ip->from, PDO::PARAM_STR);
+                $query->bindValue(':ip_dest', $frame->ip->dest, PDO::PARAM_STR);
+                $query->execute();
+            }
+        }
+    }
+}
+
 
