@@ -1,7 +1,3 @@
-<?php
-require('config.php');
-?>
-
 <!doctype html>
 <html lang="fr">
 <head>

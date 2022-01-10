@@ -1,6 +1,5 @@
 <?php
-require ('inc/pdo.php');
-require ('inc/fonctions.php');
+require ('inc/bases.php');
 
 $val = 'c0a8014a';
 debug($val);
