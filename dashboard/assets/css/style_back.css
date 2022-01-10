@@ -4,3 +4,11 @@
 Style du back uniquement
 
  */
+
+.wrap {max-width: 1140px;width:100%;margin: 0 auto;padding: 0 15px;}
+
+#container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

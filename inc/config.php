@@ -1,5 +1,5 @@
 <?php
-$NOM_SITE = 'Need Security';
+$NOM_SITE = 'NƎƎd Security';
 
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
