@@ -8,6 +8,7 @@ debug($val);
 echo hexadecimalCipher($val);
 include('inc/header.php');
 
+?>
 <h1></h1>
 
 <?php
