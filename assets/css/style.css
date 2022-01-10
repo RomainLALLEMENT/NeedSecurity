@@ -4,3 +4,11 @@
 Style du front uniquement
 
  */
+
+.logo_col_1{
+    color: black;
+}
+
+.logo_col_2{
+    color: var(--rouge);
+}

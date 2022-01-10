@@ -5,10 +5,66 @@ Style du back uniquement
 
  */
 
+.logo_col_1{
+    color: white;
+}
+
+.logo_col_2{
+    color: var(--rouge);
+}
+
 .wrap {max-width: 1140px;width:100%;margin: 0 auto;padding: 0 15px;}
 
 #container{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/** HEADER BACK **/
+
+#header{
+    background-color: var(--back-color);
+}
+
+#header .wrap{
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 1rem 0 1rem 0;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+#header .wrap .site_name{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#header .wrap .logo{
+    width: 50px;
+}
+
+#header .wrap .right{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+#header .wrap .right span{
+    color: white;
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+#header .wrap .right i{
+    color: var(--rouge);
+}
+
+#header .wrap .left{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    align-items: center;
 }

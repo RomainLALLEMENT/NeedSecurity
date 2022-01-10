@@ -7,8 +7,8 @@ include('inc/header_back.php');
     <header id="header">
         <div class="wrap">
             <div class="left">
-                <img src="../assets/img/logo.png" alt="Logo">
-                <h1><?= $NOM_SITE; ?></h1>
+                <img class="logo" src="../assets/img/logo.png" alt="Logo">
+                <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
             </div>
             <div class="right">
                 <span>Pseudo</span>
