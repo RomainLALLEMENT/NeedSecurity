@@ -13,3 +13,7 @@ Style commun au front et au back
     --gris: #C4C4C4;
     --copyright-color: #737373;
 }
+
+.li-selected{
+    background-color: var(--selected-item-color);
+}
