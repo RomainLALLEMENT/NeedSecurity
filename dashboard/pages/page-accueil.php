@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="dashboard-item"><h2>Autre</h2>
-                <div>
+                <div >
                     <canvas id="chart-2"></canvas>
                 </div>
             </div>

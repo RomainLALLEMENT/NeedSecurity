@@ -4,7 +4,7 @@ include('inc/header_back.php');
 
 ?>
 <div id="container">
-
+<?php include ('pages/page-accueil.php'); ?>
 </div>
 
 <?php

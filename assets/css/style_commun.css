@@ -21,3 +21,72 @@ body{
 .li-selected{
     background-color: var(--selected-item-color);
 }
+
+
+.footer{
+    background-color: var(--back-color);
+    padding: 1rem max(1rem, 1.5rem + 3vw);
+    display: flex;
+    flex-flow: column nowrap;
+}
+.footer .copyright{
+    color: white;
+}
+footer a{
+    color: white;
+    cursor: pointer;
+    padding: .3rem .5rem;
+    transition: all .5s;
+}
+.footer a:hover{
+    color: var(--rouge);
+}
+.footer .contact{
+    display: flex;
+    flex-flow: column nowrap;
+}
+.footer .footer-top, .footer .footer-bot{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.footer .footer-top{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.footer .social-red{
+    font-size: 3rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content-Box */
+.modal-content {
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 25% auto;
+    padding: 0.4rem max(2vw, .5rem);
+    border: 3px solid var(--rouge);
+    width: 50%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: .5rem;
+    text-align: center;
+    justify-content: center;
+}
