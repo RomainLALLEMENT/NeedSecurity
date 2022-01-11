@@ -10,9 +10,7 @@ include('inc/header.php');
 ?>
     <h1><?= $NOM_SITE; ?></h1>
 
-
-
-insert_json_frames('./assets/frames/frames.json');
+    <a href="inc/ajax.php" style="background: black">test BD</a>
 
 <?php
 include('inc/footer.php');

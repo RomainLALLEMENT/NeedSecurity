@@ -87,7 +87,7 @@ function insert_json_frames($json_file)
 {
     global $pdo;
     $data = file_get_contents($json_file);
-    if(mb_strlen($data) == 0) {
+    if(mb_strlen($data) > 0) {
         $frames = json_decode($data);
 
         foreach ($frames as $frame) {
