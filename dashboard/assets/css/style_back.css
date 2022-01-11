@@ -171,6 +171,10 @@ DASHBOARD PAGE
     background-color: rgba(255,255,255,.1);
 }
 
+.paginator{
+    padding-top: .5rem;
+}
+
 .paginator-item{
     padding: .2rem .5rem .2rem .5rem;
     margin: .2rem;
@@ -188,4 +192,18 @@ DASHBOARD PAGE
 .paginator-selected{
     background-color: white;
     color: rgba(0,0,0, 0.7);
+}
+
+#dashboard-main .dashboard-item table tr.trame-clickable{
+    transition: all .25s;
+    cursor: pointer;
+}
+
+#dashboard-main .dashboard-item table tr.trame-clickable:hover{
+    background-color: #2d2d2e;
+}
+
+#dashboard-main .table-parent{
+    min-height: 10rem;
+    position: relative;
 }

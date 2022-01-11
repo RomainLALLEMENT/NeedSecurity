@@ -20,7 +20,7 @@
         </div>
         <div class="dashboard-items-line">
             <div class="dashboard-item"><h2>Dernières trames</h2>
-                <div>
+                <div class="table-parent">
                     <table id="last-trames"></table>
                 </div>
             </div>

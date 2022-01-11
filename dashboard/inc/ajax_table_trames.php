@@ -12,7 +12,7 @@ if(!empty($_GET['nbRows'])){
     $nbRow = intval($_GET['nbRows']);
 }
 
-$trames = db_get_trames(['frame_date', 'identification', 'protocol_name', 'ip_from', 'ip_dest'], $page, $nbRow);
+$trames = db_get_trames(['id', 'frame_date', 'identification', 'protocol_name', 'ip_from', 'ip_dest'], $page, $nbRow);
 
 $cptTrame = 0;
 foreach($trames as $trame){
@@ -52,7 +52,7 @@ if($pages <= 10) {
 }
 else{
     for ($i = 1; $i <= $pages; $i++) {
-        if($page == $i || $i <= 3 || $i >= $pages - 1 || ($i >= $page - 2 && $i <= $page + 2)){
+        if($i <= 3 || $i >= $pages - 1 || ($i >= $page - 2 && $i <= $page + 2)){
             if ($page == $i) {
                 $paginatorRebuild[] = [$i, 'selected'];
             } else {

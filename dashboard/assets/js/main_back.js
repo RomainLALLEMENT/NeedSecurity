@@ -2,6 +2,7 @@
 
 $( document ).ready(function() {
 
+    const container = $('#container');
 
     const table = $('#last-trames');
     ajax_getTrames(table, 1);
@@ -68,86 +69,109 @@ $( document ).ready(function() {
         config
     );
 
-    /* Paginator tableau des dernières trames */
-});
 
-function ajax_getTrames(table, page){
-    const loader = generate_loader();
-    table.after(loader);
-    table.empty();
-    table.css('display', 'none');
+    function ajax_getTrameDetail(trameid){
+        console.log('getTrameDetail ' + trameid);
+        const loader = generate_loader();
+        container.empty();
+        container.append(loader);
+    }
 
-    setTimeout(function() {
-        $.ajax({
-            type: "GET",
-            url: "inc/ajax_table_trames.php",
-            data: {page: page, nbRows: 5},
-            beforeSend: function(){
-                /*btn.fadeOut(1000);*/
-            },
-            success: function(response){
-                if(response.length > 1){
-                    generate_table_from_trames(table, response);
+    function ajax_getTrames(table, page){
+        const loader = generate_loader();
+        table.after(loader);
+        const tableHeight = table.css('height');
+        table.fadeOut(350, function(){
+            //table.empty();
+            /*console.log("tableheight = " + tableHeight);
+            const divHeight = $('<div></div>').css('height', tableHeight);
+            table.append(divHeight);*/
+        });
+
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "inc/ajax_table_trames.php",
+                data: {page: page, nbRows: 5},
+                beforeSend: function(){
+                    /*btn.fadeOut(1000);*/
+                },
+                success: function(response){
+                    if(response.length > 1){
+                        generate_table_from_trames(table, response);
+                    }
+
+                    loader.remove();
+                    table.fadeIn(350, function(){  });
+                },
+                error: function(){
+
                 }
+            });
+        }, 600);
+    }
 
-                loader.remove();
-                table.css('display', 'block');
-            },
-            error: function(){
+    function generate_table_from_trames(table, response){
+        const trHeader = $('<tr class="table-header"></tr>');
 
+        $.each(response[0], function(k, v) {
+            if(k !== 'id'){
+                const tdHeader = $('<td>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</td>');
+                trHeader.append(tdHeader);
             }
         });
-    }, 500);
-}
 
-function generate_table_from_trames(table, response){
-    const trHeader = $('<tr class="table-header"></tr>');
+        table.empty();
+        table.append(trHeader);
 
-    $.each(response[0], function(k, v) {
-        const tdHeader = $('<td>'+ k + '</td>');
-        trHeader.append(tdHeader);
-    });
-
-    table.append(trHeader);
-
-    let cpt = 0;
-    $.each(response, function() {
-        if(cpt < response.length - 1){
-            const trTrame = $('<tr></tr>');
-            $.each(this, function(k, v) {
-                const tdTrame = $('<td>'+v+'</td>');
-                trTrame.append(tdTrame);
-            });
-            table.append(trTrame);
-        }
-        else{
-            // Régénération du paginator
-            const paginator = $('<div class="paginator"></div>');
-            $.each(this, function(k, v) {
-                const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
-                if(v[1] === 'selected'){
-                    paginatorItem.addClass('paginator-selected');
-                }
-                paginatorItem.text(v[0]);
-                paginatorItem.on('click', function(){
-                    const page = parseInt($(this).text());
-                    const table = $('#' + $(this).data("tableid"));
-                    ajax_getTrames(table, page, $(this));
+        let cpt = 0;
+        $.each(response, function() {
+            if(cpt < response.length - 1){
+                const trTrame = $('<tr class="trame-clickable" data-idtrame="' + $(this)[0]['id'] + '"></tr>').on('click', function(){
+                    ajax_getTrameDetail($(this).data("idtrame"));
                 });
-                paginator.append(paginatorItem);
-            });
-            table.append(paginator);
-        }
-        cpt++;
-    });
-}
 
-function generate_loader(){
-    const loaderContainer = $("<div class=\"loader-container\"></div>");
-    const loader = $("<div class=\"loader\"></div>");
-    const square_one = $("<div class=\"square one\"></div>");
-    const square_two = $("<div class=\"square two\"></div>");
-    loaderContainer.append(loader);
-    loader.append(square_one, square_two);
-    return loaderContainer;
-}
+                $.each(this, function(k, v) {
+                    if(k !== 'id'){
+                        const tdTrame = $('<td>'+v+'</td>');
+                        trTrame.append(tdTrame);
+                    }
+                });
+                table.append(trTrame);
+            }
+            else{
+                // Régénération du paginator
+                const paginator = $('<div class="paginator"></div>');
+                $.each(this, function(k, v) {
+                    const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
+                    if(v[1] === 'selected'){
+                        paginatorItem.addClass('paginator-selected');
+                    }
+                    paginatorItem.text(v[0]);
+                    paginatorItem.on('click', function(){
+                        const page = parseInt($(this).text());
+                        const table = $('#' + $(this).data("tableid"));
+                        ajax_getTrames(table, page);
+                    });
+                    paginator.append(paginatorItem);
+                });
+                table.append(paginator);
+            }
+            cpt++;
+        });
+    }
+
+    function generate_loader(){
+        const loaderContainer = $("<div class=\"loader-container pos-abs\"></div>");
+        const loader = $("<div class=\"loader\"></div>");
+        const square_one = $("<div class=\"square one\"></div>");
+        const square_two = $("<div class=\"square two\"></div>");
+        loaderContainer.append(loader);
+        loader.append(square_one, square_two);
+        return loaderContainer;
+    }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+});

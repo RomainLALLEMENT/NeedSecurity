@@ -114,103 +114,16 @@ function db_get_trames($fieldsArray, $page = 1, $nbRows = 5)
     return $query->fetchAll();
 }
 
-function generate_trames_table($id, $fieldsArray, $page = 1, $nbRows = 5){
-    global $pdo;
-
-    if($page < 1){
-        $page = 1;
-    }
-
-    $fieldsStr = "";
-    foreach ($fieldsArray as $field)
-    {
-        if(mb_strlen($field) > 0){
-            if(mb_strlen($fieldsStr) > 0){
-                $fieldsStr .= ',';
-            }
-            $fieldsStr .= $field;
-        }
-    }
-
-    $trames = db_get_trames($fieldsArray);
-
-    if(count($trames) > 0) {
-        echo '<table id="'.$id.'">';
-
-        echo '<tr class="table-header">';
-
-        foreach ($trames[0] as $key => $value) {
-            echo '<td>' . str_replace("_", " ", ucfirst($key)) . '</td>';
-        }
-        echo '</tr>';
-
-        foreach ($trames as $trame) {
-            echo '<tr>';
-
-            foreach ($trame as $key => $trameData)
-            {
-                if($key == 'frame_date') {
-                    echo '<td>'.dateToRead($trameData).'</td>';
-                }
-                elseif($key == 'ip_from' || $key == 'ip_dest'){
-                    echo '<td>'.hexadecimalCipher($trameData).'</td>';
-                }
-                else{
-                    echo '<td>'.$trameData.'</td>';
-                }
-            }
-
-            echo '</tr>';
-        }
-
-        echo '</table>';
-
-        $sql = "SELECT count(id) FROM trames";
-        $query = $pdo->prepare($sql);
-        $query->execute();
-        $count = $query->fetchColumn();
-        if($count <= $nbRows){
-            $pages = 1;
-        }
-        else{
-            $pages = ceil($count / $nbRows);
-        }
-
-        echo '<div class="paginator">';
-
-        if($pages <= 10) {
-            for ($i = 1; $i <= $pages; $i++) {
-                if ($page == $i) {
-                    echo '<span class="paginator-item paginator-selected">' . $i . '</span>';
-                } else {
-                    echo '<span class="paginator-item">' . $i . '</span>';
-                }
-            }
-        }
-        else{
-            for ($i = 1; $i <= $pages; $i++) {
-                if($page == $i || $i <= 3 || $i >= $pages - 3 || ($i >= $page - 2 && $i <= $page + 2)){
-                    if ($page == $i) {
-                        echo '<span data-tableid="'.$id.'" class="paginator-item paginator-selected">' . $i . '</span>';
-                    } else {
-                        echo '<span data-tableid="'.$id.'" class="paginator-item">' . $i . '</span>';
-                    }
-                }
-            }
-        }
-        echo '</div>';
-    }
-
-}
-
-function insert_json_frames($json_file)
+function insert_json_frames($json_file): bool
 {
     global $pdo;
+    $success = false;
     $data = file_get_contents($json_file);
     if(mb_strlen($data) > 0) {
         $frames = json_decode($data);
 
         foreach ($frames as $frame) {
+            $success = true;
             $sql = "SELECT id FROM trames WHERE frame_date = :frame_date AND identification = :identification AND protocol_name = :protocol_name";
             $query = $pdo->prepare($sql);
             $query->bindValue(':frame_date', $frame->date, PDO::PARAM_STR);
@@ -241,6 +154,8 @@ function insert_json_frames($json_file)
             }
         }
     }
+
+    return $success;
 }
 
 function dateToRead($dateDb){
