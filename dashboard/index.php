@@ -4,28 +4,9 @@ include('inc/header_back.php');
 
 ?>
 <div id="container">
-    <header id="header">
-        <div class="wrap">
-            <div class="left">
-                <img class="logo" src="../assets/img/logo.png" alt="Logo">
-                <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
-            </div>
-            <div class="right">
-                <span>Pseudo</span>
-                <a href="#"><i class="fas fa-sign-out-alt"></i></a>
-            </div>
-        </div>
-    </header>
-
     <section id="dashboard-main">
         <div class="wrap">
-            <div class="dashboard-menu">
-                <ul>
-                    <li class="li-selected"><i class="fas fa-house-user"></i> Résumé</li>
-                    <li><i class="fas fa-database"></i> Détails</li>
-                    <li><i class="fas fa-clipboard-list"></i> Logs</li>
-                </ul>
-            </div>
+
             <div class="dashboard-items">
                 <div class="dashboard-items-line">
                     <div class="dashboard-item data-item"><span class="data-name">Donnée 1</span><p>8</p></div>
