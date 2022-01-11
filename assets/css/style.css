@@ -1,0 +1,94 @@
+/* Data */
+
+.backdata {
+    height: 630px;
+    margin-bottom: -12%;
+}
+
+.data {
+    position: relative;
+    bottom: 200px;
+    left: 50px;
+}
+.data #dataccueil {
+    color: white;
+}
+
+.data #dataccueil h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.data #dataccueil p {
+    font-size: 2.6rem;
+}
+
+.data #dataccueil button {
+    background-color: rgb(255, 37, 37);
+    color: white;
+    width: 300px;
+    height: 3rem;
+    border: none;
+    border-radius: 5%;
+    margin-top: 2%;
+}
+
+/* Tableau de Bord */
+.tableaudebord {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(34, 37, 51);
+    color: white;
+    height: 600px;
+}
+.tableaudebord h2 {
+    font-size: 3.8rem;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+.tableaudebord #fonctionalités{
+    display: flex;
+    flex-flow: row nowrap;
+    flex-direction: column;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3{
+    display: flex;
+    font-size: 2.6rem;
+}
+.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3, i{
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.tableaudebord .imgpc{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -21rem;
+}
+.tableaudebord img{
+    width: 800px;
+}
+/* Analyse */
+.analyse{
+    background-color: rgb(196, 196, 196);
+    display: flex;
+}
+.analyse #imganalyse{
+    display: flex;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.analyse #fonctionalités2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    margin-top: 6%;
+}
+.analyse #fonctionalités2 h2{
+    font-size: 3rem;
+}
+.analyse #fonctionalités2 p{
+    font-size: 2.6rem
+}
