@@ -2,7 +2,7 @@
 require_once ('../../inc/bases.php');
 
 $page = 1;
-$nbRow = 5;
+$nbRow = 10;
 
 if(!empty($_GET['page'])){
     $page = intval($_GET['page']);

@@ -77,7 +77,7 @@ $( document ).ready(function() {
         container.append(loader);
     }
 
-    function ajax_getTrames(table, page){
+    function ajax_getTrames(table, page, nbRows = 10){
         const loader = generate_loader();
         table.after(loader);
         const tableHeight = table.css('height');
@@ -92,7 +92,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "GET",
                 url: "inc/ajax_table_trames.php",
-                data: {page: page, nbRows: 5},
+                data: {page: page, nbRows: nbRows},
                 beforeSend: function(){
                     /*btn.fadeOut(1000);*/
                 },
