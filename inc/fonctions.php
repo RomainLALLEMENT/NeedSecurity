@@ -118,6 +118,10 @@ function hexadecimalCipher($value){
 function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
     global $pdo;
 
+    if($page < 1){
+        $page = 1;
+    }
+
     $fieldsStr = "";
     foreach ($fieldsArray as $field)
     {
@@ -140,7 +144,7 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
         echo '<tr class="table-header">';
 
         foreach ($trames[0] as $key => $value) {
-            echo '<td>' . ucfirst($key) . '</td>';
+            echo '<td>' . str_replace("_", " ", ucfirst($key)) . '</td>';
         }
         echo '</tr>';
 
@@ -156,7 +160,43 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
         }
 
         echo '</table>';
+
+        $sql = "SELECT count(id) FROM trames";
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $count = $query->fetchColumn();
+        if($count <= $nbRows){
+            $pages = 1;
+        }
+        else{
+            $pages = ceil($count / $nbRows);
+        }
+
+        echo '<div class="paginator">';
+
+        if($pages <= 10) {
+            for ($i = 1; $i <= $pages; $i++) {
+                if ($page == $i) {
+                    echo '<span class="paginator-item paginator-selected">' . $i . '</span>';
+                } else {
+                    echo '<span class="paginator-item">' . $i . '</span>';
+                }
+            }
+        }
+        else{
+            for ($i = 1; $i <= $pages; $i++) {
+                if($page == $i || $i <= 3 || $i >= $pages - 3 || ($i >= $page - 2 && $i <= $page + 2)){
+                    if ($page == $i) {
+                        echo '<span class="paginator-item paginator-selected">' . $i . '</span>';
+                    } else {
+                        echo '<span class="paginator-item">' . $i . '</span>';
+                    }
+                }
+            }
+        }
+        echo '</div>';
     }
+
 }
 
 function insert_json_frames($json_file)

@@ -5,6 +5,10 @@ Style commun au front et au back
 
  */
 
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 :root{
     --rouge: #FF2525;
     --back-color: #222533;

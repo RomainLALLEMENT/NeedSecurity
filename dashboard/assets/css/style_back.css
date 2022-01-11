@@ -171,3 +171,22 @@ DASHBOARD MAIN
 #dashboard-main .dashboard-item table .table-header td{
     color: white;
 }
+
+.paginator-item{
+    padding: .2rem .5rem .2rem .5rem;
+    margin: .2rem;
+    border-radius: 3px;
+    background-color: rgba(0,0,0, 0.4);
+    color: white;
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.paginator-item:hover:not(.paginator-selected){
+    opacity: .7;
+}
+
+.paginator-selected{
+    background-color: white;
+    color: rgba(0,0,0, 0.7);
+}
