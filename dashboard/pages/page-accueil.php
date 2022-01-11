@@ -20,10 +20,9 @@
         </div>
         <div class="dashboard-items-line">
             <div class="dashboard-item"><h2>Dernières trames</h2>
-
-                <?php
-                generate_trames_table(['frame_date', 'identification', 'protocol_name', 'ip_from', 'ip_dest']);
-                ?>
+                <div>
+                    <table id="last-trames"></table>
+                </div>
             </div>
         </div>
     </div>

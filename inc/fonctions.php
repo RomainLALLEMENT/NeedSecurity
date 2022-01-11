@@ -1,5 +1,16 @@
 <?php
 
+function showJson($data){
+    header("Content-type: application/json");
+    $json = json_encode($data, JSON_PRETTY_PRINT);
+    if($json){
+        die($json);
+    }
+    else{
+        die('error in json encoding');
+    }
+}
+
 //Debug
 function debug($x)
 {
@@ -68,7 +79,7 @@ function hexadecimalCipher($value){
     $unit = 0;
     $valueSplit = str_split($value);
     for($i = 0; $i < count($valueSplit); $i++){
-        if (in_array($valueSplit[$i], $cypher))
+        if (array_key_exists($valueSplit[$i], $cypher))
         {
             if($i % 2 == 0) {
                 $diz = $cypher[$valueSplit[$i]];
@@ -83,7 +94,27 @@ function hexadecimalCipher($value){
     return implode(".", $toHexa);
 }
 
-function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
+function db_get_trames($fieldsArray, $page = 1, $nbRows = 5)
+{
+    global $pdo;
+    $fieldsStr = "";
+    foreach ($fieldsArray as $field)
+    {
+        if(mb_strlen($field) > 0){
+            if(mb_strlen($fieldsStr) > 0){
+                $fieldsStr .= ',';
+            }
+            $fieldsStr .= $field;
+        }
+    }
+
+    $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
+}
+
+function generate_trames_table($id, $fieldsArray, $page = 1, $nbRows = 5){
     global $pdo;
 
     if($page < 1){
@@ -101,13 +132,10 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
         }
     }
 
-    $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
-    $query = $pdo->prepare($sql);
-    $query->execute();
-    $trames = $query->fetchAll();
+    $trames = db_get_trames($fieldsArray);
 
     if(count($trames) > 0) {
-        echo '<table>';
+        echo '<table id="'.$id.'">';
 
         echo '<tr class="table-header">';
 
@@ -121,7 +149,10 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
 
             foreach ($trame as $key => $trameData)
             {
-                if($key == 'ip_from' || $key == 'ip_dest'){
+                if($key == 'frame_date') {
+                    echo '<td>'.dateToRead($trameData).'</td>';
+                }
+                elseif($key == 'ip_from' || $key == 'ip_dest'){
                     echo '<td>'.hexadecimalCipher($trameData).'</td>';
                 }
                 else{
@@ -160,9 +191,9 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
             for ($i = 1; $i <= $pages; $i++) {
                 if($page == $i || $i <= 3 || $i >= $pages - 3 || ($i >= $page - 2 && $i <= $page + 2)){
                     if ($page == $i) {
-                        echo '<span class="paginator-item paginator-selected">' . $i . '</span>';
+                        echo '<span data-tableid="'.$id.'" class="paginator-item paginator-selected">' . $i . '</span>';
                     } else {
-                        echo '<span class="paginator-item">' . $i . '</span>';
+                        echo '<span data-tableid="'.$id.'" class="paginator-item">' . $i . '</span>';
                     }
                 }
             }
