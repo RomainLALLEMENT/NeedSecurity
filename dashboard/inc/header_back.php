@@ -19,7 +19,7 @@
         <a href="index.php"><img class="logo" src="../assets/img/logo.png" alt="Logo"></a>
             <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
             <p>Pseudo</p>
-            <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+            <i id="logout-show" class="fas fa-sign-out-alt"></i>
 </header>
 <div id="dashboard-menu">
     <ul>

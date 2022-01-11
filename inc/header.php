@@ -15,3 +15,9 @@
     <title>Document</title>
 </head>
 <body>
+<header id="header">
+    <a href="index.php"><img class="logo" src="./assets/img/logo.png" alt="Logo"></a>
+    <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
+    <p id="btn-connection">Connection</p>
+</header>
+
