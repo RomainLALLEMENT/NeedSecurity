@@ -24,11 +24,6 @@ body{
 
 /* Loading */
 
-.table-parent{
-    height: 300px;
-    width: 100%;
-}
-
 .pos-abs{
     position: absolute;
     top: 50%;

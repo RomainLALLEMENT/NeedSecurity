@@ -207,3 +207,8 @@ DASHBOARD PAGE
     min-height: 10rem;
     position: relative;
 }
+
+.table-parent{
+    height: 300px;
+    width: 100%;
+}
