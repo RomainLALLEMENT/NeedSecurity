@@ -1,10 +1,10 @@
 <?php
-require ('../inc/bases.php');
-include('inc/header_back.php');
+require_once ('../inc/bases.php');
+include_once ('inc/header_back.php');
 
 ?>
 <div id="container">
-
+    <?php include ('pages/page-accueil.php'); ?>
 </div>
 
 <?php

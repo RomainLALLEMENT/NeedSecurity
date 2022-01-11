@@ -119,9 +119,14 @@ function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
         foreach ($trames as $trame) {
             echo '<tr>';
 
-            foreach ($trame as $trameData)
+            foreach ($trame as $key => $trameData)
             {
-                echo '<td>'.$trameData.'</td>';
+                if($key == 'ip_from' || $key == 'ip_dest'){
+                    echo '<td>'.hexadecimalCipher($trameData).'</td>';
+                }
+                else{
+                    echo '<td>'.$trameData.'</td>';
+                }
             }
 
             echo '</tr>';
