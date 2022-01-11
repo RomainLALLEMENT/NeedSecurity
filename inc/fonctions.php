@@ -123,5 +123,13 @@ function insert_json_frames($json_file)
     }
 }
 
+function dateToRead($dateDb){
+    $date = new DateTime();
+    $date->setTimestamp($dateDb);
+    return $date->format('d/m/Y H:i:s');
+}
+
+
+
 
 
