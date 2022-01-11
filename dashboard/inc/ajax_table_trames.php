@@ -52,7 +52,7 @@ if($pages <= 10) {
 }
 else{
     for ($i = 1; $i <= $pages; $i++) {
-        if($page == $i || $i <= 3 || $i >= $pages - 3 || ($i >= $page - 2 && $i <= $page + 2)){
+        if($page == $i || $i <= 3 || $i >= $pages - 1 || ($i >= $page - 2 && $i <= $page + 2)){
             if ($page == $i) {
                 $paginatorRebuild[] = [$i, 'selected'];
             } else {

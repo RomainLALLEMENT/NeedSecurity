@@ -136,7 +136,7 @@ function generate_table_from_trames(table, response){
                 });
                 paginator.append(paginatorItem);
             });
-            table.parent().append(paginator);
+            table.append(paginator);
         }
         cpt++;
     });
