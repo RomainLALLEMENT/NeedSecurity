@@ -5,6 +5,10 @@ Style du back uniquement
 
  */
 
+body{
+    background-color: var(--back-color);
+}
+
 .logo_col_1{
     color: white;
 }
@@ -24,7 +28,7 @@ Style du back uniquement
 /** HEADER BACK **/
 
 #header{
-    background-color: var(--back-color);
+    background-color: var(--header-back-color);
 }
 
 #header .wrap{
