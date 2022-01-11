@@ -153,3 +153,21 @@ DASHBOARD MAIN
     font-weight: 300;
     font-size: 1.8rem;
 }
+
+#dashboard-main .dashboard-item table {
+    width: 100%;
+}
+
+#dashboard-main .dashboard-item table td{
+    padding: .5rem;
+    color: #b3b3b5;
+}
+
+#dashboard-main .dashboard-item table .table-header{
+    background-color: #191E3A;
+    border-radius: 5px;
+}
+
+#dashboard-main .dashboard-item table .table-header td{
+    color: white;
+}

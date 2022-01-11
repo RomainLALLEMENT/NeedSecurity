@@ -46,7 +46,12 @@ include('inc/header_back.php');
                     </div>
                 </div>
                 <div class="dashboard-items-line">
-                    <div class="dashboard-item"><h2>Autre</h2></div>
+                    <div class="dashboard-item"><h2>Dernières trames</h2>
+
+                        <?php
+                        generate_trames_table(['id', 'version', 'frame_date']);
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>

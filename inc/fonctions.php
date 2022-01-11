@@ -115,6 +115,50 @@ function hexadecimalCipher($value){
      return implode(".", $ip);
 }
 
+function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
+    global $pdo;
+
+    $fieldsStr = "";
+    foreach ($fieldsArray as $field)
+    {
+        if(mb_strlen($field) > 0){
+            if(mb_strlen($fieldsStr) > 0){
+                $fieldsStr .= ',';
+            }
+            $fieldsStr .= $field;
+        }
+    }
+
+    $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    $trames = $query->fetchAll();
+
+    if(count($trames) > 0) {
+        echo '<table>';
+
+        echo '<tr class="table-header">';
+
+        foreach ($trames[0] as $key => $value) {
+            echo '<td>' . ucfirst($key) . '</td>';
+        }
+        echo '</tr>';
+
+        foreach ($trames as $trame) {
+            echo '<tr>';
+
+            foreach ($trame as $trameData)
+            {
+                echo '<td>'.$trameData.'</td>';
+            }
+
+            echo '</tr>';
+        }
+
+        echo '</table>';
+    }
+}
+
 function insert_json_frames($json_file)
 {
     global $pdo;
