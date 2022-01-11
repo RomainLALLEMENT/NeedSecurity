@@ -10,5 +10,6 @@ include('inc/header.php');
 ?>
     <h1><?= $NOM_SITE; ?></h1>
 
+
 <?php
 include('inc/footer.php');

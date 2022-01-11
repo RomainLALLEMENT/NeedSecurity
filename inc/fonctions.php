@@ -43,76 +43,44 @@ function emailValidation($err,$mail,$key)
     return $err;
 }
 
+define('HX', 16);
 function hexadecimalCipher($value){
-    $valueTreat = str_split($value);
+    $cypher = [
+        '0'=>0,
+        '1'=>1,
+        '2'=>2,
+        '3'=>3,
+        '4'=>4,
+        '5'=>5,
+        '6'=>6,
+        '7'=>7,
+        '8'=>8,
+        '9'=>9,
+        'a'=>10,
+        'b'=>11,
+        'c'=>12,
+        'd'=>13,
+        'e'=>14,
+        'f'=>15
+    ];
     $toHexa = [];
-    echo $value;
-    foreach ($valueTreat as $val){
-        switch ($val){
-            case '0':
-                $val = 0;
-                break;
-            case '1':
-                $val = 1;
-                break;
-            case '2':
-                $val = 2;
-                break;
-            case '3':
-                $val = 3;
-                break;
-            case '4':
-                $val = 4;
-                break;
-            case '5':
-                $val = 5;
-                break;
-            case '6':
-                $val = 6;
-                break;
-            case '7':
-                $val = 7;
-                break;
-            case '8':
-                $val = 8;
-                break;
-            case '9':
-                $val = 9;
-                break;
-            case 'a':
-                $val = 10;
-                break;
-            case 'b':
-                $val = 11;
-                break;
-            case 'c':
-                $val = 12;
-                break;
-            case 'd':
-                $val = 13;
-                break;
-            case 'e':
-                $val = 14;
-                break;
-            case 'f':
-                $val = 15;
-                break;
-        }
-        $toHexa[] = $val;
-    }
-    //for each 2 do the first one 16*x + second value
-    for($i = 0; $i < count($toHexa); $i++) {
-        if($i % 2 == 0){
-            $toHexa[$i] = 16* $toHexa[$i];
+    $diz = 0;
+    $unit = 0;
+    $valueSplit = str_split($value);
+    for($i = 0; $i < count($valueSplit); $i++){
+        if (in_array($valueSplit[$i], $cypher))
+        {
+            if($i % 2 == 0) {
+                $diz = $cypher[$valueSplit[$i]];
+            } else{
+                $unit = $cypher[$valueSplit[$i]];
+                $toHexa[] = $diz * HX + $unit;
+            }
+        } else {
+            return 'error';
         }
     }
-    $ip = [];
-    for($i = 0; $i < count($toHexa); $i += 2){
-        $sum = $toHexa[$i] + $toHexa[$i+1];
-        $ip[] = $sum;
-    }
-    //join all with . and return result
-     return implode(".", $ip);
+    return implode(".", $toHexa);
 }
 
 function generate_trames_table($fieldsArray, $page = 1, $nbRows = 5){
@@ -203,7 +171,7 @@ function insert_json_frames($json_file)
 {
     global $pdo;
     $data = file_get_contents($json_file);
-    if (mb_strlen($data) > 0) {
+    if(mb_strlen($data) > 0) {
         $frames = json_decode($data);
 
         foreach ($frames as $frame) {
@@ -238,5 +206,14 @@ function insert_json_frames($json_file)
         }
     }
 }
+
+function dateToRead($dateDb){
+    $date = new DateTime();
+    $date->setTimestamp($dateDb);
+    return $date->format('d/m/Y H:i:s');
+}
+
+
+
 
 

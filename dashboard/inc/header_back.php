@@ -15,3 +15,16 @@
     <title><?= $NOM_SITE; ?></title>
 </head>
 <body>
+<header id="header">
+        <a href="index.php"><img class="logo" src="../assets/img/logo.png" alt="Logo"></a>
+            <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
+            <p>Pseudo</p>
+            <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+</header>
+<div id="dashboard-menu">
+    <ul>
+        <li id="page-accueil" class="li-selected"><i class="fas fa-house-user"></i> Résumé</li>
+        <li id="page-details"><i class="fas fa-database"></i> Détails</li>
+        <li id="page-log"><i class="fas fa-clipboard-list"></i> Logs</li>
+    </ul>
+</div>
