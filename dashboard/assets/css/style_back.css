@@ -1,0 +1,155 @@
+
+/*
+
+Style du back uniquement
+
+ */
+
+body{
+    background-color: var(--back-color);
+}
+
+.logo_col_1{
+    color: white;
+}
+
+.logo_col_2{
+    color: var(--rouge);
+}
+
+.wrap {max-width: 1140px;width:100%;margin: 0 auto;padding: 0 15px;}
+
+#container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/** HEADER BACK **/
+
+#header{
+    background-color: var(--header-back-color);
+}
+
+#header .wrap{
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 1rem 0 1rem 0;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+#header .wrap .site_name{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#header .wrap .logo{
+    width: 50px;
+}
+
+#header .wrap .right{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+#header .wrap .right span{
+    color: white;
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+#header .wrap .right i{
+    color: var(--rouge);
+}
+
+#header .wrap .left{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+/**
+
+DASHBOARD MAIN
+
+ */
+
+#dashboard-main .wrap{
+    padding-top: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#dashboard-main .dashboard-menu{
+    width: 20%;
+}
+
+#dashboard-main .dashboard-items{
+    width: 80%;
+}
+
+#dashboard-main .dashboard-menu ul{
+    display: flex;
+    padding: 1rem;
+    flex-flow: column nowrap;
+    align-content: center;
+    gap: .1rem;
+}
+
+#dashboard-main .dashboard-menu ul li{
+    color: white;
+    padding: .5rem;
+    border-radius: 3px;
+    transition: all .25s;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#dashboard-main .dashboard-menu ul li:hover:not(.li-selected){
+    background-color: #b3b3b5;
+}
+
+#dashboard-main .dashboard-items-line{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+#dashboard-main .dashboard-item{
+    background-color: var(--header-back-color);
+    padding: 1rem;
+    border-radius: 3px;
+    width: 100%;
+}
+
+#dashboard-main .data-item{
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    align-items: center;
+}
+
+#dashboard-main .data-item .data-name{
+    color: var(--rouge);
+    font-weight: 300;
+}
+
+#dashboard-main .data-item p{
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+#dashboard-main .dashboard-item h2{
+    color: white;
+    font-weight: 300;
+    font-size: 1.8rem;
+}

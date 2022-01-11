@@ -46,7 +46,6 @@ Thumbs.db
 *.avi
 *.flv
 *.mov
-*.wmv
 
-inc/config.php
+*.wmv
 
