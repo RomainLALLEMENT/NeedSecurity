@@ -7,16 +7,6 @@ Style du back uniquement
 
 body{
     background-color: var(--back-color);
-    width: min(100%, 1100px);
-    margin-inline: auto;
-}
-
-.logo_col_1{
-    color: white;
-}
-
-.logo_col_2{
-    color: var(--rouge);
 }
 
 
