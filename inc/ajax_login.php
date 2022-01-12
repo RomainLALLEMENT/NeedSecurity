@@ -14,13 +14,7 @@ if(empty($_GET['rememberMe'])){
     $rememberMe = false;
 }
 else{
-    $rememberMeInt = intval($_GET['rememberMe']);
-    if($rememberMeInt == 1){
-        $rememberMe = true;
-    }
-    else{
-        $rememberMe = false;
-    }
+    $rememberMe = boolval($_GET['rememberMe']);
 }
 if(empty($_GET['connectionType'])){
     $connectionType = 'normal';
