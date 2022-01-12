@@ -1,3 +1,55 @@
+/*Front only*/
+/* Header*/
+#header{
+    position: sticky;
+    top: 0;
+    /*background-color: var(--gris);*/
+    background: linear-gradient(var(--gris) , rgba(196, 196, 196, 0));
+    display: flex;
+    flex-flow: row nowrap;
+    padding: .5rem max(1rem, 1.5rem + 3vw);
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+#header>*{
+    padding: 10px;
+}
+
+#header .site_name{
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    flex-grow: 2;
+}
+
+#header  .logo{
+    width: 50px;
+    vertical-align: middle;
+}
+
+#header  p{
+    color: white;
+    font-weight: 300;
+    font-size: 1.1rem;
+    background-color: var(--rouge);
+    border-radius: 15px;
+    border: solid 2px #ffffff;
+    cursor: pointer;
+    transition: all .25s;
+    padding: .5rem 1.2rem;
+}
+#header p:hover{
+    color: var(--gris);
+    background-color: var(--selected-item-color);
+    transform: scale(1.03);
+}
+
+#header  i{
+    color: var(--rouge);
+}
+
 /* Data */
 .data {
     width: 50%;

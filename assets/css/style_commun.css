@@ -157,8 +157,8 @@ body{
     display: flex;
     flex-flow: column nowrap;
 }
-.footer .copyright{
-    color: white;
+.footer .footer-bot,.footer .footer-bot a{
+    color: var(--copyright-color);
 }
 footer a{
     color: white;
