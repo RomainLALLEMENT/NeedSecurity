@@ -17,7 +17,7 @@
         <p><a href="#">Conditions d'utilisation</a></p>
     </div>
 </footer>
-<div id="modal-connection" class="modal">
+<div id="modal-connection" class="modal">git
     <div class="modal-content" >
         <form id="login-form" action="" method="post" novalidate>
             <label for="user-id">Adresse e-mail</label>
