@@ -2,7 +2,7 @@
 require_once ('../../inc/bases.php');
 
 if(empty($_GET['trameid'])){
-    exit;
+    die();
 }
 
 $trameid = intval($_GET['trameid']);
@@ -17,6 +17,6 @@ if($query->rowCount() > 0){
     $trame['ip_dest'] = hexadecimalCipher($trame['ip_dest']);
 
     $json = json_encode($trame, JSON_PRETTY_PRINT);
-    echo $json;
+    die($json);
 }
 die();
