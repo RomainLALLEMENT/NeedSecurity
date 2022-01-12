@@ -201,3 +201,9 @@
 .logo_col_2{
     color: var(--rouge);
 }
+
+/* LOGIN */
+
+.error-login {
+    color: var(--rouge);
+}

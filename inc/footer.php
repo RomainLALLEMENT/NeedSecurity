@@ -19,14 +19,15 @@
 </footer>
 <div id="modal-connection" class="modal">git
     <div class="modal-content" >
-        <form action="" method="post" novalidate>
-            <label for="user-id">Nom de compte</label>
+        <form id="login-form" action="" method="post" novalidate>
+            <label for="user-id">Adresse e-mail</label>
             <input type="text" name="user-id" id="user-id" value="">
 
-            <label for="user-pwd">Mots de passe</label>
-            <input type="text" name="user-pwd" id="user-pwd">
+            <label for="user-pwd">Mot de passe</label>
+            <input type="password" name="user-pwd" id="user-pwd">
 
-            <input type="submit" id="submited">
+            <input type="submit" id="submitted-login">
+            <p class="error-login" id="error-login"></p>
 
             <p>Inscrivez vous</p>
         </form>
@@ -37,7 +38,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-<script type="module" src="./assets/js/main.js"></script>
+<script src="./assets/js/main_js_commun.js"></script>
+<script src="./assets/js/main.js"></script>
 
 </body>
 </html>
