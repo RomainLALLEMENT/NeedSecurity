@@ -213,15 +213,6 @@ $( document ).ready(function() {
         item.append(tableParent);
         items.append(item);
         ajax_getTrames(tableSameProtocol, 1, 10, trame.protocol_name);
-        /*
-        <div class="dashboard-items-line">
-            <div class="dashboard-item"><h2>Trames du même type</h2>
-                <div class="table-parent">
-                    <table id="last-trames"></table>
-                </div>
-            </div>
-        </div>
-         */
 
         container.append(dashboardMain);
     }
