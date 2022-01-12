@@ -1,3 +1,5 @@
+/*
+Ancien système : faire comme on a dit, un chargement sur toute la page
 function generate_loader(){
     const loaderContainer = $("<div class=\"loader-container\"></div>");
     const loader = $("<div class=\"loader\"></div>");
@@ -6,4 +8,4 @@ function generate_loader(){
     loaderContainer.append(loader);
     loader.append(square_one, square_two);
     return loaderContainer;
-}
+}*/

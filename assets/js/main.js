@@ -43,9 +43,7 @@ form.on( "submit", function(e) {
 
 // Requête de login
 function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 0){ // (rememberMe 0 ou 1)
-    const loader = generate_loader();
     form.css('display', 'none');
-    form.after(loader);
 
     setTimeout(function() {
         $.ajax({
@@ -66,12 +64,9 @@ function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 
                     loginError.text('Une erreur s\'est produite');
                     form.css('display', 'block');
                 }
-
-                loader.remove();
             },
             error: function(){
                 form.css('display', 'block');
-                loader.remove();
             }
         });
     }, 500);
@@ -114,9 +109,7 @@ formRegister.on( "submit", function(e) {
 
 // Requête d'inscription
 function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // champs facultatifs nom et prenom
-    const loader = generate_loader();
     formRegister.css('display', 'none');
-    formRegister.after(loader);
 
     setTimeout(function() {
         $.ajax({
@@ -138,12 +131,9 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
                     registerError.text('Une erreur s\'est produite');
                     formRegister.css('display', 'block');
                 }
-
-                loader.remove();
             },
             error: function(){
                 formRegister.css('display', 'block');
-                loader.remove();
             }
         });
     }, 200);

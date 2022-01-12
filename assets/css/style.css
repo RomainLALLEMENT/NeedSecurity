@@ -1,4 +1,13 @@
 /*Front only*/
+body{
+    background-color: var(--gris );
+}
+
+/* LOGIN */
+
+.error-login {
+    color: var(--rouge);
+}
 /* Header*/
 #header{
     position: sticky;
@@ -50,158 +59,99 @@
     color: var(--rouge);
 }
 
-/* Data */
-.data {
-    width: 50%;
-    position: relative;
-    bottom: 640px;
-    left: 50px;
-}
 
-.data #dataccueil {
+/*
+INDEX  PHP
+*/
+
+/* HERO banner Paralax*/
+#hero-banner{
+    background: url("../img/background.png")  no-repeat center/cover fixed;
+    min-height: 60vh;
+    padding: max(1.5rem,  5vw);
+    display: flex;
+    align-items: center;
+}
+#hero-banner #box-hero{
     color: white;
 }
-
-.data #dataccueil h2 {
+#hero-banner #box-hero>*{
+    margin-bottom: .6rem;
+}
+#hero-banner #box-hero h2{
+    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 3rem;
+    font-weight: 700;
 }
-
-.data #dataccueil p {
-    font-size: 3rem;
+#hero-banner #box-hero p:not(#btn-login){
+    font-size: clamp(1.2rem, 1.2rem + 1.5vw , 1.8rem);
 }
-
-.data #dataccueil button {
-    background-color: rgb(255, 37, 37);
-    color: white;
-    padding: 3% 15%;
-    border: none;
-    border-radius: 4%;
-    margin-top: 2%;
-    font-size: 1.6rem;
+#hero-banner #box-hero #btn-login{
+    background-color: var(--rouge);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .25s;
+    padding: .5rem 1.2rem;
+    font-size: 1rem;
+    width: fit-content;
 }
-
-.backdata {
-    height: 630px;
-    margin-bottom: -12%;
-}
-
-.data {
-    position: relative;
-    bottom: 200px;
-    left: 50px;
-}
-.data #dataccueil {
-    color: white;
-}
-
-.data #dataccueil h2 {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 3rem;
-}
-
-.data #dataccueil p {
-    font-size: 2.6rem;
-}
-
-.data #dataccueil button {
-    background-color: rgb(255, 37, 37);
-    color: white;
-    width: 300px;
-    height: 3rem;
-    border: none;
-    border-radius: 5%;
-    margin-top: 2%;
-}
-
-/* Tableau de Bord */
-.tableaudebord {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(34, 37, 51);
-    color: white;
-    height: 1000px;
-    margin-top: -33%;
-}
-.tableaudebord h2 {
-    font-size: 3.8rem;
-    margin-top: 23%;
-    height: 600px;
-}
-.tableaudebord h2 {
-    font-size: 3.8rem;
-    margin-top: 2%;
-    margin-left: 2%;
-}
-.tableaudebord #fonctionalités{
-    display: flex;
-    flex-flow: row nowrap;
-    flex-direction: column;
-    margin-left: 3%;
-    margin-top: 1%;
-}
-.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3{
-    display: flex;
-    font-size: 2.3rem;
-    margin-top: 2%;
-}
-.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3{
-    display: flex;
-    font-size: 2.6rem;
-}
-.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3, i{
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
-.tableaudebord .imgpc{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -16%;
-    margin-right: 40px;
-}
-.tableaudebord img{
-    width: 45%;
-    margin-top: -21rem;
-}
-.tableaudebord img{
-    width: 800px;
-}
-
-/* Analyse */
-.analyse{
-    background-color: rgb(196, 196, 196);
-    display: flex;
-    padding-bottom: 5%;
-}
-.analyse #imganalyse{
-    display: flex;
-    margin-left: 3%;
-    margin-top: 2%;
-}
-.analyse #fonctionalités2 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20%;
-    margin-top: 6%;
-}
-.analyse #fonctionalités2 h2{
-    font-size: 3rem;
-}
-.analyse #fonctionalités2 p{
-    font-size: 2.6rem
-}
-/*Style du front uniquement*/
-
-.logo_col_1{
-    color: black;
-}
-
-.logo_col_2{
+#hero-banner #box-hero #btn-login:hover{
+    box-shadow: inset  0 3px 10px var(--back-color);
+    background-color: var(--selected-item-color);
     color: var(--rouge);
 }
 
+/* Functionality*/
+#functionality{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    background-color: var(--back-color);
+    color: white;
+    padding: max(1rem, 3vw);
+    gap: 4%;
+}
+#functionality h2{
+    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    margin-bottom: .8rem;
+}
+#functionality > div{
+    width: 50%;
+}
+#functionality ul{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    font-size: 1.1rem;
+}
+#functionality ul li i{
+    margin-right: 1rem;
+}
+
+/* Analyse */
+#analyse{
+    background-color: var(--gris);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: max(1rem, 3vw);
+    gap: 4%;
+}
+#analyse h2{
+    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    margin-bottom: .8rem;
+}
+#analyse> div{
+    width: 50%;
+}
+#analyse ul{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    font-size: 1.1rem;
+}
+
+HEAD
 /* LOGIN */
 
 .error-login {
@@ -213,10 +163,10 @@ body{
 
 }
 .wrap{
-    /*max-width: 1100px;*/
+    max-width: 1100px;
 
 }
-.title h2{
+.ml-title h2 {
     font-size: 2rem;
     text-align: center;
     padding: 2rem;
