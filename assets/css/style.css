@@ -5,7 +5,7 @@ body{
 
 /* LOGIN */
 
-.error-login {
+.error {
     color: var(--rouge);
 }
 /* Header*/
@@ -154,3 +154,4 @@ INDEX  PHP
 #analyse ul li i{
     margin-right: 1rem;
 }
+

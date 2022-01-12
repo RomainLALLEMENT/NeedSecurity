@@ -1,22 +1,99 @@
 
 //Show logout
-const showModal = document.getElementById('btn-connection');
-showModal.addEventListener('click', showConnect);
-function showConnect(){
+const showConnect = document.getElementById('btn-connection');
+const showLogin = document.getElementById('btn-login');
+showLogin.addEventListener('click', showModal);
+showConnect.addEventListener('click', showModal);
+function showModal(){
     console.log('Ask for connection');
-    const modal = document.querySelector('#modal-connection');
-    const closeModal = document.querySelector('#close');
-    modal.style.display = "block";
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    const content = document.createElement('div');
+    content.classList.add('modal-content');
+    const closeModal = document.createElement('div');
+    closeModal.classList.add('absolute-modal');
+    const iClose = document.createElement('i');
+    iClose.id = 'close';
+    iClose.classList.add('far');
+    iClose.classList.add('fa-times-circle');
+    closeModal.appendChild(iClose);
+    content.appendChild(closeModal);
+    modal.appendChild(content);
+    const form = document.createElement('form');
+    form.classList.add('form-modal');
+    content.appendChild(form);
+
+    document.body.insertAdjacentElement("beforeend", modal);
+
+    loginModal();
+
     closeModal.addEventListener('click', ()=>{
-        modal.style.display = "none";
+        modal.remove();
     })
     window.addEventListener('click', (event) =>{
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.remove();
         }
     })
 };
+function loginModal(){
+    const form = document.querySelector('.form-modal');
+    form.innerText = '';
+    form.id = 'login-form';
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '');
+    form.setAttribute('novalidate', 'novalidate');
+    let html = `
+            <label for="user-id">Adresse e-mail</label>
+            <input type="email" name="user-id" id="user-id">
 
+            <label for="user-pwd">Mots de passe</label>
+            <input type="password" name="user-pwd" id="user-pwd">
+
+            <input type="submit" id="submitted-login" value="Se connecter">
+            <p class="error" id="error-login"></p>
+            <p class="low-focus"><a href="request_pwd.php">Mots de passe oublié</a></p>
+
+            <p class="sub-btn-modal" id="sign-in">Inscrivez vous</p>
+       `;
+    form.innerHTML = html;
+    const sign = document.getElementById('sign-in');
+    sign.addEventListener('click', signModal);
+}
+
+function signModal(){
+    const form = document.querySelector('.form-modal');
+    form.innerText = '';
+    form.id = 'register-form';
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '');
+    form.setAttribute('novalidate', 'novalidate');
+    let html = `
+            <label for="last-name">Nom</label>
+            <input type="text" name="last-name" id="last-name">
+
+            <label for="first-name">Prénom</label>
+            <input type="text" name="first-name" id="first-name">
+
+            <label for="email">Adresse e-mail</label>
+            <input type="email" name="email" id="email">
+
+            <label for="pwd">Mots de passe</label>
+            <input type="password" name="pwd" id="pwd">
+
+            <label for="pwd-confirm">Confirmer votre mots de passe</label>
+            <input type="password" name="pwd-confirm" id="pwd-confirm">
+
+            <input type="submit" id="submitted-sign" value="S'inscrire">
+            <p class="error" id="error-register"></p>
+
+            <p class="sub-btn-modal" id="login">Se connecter</p>
+        
+`;
+    form.innerHTML = html;
+    const login = document.getElementById('login');
+    login.addEventListener('click', loginModal);
+}
 
 //connexion
 const loginError = $('#error-login');
@@ -44,7 +121,6 @@ form.on( "submit", function(e) {
 // Requête de login
 function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 0){ // (rememberMe 0 ou 1)
     const loader = generate_loader();
-    form.css('display', 'none');
     form.after(loader);
 
     setTimeout(function() {
@@ -84,11 +160,11 @@ const formRegister = $('#register-form'); // à modifier selon l'id du formulair
 formRegister.on( "submit", function(e) {
     e.preventDefault();
 
-    const input_email = $('#user-email');
-    const input_pwd = $('#user-pwd');
-    const input_nom = $('#user-nom');
-    const input_prenom = $('#user-prenom');
-    const input_pwdconf = $('#user-pwd-conf');
+    const input_email = $('#email');
+    const input_pwd = $('#pwd');
+    const input_nom = $('#last-name');
+    const input_prenom = $('#first-name');
+    const input_pwdconf = $('#pwd-confirm');
     const email = input_email.val();
     const nom = input_nom.val();
     const prenom = input_prenom.val();
