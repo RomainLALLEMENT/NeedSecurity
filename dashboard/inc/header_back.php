@@ -36,7 +36,7 @@
 <div id="dashboard-menu">
     <ul>
         <li id="page-accueil" class="li-selected"><i class="fas fa-house-user"></i> Résumé</li>
-        <li id="page-details"><i class="fas fa-database"></i> Détails</li>
-        <li id="page-log"><i class="fas fa-clipboard-list"></i> Logs</li>
+        <li id="page-details"><i class="fas fa-database"></i> Recherche</li>
+        <!--<li id="page-log"><i class="fas fa-clipboard-list"></i> Logs</li>--> <!-- Utile ? car au final c'est Recherch -->
     </ul>
 </div>
