@@ -204,11 +204,6 @@ DASHBOARD PAGE
     position: relative;
 }
 
-.table-parent {
-    height: 500px;
-    width: 100%;
-}
-
 /* Modal for logout*/
 
   .modal {
