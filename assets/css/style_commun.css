@@ -7,6 +7,8 @@ Style commun au front et au back
 
 body{
     font-family: 'Roboto', sans-serif;
+    width: min(100%, 1100px);
+    margin-inline: auto;
 }
 
 :root{
@@ -16,6 +18,15 @@ body{
     --selected-item-color: #6D778A;
     --gris: #C4C4C4;
     --copyright-color: #737373;
+}
+
+/*LOGO mame*/
+.logo_col_1{
+    color: white;
+}
+
+.logo_col_2{
+    color: var(--rouge);
 }
 
 .li-selected{
