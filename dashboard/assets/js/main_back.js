@@ -74,8 +74,6 @@ $( document ).ready(function() {
 
 
     function ajax_getTrameDetail(trameid){
-        container.empty();
-
         setTimeout(function() {
             $.ajax({
                 type: "GET",
@@ -83,7 +81,8 @@ $( document ).ready(function() {
                 data: {trameid: trameid},
                 success: function(response){
                     if(response.length > 0){
-                        console.log(response['identification']);
+                        const trame = JSON.parse(response);
+                        generate_trame_details(trame);
                     }
                 },
                 error: function(){
@@ -91,6 +90,19 @@ $( document ).ready(function() {
                 }
             });
         }, 600);
+    }
+
+    function generate_trame_details(trame){
+        container.empty();
+        const dashboardMain = $('<section id="dashboard-main"></section>');
+        const items = $('<div class="dashboard-items"></div>');
+        dashboardMain.append(items);
+
+        const item_line = $('<div class="dashboard-items-line"></div>');
+
+        items.append(item_line);
+
+        container.append(dashboardMain);
     }
 
     function ajax_getTrames(table, page, nbRows = 10){
