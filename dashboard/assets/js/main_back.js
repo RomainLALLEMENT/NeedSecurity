@@ -74,8 +74,23 @@ $( document ).ready(function() {
 
 
     function ajax_getTrameDetail(trameid){
-        console.log('getTrameDetail ' + trameid);
         container.empty();
+
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "inc/ajax_get_trame_data.php",
+                data: {trameid: trameid},
+                success: function(response){
+                    if(response.length > 0){
+                        console.log(response['identification']);
+                    }
+                },
+                error: function(){
+
+                }
+            });
+        }, 600);
     }
 
     function ajax_getTrames(table, page, nbRows = 10){
@@ -174,4 +189,3 @@ function showLogout(){
         }
     })
 };
-
