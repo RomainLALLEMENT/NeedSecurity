@@ -1,9 +1,98 @@
+/* Data */
+.data {
+    width: 50%;
+    position: relative;
+    bottom: 640px;
+    left: 50px;
+}
 
-/*
+.data #dataccueil {
+    color: white;
+}
 
-Style du front uniquement
+.data #dataccueil h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 3rem;
+}
 
- */
+.data #dataccueil p {
+    font-size: 3rem;
+}
+
+.data #dataccueil button {
+    background-color: rgb(255, 37, 37);
+    color: white;
+    padding: 3% 15%;
+    border: none;
+    border-radius: 4%;
+    margin-top: 2%;
+    font-size: 1.6rem;
+}
+
+/* Tableau de Bord */
+.tableaudebord {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(34, 37, 51);
+    color: white;
+    height: 1000px;
+    margin-top: -33%;
+}
+.tableaudebord h2 {
+    font-size: 3.8rem;
+    margin-top: 23%;
+    margin-left: 2%;
+}
+.tableaudebord #fonctionalités{
+    display: flex;
+    flex-flow: row nowrap;
+    flex-direction: column;
+    margin-left: 3%;
+    margin-top: 1%;
+}
+.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3{
+    display: flex;
+    font-size: 2.3rem;
+}
+.tableaudebord #fonctionalités #fonc1, #fonc2, #fonc3, i{
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.tableaudebord .imgpc{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -16%;
+    margin-right: 40px;
+}
+.tableaudebord img{
+    width: 45%;
+}
+
+/* Analyse */
+.analyse{
+    background-color: rgb(196, 196, 196);
+    display: flex;
+    padding-bottom: 5%;
+}
+.analyse #imganalyse{
+    display: flex;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.analyse #fonctionalités2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    margin-top: 6%;
+}
+.analyse #fonctionalités2 h2{
+    font-size: 3rem;
+}
+.analyse #fonctionalités2 p{
+    font-size: 2.6rem
+}
+/*Style du front uniquement*/
 
 .logo_col_1{
     color: black;
