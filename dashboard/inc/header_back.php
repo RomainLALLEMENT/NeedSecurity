@@ -18,7 +18,19 @@
 <header id="header">
         <a href="index.php"><img class="logo" src="../assets/img/logo.png" alt="Logo"></a>
             <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
-            <p><?= $_SESSION['prenom'] . ' ' . $_SESSION['nom']; ?></p>
+            <p><?php
+
+                if(!empty($_SESSION['user']['prenom']) && !empty($_SESSION['user']['nom'])){
+                    echo 'Bonjour, <strong>'. $_SESSION['user']['prenom'] . ' ' . $_SESSION['user']['nom'].'</strong>';
+                }
+                elseif(!empty($_SESSION['user']['prenom'])){
+                    echo 'Bonjour, <strong>' . $_SESSION['user']['prenom'].'</strong>';
+                }
+                else{
+                    echo '<strong>'.$_SESSION['user']['email'].'</strong>';
+                }
+
+            ?></p>
             <i id="logout-show" class="fas fa-sign-out-alt"></i>
 </header>
 <div id="dashboard-menu">

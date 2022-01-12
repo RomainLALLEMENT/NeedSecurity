@@ -2,7 +2,7 @@
 require_once ('inc/bases.php');
 
 if(isLoggedIn()){
-    header('./dashboard');
+    header('Location: ./dashboard');
     exit;
 }
 

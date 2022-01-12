@@ -77,20 +77,74 @@ function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 
     }, 500);
 }
 
-//Inscription
-function signIn() {
-    const request = new XMLHttpRequest();
-    request.open('POST', 'inc/inscription.php', true);
+//inscription
+const registerError = $('#error-register'); // à modifier selon l'id de l'erreur
+const formRegister = $('#register-form'); // à modifier selon l'id du formulaire d'inscription
 
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-            console.log('succeed account created');
-        }
-    };
+formRegister.on( "submit", function(e) {
+    e.preventDefault();
 
-    request.onerror = function() {
-        console.log('something went wrong');
-    };
+    const input_email = $('#user-email');
+    const input_pwd = $('#user-pwd');
+    const input_nom = $('#user-nom');
+    const input_prenom = $('#user-prenom');
+    const input_pwdconf = $('#user-pwd-conf');
+    const email = input_email.val();
+    const nom = input_nom.val();
+    const prenom = input_prenom.val();
+    const pass = input_pwd.val();
+    const pass_conf = input_pwdconf.val();
 
-    request.send();
+    input_pwd.val('');
+    input_pwdconf.val('');
+
+    if(email.length <= 0) {
+        loginError.text('Veuillez renseigner une adresse mail');
+    }
+    else if(pass.length <= 0) {
+        loginError.text('Veuillez renseigner un mot de passe');
+    }
+    else if(pass !== pass_conf) {
+        loginError.text('Veuillez renseigner des mots de passe identiques');
+    }
+    else {
+        ajax_requestRegister(email, pass, pass_conf, prenom, nom);
+    }
+});
+
+// Requête d'inscription
+function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // champs facultatifs nom et prenom
+    const loader = generate_loader();
+    formRegister.css('display', 'none');
+    formRegister.after(loader);
+
+    setTimeout(function() {
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_inscription.php",
+            data: {email: email, password: pass, passwordConf: confPass, prenom: prenom, nom: nom},
+            success: function(response){
+                if(response.length > 0){
+                    if(response === 'ok'){
+                        // à ajouter: cacher la modal d'inscription
+                        showConnect(); // l'inscription s'est bien passée, l'utilisateur peut maintenant se connecter (on montre la modal de connexion)
+                    }
+                    else{
+                        registerError.text(response);
+                        formRegister.css('display', 'block');
+                    }
+                }
+                else{
+                    registerError.text('Une erreur s\'est produite');
+                    formRegister.css('display', 'block');
+                }
+
+                loader.remove();
+            },
+            error: function(){
+                formRegister.css('display', 'block');
+                loader.remove();
+            }
+        });
+    }, 200);
 }
