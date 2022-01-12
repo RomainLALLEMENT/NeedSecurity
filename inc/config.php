@@ -9,9 +9,9 @@ $DB_NAME = 'needsecurity';
 
 
 //Info
-$PHONE = '+123456789';
+$PHONE = '+33257432981';
 $MAIL = 'need.security@gmail.com';
-$ADRESS = '3 place du vieux marché, rouen 76000';
+$ADRESS = '30 place Henri Gadeau de Kerville, Rouen 76000';
 $ADRESSMAP = '#';
 $FACEBOOK = '#';
 $LINKEDIN = '#';
