@@ -6,3 +6,14 @@ $DB_HOST = 'localhost';
 $DB_USER = 'root';
 $DB_PASS = '';
 $DB_NAME = 'needsecurity';
+
+
+//Info
+$PHONE = '+123456789';
+$MAIL = 'need.security@gmail.com';
+$ADRESS = '3 place du vieux marché, rouen 76000';
+$ADRESSMAP = '#';
+$FACEBOOK = '#';
+$LINKEDIN = '#';
+$TWITTER = '';
+

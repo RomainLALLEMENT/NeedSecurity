@@ -13,17 +13,16 @@
                 </div>
             </div>
             <div class="dashboard-item"><h2>Autre</h2>
-                <div>
+                <div >
                     <canvas id="chart-2"></canvas>
                 </div>
             </div>
         </div>
         <div class="dashboard-items-line">
             <div class="dashboard-item"><h2>Dernières trames</h2>
-
-                <?php
-                generate_trames_table(['frame_date', 'identification', 'protocol_name', 'ip_from', 'ip_dest']);
-                ?>
+                <div class="table-parent">
+                    <table id="last-trames"></table>
+                </div>
             </div>
         </div>
     </div>

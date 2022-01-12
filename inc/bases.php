@@ -1,6 +1,6 @@
 <?php
 
-include ('config.php');
+include_once ('config.php');
 
-include ('pdo.php');
-include ('fonctions.php');
+include_once ('pdo.php');
+include_once ('fonctions.php');

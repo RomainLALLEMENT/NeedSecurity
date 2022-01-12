@@ -1,13 +1,15 @@
 <?php
-require ('inc/bases.php');
+require_once ('inc/bases.php');
 
 //$val = 'c0a8014a';
 //debug($val);
 //echo hexadecimalCipher($val);
-include('inc/header.php');
+include_once ('inc/header.php');
+
 ?>
 
 <img class="backdata" src="assets/img/background.png" alt="">
+
 
 <div class="data">
     <div id="dataccueil">
