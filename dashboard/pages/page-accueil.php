@@ -6,6 +6,20 @@
             <div class="dashboard-item data-item"><span class="data-name">Donnée 3</span><p>8</p></div>
             <div class="dashboard-item data-item"><span class="data-name">Donnée 4</span><p>8</p></div>
         </div>
+
+        <div class="dashboard-items-line">
+
+            <?php
+            $sql = "SELECT protocol_name,count(id) as cpt FROM trames GROUP BY protocol_name LIMIT 4";
+            $query = $pdo->prepare($sql);
+            $query->execute();
+            $trameData = $query->fetchAll();
+
+            foreach($trameData as $trame){
+                echo '<div class="dashboard-item data-item"><span class="data-name">'.$trame['protocol_name'].'</span><p>'.$trame['cpt'].'</p></div>';
+            }
+            ?>
+        </div>
         <div class="dashboard-items-line">
             <div class="dashboard-item"><h2>Trames</h2>
                 <div id="chart-1-div">
