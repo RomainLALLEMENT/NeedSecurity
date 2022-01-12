@@ -207,3 +207,17 @@
 .error-login {
     color: var(--rouge);
 }
+/*Mentions légales*/
+body{
+    background-color: var(--gris);
+
+}
+.wrap{
+    /*max-width: 1100px;*/
+
+}
+.title h2{
+    font-size: 2rem;
+    text-align: center;
+    padding: 2rem;
+}

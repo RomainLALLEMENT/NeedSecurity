@@ -3,7 +3,7 @@
         <div class="contact">
             <a href="tel:<?=  $PHONE; ?>"><i class="fas fa-phone-square"></i>  <?=  $PHONE; ?></a>
             <a href="mailto:<?=  $MAIL; ?>"><i class="fas fa-envelope"></i>  <?=  $MAIL; ?></a>
-            <a href="#"><i class="fas fa-map-marked"></i>  <?=  $ADRESS; ?></a>
+            <a href="<?= $ADRESSMAP; ?>"><i class="fas fa-map-marked"></i>  <?=  $ADRESS; ?></a>
         </div>
         <div class="social-red">
             <a href="<?= $FACEBOOK;?>"><i class="fab fa-facebook-square"></i></a>
