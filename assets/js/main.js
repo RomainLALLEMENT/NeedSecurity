@@ -18,29 +18,64 @@ function showConnect(){
 };
 
 
-//connection
-const login = document.getElementById('user-id');
-const pwd = document.getElementById('user-pwd');
-const btnLog = document.getElementById('submited');
+//connexion
+const loginError = $('#error-login');
+const form = $('#login-form');
 
-function connect() {
-    const request = new XMLHttpRequest();
-    request.open('POST', 'inc/login.php', true);
+form.on( "submit", function(e) {
+    e.preventDefault();
 
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            console.log('succeed connection');
-        }
-    };
+    const login = $('#user-id');
+    const pwd = $('#user-pwd');
+    const email = login.val();
+    const pass = pwd.val();
+    pwd.val('');
+    if(email.length <= 0) {
+        loginError.text('Veuillez renseigner une adresse mail');
+    }
+    else if(pass.length <= 0) {
+        loginError.text('Veuillez renseigner un mot de passe');
+    }
+    else {
+        ajax_requestLogin(email, pass);
+    }
+});
 
-    request.onerror = function() {
-        console.log('something went wrong');
-    };
+// Requête de login
+function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 0){ // (rememberMe 0 ou 1)
+    const loader = generate_loader();
+    form.css('display', 'none');
+    form.after(loader);
 
-    request.send();
+    setTimeout(function() {
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_login.php",
+            data: {email: email, password: pass, connectionType: connectionType, rememberMe: rememberMe},
+            success: function(response){
+                if(response.length > 0){
+                    if(response === 'ok'){
+                        window.location.href = './dashboard';
+                    }
+                    else{
+                        loginError.text(response);
+                        form.css('display', 'block');
+                    }
+                }
+                else{
+                    loginError.text('Une erreur s\'est produite');
+                    form.css('display', 'block');
+                }
+
+                loader.remove();
+            },
+            error: function(){
+                form.css('display', 'block');
+                loader.remove();
+            }
+        });
+    }, 500);
 }
-
-
 
 //Inscription
 function signIn() {

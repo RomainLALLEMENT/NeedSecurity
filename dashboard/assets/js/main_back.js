@@ -108,7 +108,8 @@ $( document ).ready(function() {
                     table.fadeIn(350, function(){  });
                 },
                 error: function(){
-
+                    loader.remove();
+                    table.fadeIn(350, function(){  });
                 }
             });
         }, 600);
@@ -164,21 +165,9 @@ $( document ).ready(function() {
         });
     }
 
-    function generate_loader(){
-        const loaderContainer = $("<div class=\"loader-container pos-abs\"></div>");
-        const loader = $("<div class=\"loader\"></div>");
-        const square_one = $("<div class=\"square one\"></div>");
-        const square_two = $("<div class=\"square two\"></div>");
-        loaderContainer.append(loader);
-        loader.append(square_one, square_two);
-        return loaderContainer;
-    }
-
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-});
-
 });
 
 //Show logout

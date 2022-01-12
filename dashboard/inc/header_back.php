@@ -18,7 +18,7 @@
 <header id="header">
         <a href="index.php"><img class="logo" src="../assets/img/logo.png" alt="Logo"></a>
             <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
-            <p>Pseudo</p>
+            <p><?= $_SESSION['prenom'] . ' ' . $_SESSION['nom']; ?></p>
             <i id="logout-show" class="fas fa-sign-out-alt"></i>
 </header>
 <div id="dashboard-menu">

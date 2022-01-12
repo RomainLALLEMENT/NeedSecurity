@@ -1,6 +1,11 @@
 <?php
 require_once ('inc/bases.php');
 
+if(isLoggedIn()){
+    header('./dashboard');
+    exit;
+}
+
 //$val = 'c0a8014a';
 //debug($val);
 //echo hexadecimalCipher($val);

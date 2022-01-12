@@ -1,5 +1,11 @@
 <?php
 require_once ('../inc/bases.php');
+
+if(!isLoggedIn()){
+    header('../');
+    exit;
+}
+
 include_once ('inc/header_back.php');
 
 ?>

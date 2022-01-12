@@ -164,7 +164,12 @@ function dateToRead($dateDb){
     return $date->format('d/m/Y H:i:s');
 }
 
-
+function isLoggedIn ():bool {
+    if (!empty($_SESSION['user']) && !empty($_SESSION['user']['id']) && !empty($_SESSION['user']['nom']) && !empty($_SESSION['user']['prenom']) && !empty($_SESSION['user']['email']) && !empty($_SESSION['user']['created_at']) && !empty($_SESSION['user']['ip'])) {
+        return true;
+    }
+    return false;
+}
 
 
 
