@@ -31,8 +31,13 @@ $( document ).ready(function() {
     };
 
     let config = {
-        type: 'pie',
+        type: 'bar',
         data: data,
+        options: {
+            layout: {
+                padding: 50
+            }
+        }
     };
 
     const chart1 = new Chart(
@@ -64,7 +69,11 @@ $( document ).ready(function() {
     config = {
         type: 'line',
         data: data,
-        options: {}
+        options: {
+            layout: {
+                padding: 20
+            }
+        }
     };
 
     const chart2 = new Chart(
