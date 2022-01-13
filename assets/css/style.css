@@ -8,6 +8,10 @@ body{
 .error {
     color: var(--rouge);
 }
+
+.success {
+    color: #479c56;
+}
 /* Header*/
 #header{
     position: sticky;
