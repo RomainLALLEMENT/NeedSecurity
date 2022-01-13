@@ -22,59 +22,58 @@ $( document ).ready(function() {
             ],
             hoverOffset: 4
         }
-    };
 
-    let config = {
-        type: 'bar',
-        data: data,
-        options: {
-            layout: {
-                padding: 50
+        let config = {
+            type: 'bar',
+            data: data,
+            options: {
+                layout: {
+                    padding: 50
+                }
             }
-        }
-    };
+        };
 
-    const chart1 = new Chart(
-        document.getElementById('chart-1'),
-        config
-    );
+        const chart1 = new Chart(
+            document.getElementById('chart-1'),
+            config
+        );
 
-    // Graphe - 2
+        // Graphe - 2
 
-    const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-    ];
+        const labels = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+        ];
 
-    data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    };
+        data = {
+            labels: labels,
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45],
+            }]
+        };
 
-    config = {
-        type: 'line',
-        data: data,
-        options: {
-            layout: {
-                padding: 20
+        config = {
+            type: 'line',
+            data: data,
+            options: {
+                layout: {
+                    padding: 20
+                }
             }
-        }
+        };
+
+        const chart2 = new Chart(
+            document.getElementById('chart-2'),
+            config
+        );
     };
-
-    const chart2 = new Chart(
-        document.getElementById('chart-2'),
-        config
-    );
-
 
     function ajax_getTrameDetail(trameid){
         setTimeout(function() {
