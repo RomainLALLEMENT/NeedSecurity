@@ -1,4 +1,5 @@
 
+
 //Show logout
 const showConnect = document.getElementById('btn-connection');
 const showLogin = document.getElementById('btn-login');
@@ -36,6 +37,7 @@ function showModal(){
         }
     })
 };
+
 function loginModal(){
     const form = document.querySelector('.form-modal');
     form.innerText = '';
@@ -57,6 +59,7 @@ function loginModal(){
             <p class="sub-btn-modal" id="sign-in">Inscrivez vous</p>
        `;
     form.innerHTML = html;
+    add_form_event('login'); // gère les events & envois ajax
     const sign = document.getElementById('sign-in');
     sign.addEventListener('click', signModal);
 }
@@ -91,37 +94,15 @@ function signModal(){
         
 `;
     form.innerHTML = html;
+    add_form_event('register'); // gère les events & envois ajax
     const login = document.getElementById('login');
     login.addEventListener('click', loginModal);
 }
 
-//connexion
-const loginError = $('#error-login');
-const form = $('#login-form');
-
-form.on( "submit", function(e) {
-    e.preventDefault();
-
-    const login = $('#user-id');
-    const pwd = $('#user-pwd');
-    const email = login.val();
-    const pass = pwd.val();
-    pwd.val('');
-    if(email.length <= 0) {
-        loginError.text('Veuillez renseigner une adresse mail');
-    }
-    else if(pass.length <= 0) {
-        loginError.text('Veuillez renseigner un mot de passe');
-    }
-    else {
-        ajax_requestLogin(email, pass);
-    }
-});
-
 // Requête de login
 function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 0){ // (rememberMe 0 ou 1)
-    const loader = generate_loader();
-    form.after(loader);
+    const loginError = $('#error-login');
+    const form = $('.form-modal');
 
     setTimeout(function() {
         $.ajax({
@@ -150,43 +131,11 @@ function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 
     }, 500);
 }
 
-//inscription
-const registerError = $('#error-register'); // à modifier selon l'id de l'erreur
-const formRegister = $('#register-form'); // à modifier selon l'id du formulaire d'inscription
-
-formRegister.on( "submit", function(e) {
-    e.preventDefault();
-
-    const input_email = $('#email');
-    const input_pwd = $('#pwd');
-    const input_nom = $('#last-name');
-    const input_prenom = $('#first-name');
-    const input_pwdconf = $('#pwd-confirm');
-    const email = input_email.val();
-    const nom = input_nom.val();
-    const prenom = input_prenom.val();
-    const pass = input_pwd.val();
-    const pass_conf = input_pwdconf.val();
-
-    input_pwd.val('');
-    input_pwdconf.val('');
-
-    if(email.length <= 0) {
-        loginError.text('Veuillez renseigner une adresse mail');
-    }
-    else if(pass.length <= 0) {
-        loginError.text('Veuillez renseigner un mot de passe');
-    }
-    else if(pass !== pass_conf) {
-        loginError.text('Veuillez renseigner des mots de passe identiques');
-    }
-    else {
-        ajax_requestRegister(email, pass, pass_conf, prenom, nom);
-    }
-});
-
 // Requête d'inscription
 function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // champs facultatifs nom et prenom
+
+    const registerError = $('#error-register');
+    const formRegister = $('#register-form');
 
     setTimeout(function() {
         $.ajax({
@@ -196,8 +145,7 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
             success: function(response){
                 if(response.length > 0){
                     if(response === 'ok'){
-                        // à ajouter: cacher la modal d'inscription
-                        showConnect(); // l'inscription s'est bien passée, l'utilisateur peut maintenant se connecter (on montre la modal de connexion)
+                        showModal();
                     }
                     else{
                         registerError.text(response);
@@ -214,4 +162,70 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
             }
         });
     }, 200);
+}
+
+function add_form_event(modalName){
+    //connexion
+    if(modalName === 'login'){
+        const loginError = $('#error-login');
+        const form = $('.form-modal');
+
+        form.on( "submit", function(e) {
+            e.preventDefault();
+
+            const loginError = $('#error-login');
+            const login = $('#user-id');
+            const pwd = $('#user-pwd');
+            const email = login.val();
+            const pass = pwd.val();
+            pwd.val('');
+            if(email.length <= 0) {
+                loginError.text('Veuillez renseigner une adresse mail');
+            }
+            else if(pass.length <= 0) {
+                loginError.text('Veuillez renseigner un mot de passe');
+            }
+            else {
+                ajax_requestLogin(email, pass);
+            }
+        });
+    }
+
+    // inscription
+    else if(modalName === 'register'){
+
+        const registerError = $('#error-register');
+        const formRegister = $('#register-form');
+
+        formRegister.on( "submit", function(e) {
+            e.preventDefault();
+
+            const input_email = $('#email');
+            const input_pwd = $('#pwd');
+            const input_nom = $('#last-name');
+            const input_prenom = $('#first-name');
+            const input_pwdconf = $('#pwd-confirm');
+            const email = input_email.val();
+            const nom = input_nom.val();
+            const prenom = input_prenom.val();
+            const pass = input_pwd.val();
+            const pass_conf = input_pwdconf.val();
+
+            input_pwd.val('');
+            input_pwdconf.val('');
+
+            if(email.length <= 0) {
+                registerError.text('Veuillez renseigner une adresse mail');
+            }
+            else if(pass.length <= 0) {
+                registerError.text('Veuillez renseigner un mot de passe');
+            }
+            else if(pass !== pass_conf) {
+                registerError.text('Veuillez renseigner des mots de passe identiques');
+            }
+            else {
+                ajax_requestRegister(email, pass, pass_conf, prenom, nom);
+            }
+        });
+    }
 }
