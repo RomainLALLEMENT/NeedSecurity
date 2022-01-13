@@ -1,33 +1,27 @@
-/*import reloadBd from "./reload-bd.js";
-
-reloadBd();
-setInterval(reloadBd, 300000);*/
 
 $( document ).ready(function() {
-
     const container = $('#container');
 
-    const table = $('#last-trames');
-    ajax_getTrames(table, 1);
+    // TEMPORAIRE - pour tester l'ajax de recherche
+    ajax_search("ud 0x00");
 
-    // Graphe - Pie 1
+    if(findGetParameter('detail_protocol') != null){
+        generate_protocol_path(findGetParameter('detail_protocol'));
+    }
+    else{
+        const table = $('#last-trames');
+        ajax_getTrames(table, 1);
 
-    let data = {
-        labels: [
-            'Red',
-            'Blue',
-            'Yellow'
-        ],
-        datasets: [{
-            label: 'My First Dataset',
-            data: [300, 50, 100],
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
+        // Graphe - Pie 1
+
+        let data = {
+            labels: [
+                'Red',
+                'Blue',
+                'Yellow'
             ],
             hoverOffset: 4
-        }]
+        }
     };
 
     let config = {
@@ -99,6 +93,51 @@ $( document ).ready(function() {
                 }
             });
         }, 600);
+    }
+
+    function ajax_search(search){
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "inc/ajax_search.php",
+                data: {search: search},
+                success: function(response){
+                    console.log('search = ');
+                    console.log(response);
+                    //const trame = JSON.parse(response);
+                },
+                error: function(){
+
+                }
+            });
+        }, 600);
+    }
+
+    function generate_protocol_path(protocol_name){
+        container.empty();
+
+        const dashboardMain = $('<section id="dashboard-main"></section>');
+        const items = $('<div class="dashboard-items"></div>');
+        dashboardMain.append(items);
+
+        // Ligne titre
+        const item_line_title = $('<div class="dashboard-items-line"></div>');
+        items.append(item_line_title);
+
+        var item = $('<div class="dashboard-item"></div>');
+        const title = $('<h2>Protocole '+protocol_name+'</h2>');
+
+        item.append(title);
+        items.append(item);
+
+        // Ligne chemins
+        const item_line_path = $('<div class="dashboard-items-line"></div>');
+        items.append(item_line_path);
+        item = $('<div class="dashboard-item"></div>');
+        items.append(item);
+        ajax_generateProtocolPath(item, protocol_name);
+
+        container.append(dashboardMain);
     }
 
     function generate_trame_details(trame){
@@ -187,7 +226,7 @@ $( document ).ready(function() {
         items.append(item_graphes);
         item = $('<div class="dashboard-item"></div>');
         item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-        item.append('<p><strong>20%</strong> d\'erreurs ( <strong>3</strong> paquets )</p>');
+        item.append('<p><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
         const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
         const chartjs_canvas_parent = $('<div id="graphe_errors_parent"></div>');
         chartjs_canvas_parent.append(chartjs_canvas);
@@ -226,17 +265,142 @@ $( document ).ready(function() {
         container.append(dashboardMain);
     }
 
+    function ajax_generateProtocolPath(element, protocol_name){
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_get_path_for_protocol.php",
+            data: {protocolName: protocol_name},
+            success: function(response){
+                const chemins = JSON.parse(response);
+                console.log(chemins);
+                const divCheminParent = $('<div class="chemin-parent">');
+                $.each(chemins, function() {
+                    $.each(this, function() {
+                        const divCheminItem = $('<div data-trameid="'+this.id+'" class="chemin">').on('click', function(){
+                            const trameid = $(this).data('trameid');
+                            console.log('click ' + trameid);
+                            ajax_getTrameDetail(trameid);
+                        });
+
+                        const paquet = $('<i class="fas fa-laptop-code chemin-paquet"></i>');
+                        paquet.append('<span class="chemin-ip">' + this.ip_from + '</span>');
+                        paquet.append('<span class="chemin-identifiant">Paquet <strong>' + this.identification + '</strong></span>');
+                        divCheminItem.append(paquet);
+                        const arrows = $('<div class="arrows">');
+                        if(this.trajet === 'aller-retour'){
+                            const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller)+'"></i>');
+                            arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
+                            if(this.flags_code_aller !== '0x00'){
+                                arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
+                            }
+                            else if(this.flags_code_retour !== '0x00'){
+                                arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
+                            }
+                            else{
+                                arrow.append('<i data-trajet="aller-retour" class="fas fa-network-wired"></i>');
+                            }
+
+                            const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.flags_code_retour)+'"></i>');
+                            arrow_retour.append('<span class="chemin-code-2">' + this.flags_code_retour + '</span>');
+                            arrows.append(arrow);
+                            arrows.append(arrow_retour);
+                        }
+                        else if(this.trajet === 'aller'){
+                            const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller, true)+'"></i>');
+                            arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
+                            if(this.flags_code_aller !== '0x00'){
+                                arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
+                            }
+                            else{
+                                arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
+                            }
+                            arrows.append(arrow);
+                        }
+                        divCheminItem.append(arrows);
+
+                        const paquet_destination = $('<i class="fas fa-laptop-code chemin-paquet"></i>');
+                        paquet_destination.append('<span class="chemin-ip-dest">' + this.ip_dest + '</span>');
+                        divCheminItem.append(paquet_destination);
+
+                        divCheminItem.on('mouseenter', function() {
+                            const icon = $(this).find('.fa-network-wired');
+                            icon.empty();
+                            const type_trajet = icon.data('trajet');
+                            icon.stop();
+                            icon.css('top', 0);
+                            icon.css('left', -100);
+
+                            // Aller
+                            if(type_trajet === 'aller' || type_trajet === 'aller-error'){
+                                icon.animate({
+                                    opacity: 0.5,
+                                    left: "+=250",
+                                }, 2000, function() {
+                                    icon.animate({
+                                        opacity: 1,
+                                        top: "+=30",
+                                    }, 2000, function() {
+                                        if(type_trajet === 'aller-error'){
+                                            icon.append('<i class="fas fa-times"></i>');
+                                        }
+                                        else{
+                                            icon.append('<i class="fas fa-check"></i>');
+                                        }
+                                    });
+                                });
+                            }
+                            // Aller-retour
+                            else{
+                                icon.animate({
+                                    opacity: 0.5,
+                                    left: "+=250",
+                                }, 2000, function() {
+                                    icon.animate({
+                                        top: "+=60"
+                                    }, 2000, function() {
+
+                                        icon.animate({
+                                            opacity: 1,
+                                            left: "-=300"
+                                        }, 2000, function(){
+                                            if(type_trajet === 'retour-error'){
+                                                icon.append('<i class="fas fa-times"></i>');
+                                            }
+                                            else{
+                                                icon.append('<i class="fas fa-check"></i>');
+                                            }
+                                        });
+                                    });
+                                });
+                            }
+                        });
+
+                        divCheminParent.append(divCheminItem);
+                    });
+                });
+                element.append(divCheminParent);
+            },
+            error: function(){
+
+            }
+        });
+    }
+
     function ajax_getProtocolData(chartjs_graphe, protocol_name){
         $.ajax({
             type: "GET",
             url: "inc/ajax_get_protocol_data.php",
             data: {protocolName: protocol_name},
             success: function(response){
-                if(response.length > 1){
-
-                }
-
-
+                const protocol_data = JSON.parse(response);
+                const nbErreurs = protocol_data.erreurs.length;
+                const nbData = protocol_data.paquets_count;
+                const prct = (nbErreurs / nbData) * 100;
+                removeChartData(chartjs_graphe, 2);
+                addChartData(chartjs_graphe, "Erreurs", nbErreurs);
+                addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs));
+                $('#erreur-prct').text(prct + '%');
+                $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
             },
             error: function(){
 
@@ -342,3 +506,46 @@ function showLogout(){
         }
     })
 };
+
+function addChartData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeChartData(chart, nbLabels = 1) {
+    for(let i = 0;i < nbLabels; i++){
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+    }
+}
+
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+function getClassForCode(code, allerOnly = false){
+    if(code === '0x00'){
+        if(allerOnly){
+            return 'blue';
+        }
+        return 'green';
+    }
+    else{
+        return 'red';
+    }
+}
