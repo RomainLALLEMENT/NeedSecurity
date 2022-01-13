@@ -3,7 +3,7 @@ $( document ).ready(function() {
     const container = $('#container');
 
     // TEMPORAIRE - pour tester l'ajax de recherche
-    ajax_search("192");
+    ajax_search("ud 0x00");
 
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));

@@ -32,6 +32,7 @@ $trames = $query->fetchAll();
 
 $tramesFound = [];
 $tramesFound['autocompletion'] = [];
+$correspondanceLaPlusProche = '';
 $maxCorrespondances = count($search_keys);
 $cpt = 0;
 for($i = 0; $i < count($trames); $i++){
@@ -46,6 +47,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['frame_date'].' '.$trames[$i]['ip_from']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['frame_date'].' '.$trames[$i]['ip_dest']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['frame_date'];
         }
         elseif(str_contains(strtolower($trames[$i]['identification']), $search_key)){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['identification']);
@@ -53,6 +55,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['identification'].' '.$trames[$i]['ip_from']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['identification'].' '.$trames[$i]['ip_dest']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['identification'];
         }
         elseif(str_contains(strtolower($trames[$i]['flags_code']), $search_key)){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['flags_code']);
@@ -60,6 +63,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['flags_code'].' '.$trames[$i]['ip_from']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['flags_code'].' '.$trames[$i]['ip_dest']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['flags_code'];
         }
         elseif(str_contains(strtolower($trames[$i]['protocol_name']), $search_key)){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['protocol_name']);
@@ -67,6 +71,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['protocol_name'].' '.$trames[$i]['ip_dest']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['protocol_name'].' '.$trames[$i]['flags_code']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['protocol_name'];
         }
         elseif(str_contains(strtolower($trames[$i]['ip_from']), $search_key)){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_from']);
@@ -74,6 +79,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_from'].' '.$trames[$i]['ip_dest']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_from'].' '.$trames[$i]['flags_code']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['ip_from'];
         }
         elseif(str_contains(strtolower($trames[$i]['ip_dest']), $search_key)){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_dest']);
@@ -81,6 +87,7 @@ for($i = 0; $i < count($trames); $i++){
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_dest'].' '.$trames[$i]['ip_from']);
             $tramesFound['autocompletion'] = addItemInArrayIfNotExist($tramesFound['autocompletion'], $trames[$i]['ip_dest'].' '.$trames[$i]['flags_code']);
             $correspondances++;
+            $correspondanceLaPlusProche .= ' '.$trames[$i]['ip_dest'];
         }
     }
 
@@ -91,6 +98,11 @@ for($i = 0; $i < count($trames); $i++){
             break;
         }
     }
+}
+
+$correspondanceLaPlusProche = substr($correspondanceLaPlusProche,1);
+for($i = 0;$i<count($tramesFound);$i++){
+
 }
 
 $json = json_encode($tramesFound, JSON_PRETTY_PRINT);
