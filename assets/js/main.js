@@ -3,9 +3,19 @@
 //Show logout
 const showConnect = document.getElementById('btn-connection');
 const showLogin = document.getElementById('btn-login');
-showLogin.addEventListener('click', showModal);
-showConnect.addEventListener('click', showModal);
-function showModal(){
+showLogin.addEventListener('click', function(){
+    showModal('login');
+});
+showConnect.addEventListener('click', function (){
+    showModal('login');
+});
+function showModal(modalType, defaultEmail = ''){
+
+    const actual_modal = document.querySelector('.modal');
+    if(actual_modal != null){
+        actual_modal.remove();
+    }
+
     console.log('Ask for connection');
     const modal = document.createElement('div');
     modal.classList.add('modal');
@@ -26,7 +36,14 @@ function showModal(){
 
     document.body.insertAdjacentElement("beforeend", modal);
 
-    loginModal();
+    console.log('modalType = ' + modalType);
+
+    if(modalType === 'login'){
+        loginModal(defaultEmail);
+    }
+    else if(modalType === 'register'){
+        signModal();
+    }
 
     closeModal.addEventListener('click', ()=>{
         modal.remove();
@@ -38,16 +55,21 @@ function showModal(){
     })
 };
 
-function loginModal(){
+function loginModal(defaultEmail = ''){
     const form = document.querySelector('.form-modal');
     form.innerText = '';
     form.id = 'login-form';
     form.setAttribute('method', 'post');
     form.setAttribute('action', '');
     form.setAttribute('novalidate', 'novalidate');
+
+    if(defaultEmail.length > 0){
+        form.innerHTML += '<p class="success">Votre compte a bien été créé. Vous pouvez désormais vous connecter.</p>';
+    }
+
     let html = `
             <label for="user-id">Adresse e-mail</label>
-            <input type="email" name="user-id" id="user-id">
+            <input type="email" name="user-id" id="user-id" value="` + defaultEmail + `">
 
             <label for="user-pwd">Mots de passe</label>
             <input type="password" name="user-pwd" id="user-pwd">
@@ -58,10 +80,12 @@ function loginModal(){
 
             <p class="sub-btn-modal" id="sign-in">Inscrivez vous</p>
        `;
-    form.innerHTML = html;
+    form.innerHTML += html;
     add_form_event('login'); // gère les events & envois ajax
     const sign = document.getElementById('sign-in');
-    sign.addEventListener('click', signModal);
+    sign.addEventListener('click', function(){
+        showModal('register');
+    });
 }
 
 function signModal(){
@@ -96,7 +120,9 @@ function signModal(){
     form.innerHTML = html;
     add_form_event('register'); // gère les events & envois ajax
     const login = document.getElementById('login');
-    login.addEventListener('click', loginModal);
+    login.addEventListener('click', function(){
+        showModal('login');
+    });
 }
 
 // Requête de login
@@ -145,7 +171,7 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
             success: function(response){
                 if(response.length > 0){
                     if(response === 'ok'){
-                        showModal();
+                        showModal('login', email);
                     }
                     else{
                         registerError.text(response);
@@ -168,7 +194,7 @@ function add_form_event(modalName){
     //connexion
     if(modalName === 'login'){
         const loginError = $('#error-login');
-        const form = $('.form-modal');
+        const form = $('#login-form');
 
         form.on( "submit", function(e) {
             e.preventDefault();
