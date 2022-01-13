@@ -2,6 +2,9 @@
 $( document ).ready(function() {
     const container = $('#container');
 
+    // TEMPORAIRE - pour tester l'ajax de recherche
+    ajax_search('ud');
+
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));
     }
@@ -83,6 +86,24 @@ $( document ).ready(function() {
                         const trame = JSON.parse(response);
                         generate_trame_details(trame);
                     }
+                },
+                error: function(){
+
+                }
+            });
+        }, 600);
+    }
+
+    function ajax_search(search){
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "inc/ajax_search.php",
+                data: {search: search},
+                success: function(response){
+                    console.log('search = ');
+                    console.log(response);
+                    //const trame = JSON.parse(response);
                 },
                 error: function(){
 
