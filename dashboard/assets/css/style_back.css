@@ -145,6 +145,10 @@ DASHBOARD PAGE
     font-size: 1.8rem;
 }
 
+#dashboard-main .dashboard-item strong{
+    font-weight: 700;
+}
+
 #dashboard-main .dashboard-item table {
     width: 100%;
 }
@@ -165,6 +169,35 @@ DASHBOARD PAGE
 
 #dashboard-main .dashboard-item table tr:not(.table-header):nth-child(2n+1){
     background-color: rgba(255,255,255,.1);
+}
+
+#dashboard-main .trame-info-item{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#dashboard-main .trame-info-data{
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    align-items: center;
+}
+
+#dashboard-main .trame-info-data span{
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--gris);
+}
+
+#dashboard-main .trame-info-data i{
+    font-weight: 700;
+    color: white;
+}
+
+#dashboard-main .dashboard-item p{
+    color: white;
 }
 
 .paginator{

@@ -94,7 +94,7 @@ function hexadecimalCipher($value){
     return implode(".", $toHexa);
 }
 
-function db_get_trames($fieldsArray, $page = 1, $nbRows = 5)
+function db_get_trames($fieldsArray, $page = 1, $nbRows = 10, $protocolName = '')
 {
     global $pdo;
     $fieldsStr = "";
@@ -108,7 +108,12 @@ function db_get_trames($fieldsArray, $page = 1, $nbRows = 5)
         }
     }
 
-    $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+    if(mb_strlen($protocolName) > 0){
+        $sql = "SELECT ".$fieldsStr." FROM trames WHERE protocol_name = '".$protocolName."' ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+    }
+    else{
+        $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+    }
     $query = $pdo->prepare($sql);
     $query->execute();
     return $query->fetchAll();
