@@ -2,7 +2,7 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
-    <section>
+    <section id="mentionslegales">
         <div class="wrap">
             <div class="ml-title">
                 <h2>1. Présentation du site internet.</h2>
@@ -103,13 +103,13 @@ include_once ('inc/header.php');
                     </div>
                 <div class="ml-text">
                     <p>Quels que soient les efforts fournis, aucune méthode de transmission sur Internet et aucune méthode de stockage électronique n'est complètement sûre. Nous ne pouvons en conséquence pas garantir une sécurité absolue. Si nous prenions connaissance d'une brèche de la sécurité, nous avertirions les utilisateurs concernés afin qu'ils puissent prendre les mesures appropriées. Nos procédures de notification d’incident tiennent compte de nos obligations légales, qu'elles se situent au niveau national ou européen. Nous nous engageons à informer pleinement nos clients de toutes les questions relevant de la sécurité de leur compte et à leur fournir toutes les informations nécessaires pour les aider à respecter leurs propres obligations réglementaires en matière de reporting.</p><p>Aucune information personnelle de l'utilisateur du site <?=$NOM_SITE_COLORED;?> n'est publiée à l'insu de l'utilisateur, échangée, transférée, cédée ou vendue sur un support quelconque à des tiers. Seule l'hypothèse du rachat de <?=$NOM_SITE_COLORED;?> et de ses droits permettrait la transmission des dites informations à l'éventuel acquéreur qui serait à son tour tenu de la même obligation de conservation et de modification des données vis à vis de l'utilisateur du site <?=$NOM_SITE_COLORED;?>.</p>
-                    <h3>Sécurité</h3>
-                    <p>Pour assurer la sécurité et la confidentialité des Données Personnelles et des Données Personnelles de Santé, <?=$NOM_SITE_COLORED;?> utilise des réseaux protégés par des dispositifs standards tels que par pare-feu, la pseudonymisation, l’encryption et mot de passe. </p> <p>Lors du traitement des Données Personnelles, <?=$NOM_SITE_COLORED;?>prend toutes les mesures raisonnables visant à les protéger contre toute perte, utilisation détournée, accès non autorisé, divulgation, altération ou destruction.</p>
+                    <h3>8.1  Sécurité</h3>
+                    <p>Pour assurer la sécurité et la confidentialité des Données Personnelles et des Données Personnelles de Santé, <?=$NOM_SITE_COLORED;?> utilise des réseaux protégés par des dispositifs standards tels que par pare-feu, la pseudonymisation, l’encryption et mot de passe. </p> <p>Lors du traitement des Données Personnelles, <?=$NOM_SITE_COLORED;?> prend toutes les mesures raisonnables visant à les protéger contre toute perte, utilisation détournée, accès non autorisé, divulgation, altération ou destruction.</p>
                 </div>
                 <div class="ml-title">
                     <h2>9. Droit applicable et attribution de juridiction.</h2>
                 </div>
-                    <p>Tout litige en relation avec l’utilisation du site <?=$NOM_SITE_COLORED;?> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de Rouen</p>
+                    <p>Tout litige en relation avec l’utilisation du site <?=$NOM_SITE_COLORED;?> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de Rouen.</p>
                 </div>
     </section>
 
