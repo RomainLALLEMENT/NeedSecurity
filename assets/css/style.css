@@ -5,7 +5,7 @@ body{
 
 /* LOGIN */
 
-.error-login {
+.error {
     color: var(--rouge);
 }
 /* Header*/
@@ -150,18 +150,13 @@ INDEX  PHP
     gap: .5rem;
     font-size: 1.1rem;
 }
-
-HEAD
-/* LOGIN */
-
-.error-login {
-    color: var(--rouge);
+#analyse ul li i{
+    margin-right: 1rem;
 }
+
+
 /*Mentions légales*/
-body{
-    background-color: var(--gris);
 
-}
 .ml-title h2 {
     font-size: 2rem;
     text-align: center;
@@ -170,3 +165,7 @@ body{
 .ml-text p {
     text-align: justify;
 }
+
+
+
+
