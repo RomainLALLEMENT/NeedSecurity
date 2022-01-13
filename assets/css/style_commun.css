@@ -8,13 +8,7 @@ Style commun au front et au back
 body{
     font-family: 'Source Code Pro', monospace;
 }
-h1{
-    font-family: 'Noto Sans Display', sans-serif;
-}
-h2{
-    font-family: 'Noto Sans Display', sans-serif;
-}
-h3{
+h1, h2, h3, h4, h5, h6{
     font-family: 'Noto Sans Display', sans-serif;
 }
 :root{
