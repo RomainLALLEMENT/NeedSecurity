@@ -26,6 +26,15 @@ h3{
     --copyright-color: #737373;
 }
 
+/*LOGO mame*/
+.logo_col_1{
+    color: white;
+}
+
+.logo_col_2{
+    color: var(--rouge);
+}
+
 .li-selected{
     background-color: var(--selected-item-color);
 }
@@ -165,14 +174,15 @@ h3{
     display: flex;
     flex-flow: column nowrap;
 }
-.footer .copyright{
-    color: white;
+.footer .footer-bot,.footer .footer-bot a{
+    color: var(--copyright-color);
 }
 footer a{
     color: white;
     cursor: pointer;
     padding: .3rem .5rem;
     transition: all .5s;
+    line-height: initial;
 }
 .footer a:hover{
     color: var(--rouge);
@@ -195,12 +205,13 @@ footer a{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
 
 }
 
 /* Modal */
 .modal {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -208,21 +219,75 @@ footer a{
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
 }
 
 /* Modal Content-Box */
 .modal-content {
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 21px;
     margin: 25% auto;
-    padding: 0.4rem max(2vw, .5rem);
+    padding: 1rem max(3vw, 2rem);
     border: 3px solid var(--rouge);
-    width: 50%;
+    width: clamp(270px, 90%, 800px);
+    position: relative;
+}
+.modal-content .form-modal{
     display: flex;
-    flex-flow: row wrap;
-    gap: .5rem;
-    text-align: center;
-    justify-content: center;
+    flex-flow: column nowrap;
+    align-items: center;
+
+}
+.modal-content .form-modal > *{
+    margin: .5rem 0;
+
+}
+.modal-content > form input{
+    width: 100%;
+    border-radius: 21px;
+    border: 1px solid var(--selected-item-color);
+    padding: .4rem max(1vw, 1rem);
+}
+.modal-content .form-modal input[type=submit]{
+    background: var(--rouge);
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all .25s;
+    border: 1px solid var(--rouge);
+    cursor: pointer;
+}
+.modal-content .form-modal input[type=submit]:hover{
+    color: var(--rouge);
+    background: white;
+}
+.modal-content .form-modal .sub-btn-modal{
+    padding: .4rem max(1vw, 1rem);
+    border-radius: 21px;
+    background: var(--header-back-color);
+    color: white;
+    transition: all .25s;
+    border: 1px solid var(--header-back-color);
+    cursor: pointer;
+}
+.modal-content .form-modal .sub-btn-modal:hover{
+    background: var(--selected-item-color);
+    color: white;
+    box-shadow: inset  0 3px 10px var(--back-color);
+}
+.modal-content .form-modal .low-focus a{
+    color: var(--copyright-color);
+    font-size: .8rem;
+}
+.modal-content .form-modal .low-focus a:hover{
+    color: var(--back-color);
+}
+.absolute-modal{
+    position: absolute;
+    color: var(--rouge);
+    font-size: 2rem;
+    top: -5px;
+    right: 2px;
+    cursor: pointer;
 }

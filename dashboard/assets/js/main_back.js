@@ -1,7 +1,7 @@
-import reloadBd from "./reload-bd.js";
+/*import reloadBd from "./reload-bd.js";
 
 reloadBd();
-setInterval(reloadBd, 300000);
+setInterval(reloadBd, 300000);*/
 
 $( document ).ready(function() {
 
@@ -74,21 +74,40 @@ $( document ).ready(function() {
 
 
     function ajax_getTrameDetail(trameid){
-        console.log('getTrameDetail ' + trameid);
-        const loader = generate_loader();
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "inc/ajax_get_trame_data.php",
+                data: {trameid: trameid},
+                success: function(response){
+                    if(response.length > 0){
+                        const trame = JSON.parse(response);
+                        generate_trame_details(trame);
+                    }
+                },
+                error: function(){
+
+                }
+            });
+        }, 600);
+    }
+
+    function generate_trame_details(trame){
         container.empty();
-        container.append(loader);
+        const dashboardMain = $('<section id="dashboard-main"></section>');
+        const items = $('<div class="dashboard-items"></div>');
+        dashboardMain.append(items);
+
+        const item_line = $('<div class="dashboard-items-line"></div>');
+
+        items.append(item_line);
+
+        container.append(dashboardMain);
     }
 
     function ajax_getTrames(table, page, nbRows = 10){
-        const loader = generate_loader();
-        table.after(loader);
         const tableHeight = table.css('height');
         table.fadeOut(350, function(){
-            //table.empty();
-            /*console.log("tableheight = " + tableHeight);
-            const divHeight = $('<div></div>').css('height', tableHeight);
-            table.append(divHeight);*/
         });
 
         setTimeout(function() {
@@ -96,19 +115,15 @@ $( document ).ready(function() {
                 type: "GET",
                 url: "inc/ajax_table_trames.php",
                 data: {page: page, nbRows: nbRows},
-                beforeSend: function(){
-                    /*btn.fadeOut(1000);*/
-                },
                 success: function(response){
                     if(response.length > 1){
                         generate_table_from_trames(table, response);
                     }
 
-                    loader.remove();
                     table.fadeIn(350, function(){  });
                 },
                 error: function(){
-
+                    table.fadeIn(350, function(){  });
                 }
             });
         }, 600);
@@ -164,21 +179,9 @@ $( document ).ready(function() {
         });
     }
 
-    function generate_loader(){
-        const loaderContainer = $("<div class=\"loader-container pos-abs\"></div>");
-        const loader = $("<div class=\"loader\"></div>");
-        const square_one = $("<div class=\"square one\"></div>");
-        const square_two = $("<div class=\"square two\"></div>");
-        loaderContainer.append(loader);
-        loader.append(square_one, square_two);
-        return loaderContainer;
-    }
-
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-});
-
 });
 
 //Show logout
@@ -198,4 +201,3 @@ function showLogout(){
         }
     })
 };
-

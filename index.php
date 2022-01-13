@@ -1,54 +1,51 @@
 <?php
 require_once ('inc/bases.php');
 
-//$val = 'c0a8014a';
-//debug($val);
-//echo hexadecimalCipher($val);
+if(isLoggedIn()){
+    header('Location: ./dashboard');
+    exit;
+}
+
 include_once ('inc/header.php');
 
 ?>
 
-<img class="backdata" src="assets/img/background.png" alt="">
-
-
-<div class="data">
-    <div id="dataccueil">
+<!--Hero banner-->
+<section id="hero-banner">
+    <div id="box-hero">
         <h2>données réseau</h2>
         <p>Visualisez vos données réseau</p>
-        <button>Accéder à mon espace</button>
+        <p id="btn-login">Accéder à mon espace</p>
     </div>
-</div>
-<div class="tableaudebord">
-    <h2>Tableau de bord</h2>
-    <div id="fonctionalités">
-        <div id="fonc1">
-            <i class="fas fa-hdd"></i>
-            <p> ° Fonctionalité 1</p>
-        </div>
-        <div id="fonc2">
-            <i class="fas fa-hdd"></i>
-            <p> ° Fonctionalité 2</p>
-        </div>
-        <div id="fonc3">
-            <i class="fas fa-hdd"></i>
-            <p> ° Fonctionalité 3</p>
-        </div>
+</section>
+
+<section id="functionality">
+    <div>
+    <h2>Fonctionalité</h2>
+        <ul id="list-func">
+            <li><i class="fas fa-database"></i>Sécurité de Base de donnée</li>
+            <li><i class="fas fa-server"></i>Protection Serveur</li>
+            <li><i class="fas fa-chart-pie"></i>Analyse Réseaux</li>
+        </ul>
     </div>
-    <div class="imgpc">
-        <img src="assets/img/pc.png" alt="">
-    </div>  
-</div>
-<div class="analyse">
-    <div id="imganalyse">
-        <img src="assets/img/orga.png" alt="">
+    <div>
+        <img src="assets/img/pc.png" alt="ordinateur avec vue sur le dashboard">
     </div>
-    <div id="fonctionalités2">
-        <h2>Analyse des paquets</h2>
-        <div><p> ° Fonctionalité 1</p></div>
-        <div><p> ° Fonctionalité 1</p></div>
-        <div><p> ° Fonctionalité 1</p></div>
+</section>
+
+<section id="analyse">
+    <div><img src="assets/img/orga.png" alt=""></div>
+    <div>
+        <h2>Analyse </h2>
+        <ul id="list-analyse">
+            <li><i class="fas fa-angle-double-right"></i>Lorem ipsum dolor.</li>
+            <li><i class="fas fa-angle-double-right"></i>Lorem ipsum dolor.</li>
+            <li><i class="fas fa-angle-double-right"></i>Lorem ipsum dolor.</li>
+        </ul>
     </div>
-</div>
+</section>
+
+
 
 <?php
 include('inc/footer.php');
