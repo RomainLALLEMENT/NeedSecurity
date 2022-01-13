@@ -2,7 +2,7 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
-    <section>
+    <section id="mention">
         <div class="wrap">
             <div class="ml-title">
                 <h2>1. Présentation du site internet.</h2>

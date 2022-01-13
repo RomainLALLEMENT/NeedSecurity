@@ -156,7 +156,12 @@ INDEX  PHP
 
 
 /*Mentions légales*/
-
+#mention {
+    padding: 2rem;
+}
+#mention .wrap > * {
+    margin-bottom: 1rem;
+}
 .ml-title h2 {
     font-size: 2rem;
     text-align: center;
