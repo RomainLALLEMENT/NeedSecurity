@@ -156,11 +156,8 @@ INDEX  PHP
 
 
 /*Mentions légales*/
-#mention {
-    padding: 2rem;
-}
-#mention .wrap > * {
-    margin-bottom: 1rem;
+#mentionslegales{
+    padding: 3rem;
 }
 .ml-title h2 {
     font-size: 2rem;
@@ -170,6 +167,12 @@ INDEX  PHP
 .ml-text p {
     text-align: justify;
 }
+#mentionslegales h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1.5rem;
+}
+
 
 
 
