@@ -34,9 +34,17 @@ include_once ('inc/header_back.php');
 
         <div class="back-box">
             <div class="back-box_graph">
-                <h2>Trames graph</h2>
+                <h2>Répartition des protocoles</h2>
                 <div class="back-box_graph__chatjs">
-                    <canvas id="chart-1"></canvas>
+                    <canvas id="chart-pie1"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="back-box">
+            <div class="back-box_graph">
+                <h2>trame</h2>
+                <div class="back-box_graph__chatjs">
+                    <canvas id="chart-bar1"></canvas>
                 </div>
             </div>
         </div>

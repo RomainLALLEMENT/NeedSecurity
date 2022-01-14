@@ -66,19 +66,24 @@ body{
     flex-flow: column nowrap;
     align-content: center;
     gap: .5rem;
+    background: linear-gradient(var(--back-color), rgba(34, 37, 51, 0));
 }
 
 #dashboard-menu ul li{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     color: white;
     padding: .5rem;
     border-radius: 3px;
     transition: all .25s;
     cursor: pointer;
     font-weight: 700;
+    background-color: var(--back-color);
 }
 
-#dashboard-menu ul li:hover:not(.li-selected){
-    background-color: #b3b3b5;
+#dashboard-menu ul li:hover, #dashboard-menu ul li.li-selected {
+    background-color: var(--selected-item-color);
 }
 
 #container{
@@ -147,20 +152,6 @@ DASHBOARD PAGE
 .paginator-selected{
     background-color: white;
     color: rgba(0,0,0, 0.7);
-}
-
-#dashboard-main .dashboard-item table tr.trame-clickable{
-    transition: all .25s;
-    cursor: pointer;
-}
-
-#dashboard-main .dashboard-item table tr.trame-clickable:hover{
-    background-color: #2d2d2e;
-}
-
-#dashboard-main .table-parent{
-    min-height: 10rem;
-    position: relative;
 }
 
 /* Modal for logout*/

@@ -32,7 +32,7 @@
 }
 
 .back-box .data-box.clickable:hover{
-    background-color: #514f51;
+    background-color: var(--selected-item-color);
 }
 
  .back-box .data-box .data-box_name{
