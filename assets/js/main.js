@@ -3,9 +3,12 @@
 //Show logout
 const showConnect = document.getElementById('btn-connection');
 const showLogin = document.getElementById('btn-login');
-showLogin.addEventListener('click', function(){
-    showModal('login');
-});
+if (showLogin != null){
+    console.log('btn is present');
+    showLogin.addEventListener('click', function(){
+        showModal('login');
+    });
+}
 showConnect.addEventListener('click', function (){
     showModal('login');
 });

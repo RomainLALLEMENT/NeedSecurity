@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../assets/css/style_commun.css">
     <link rel="stylesheet" href="assets/css/style_back.css">
     <link rel="stylesheet" href="assets/css/style_dashboard.css">
+    <link rel="stylesheet" href="assets/css/responsive_back.css">
     <title><?= $NOM_SITE; ?></title>
 </head>
 <body>
@@ -36,8 +37,8 @@
 </header>
 <div id="dashboard-menu">
     <ul>
-        <li id="page-accueil" class="li-selected"><i class="fas fa-house-user"></i> Résumé</li>
-        <li id="page-details"><i class="fas fa-database"></i> Recherche</li>
+        <li id="page-accueil" class="li-selected"><i class="fas fa-house-user"></i><p> Résumé</p></li>
+        <li id="page-details"><i class="fas fa-database"></i><p> Recherche</p></li>
         <!--<li id="page-log"><i class="fas fa-clipboard-list"></i> Logs</li>--> <!-- Utile ? car au final c'est Recherch -->
     </ul>
 </div>
