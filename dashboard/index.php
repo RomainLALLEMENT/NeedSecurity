@@ -23,7 +23,7 @@ include_once ('inc/header_back.php');
 
             $cpt = 1;
             foreach($trameData as $trame){
-                echo '<div class="data-box" data-box="'.$cpt.'"><h3 class="data-box_name">'.$trame['protocol_name'].'</h3><p class="data-box_nb">'.$trame['cpt'].'</p></div>';
+                echo '<div class="data-box clickable" data-box="'.$cpt.'" data-protocol="'.$trame['protocol_name'].'"><h3 class="data-box_name">'.$trame['protocol_name'].'</h3><p class="data-box_nb">'.$trame['cpt'].'</p></div>';
                 $cpt++;
             }
             ?>

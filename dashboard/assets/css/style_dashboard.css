@@ -26,6 +26,15 @@
     align-items: center;
 }
 
+.back-box .data-box.clickable{
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.back-box .data-box.clickable:hover{
+    background-color: #514f51;
+}
+
  .back-box .data-box .data-box_name{
     color: var(--rouge);
     font-weight: 700;
