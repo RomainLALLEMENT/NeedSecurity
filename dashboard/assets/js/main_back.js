@@ -151,13 +151,16 @@ $( document ).ready(function() {
         var item = $('<div class="back-box"></div>');
         const title = $('<h2>Trame <strong>'+trame.identification+'</strong> ('+trame.protocol_name+')</h2>');
 
+        var backBoxContent = $('<div></div>');
+
         item.append(title);
         dashboardMain.append(item);
 
         // Ligne infos
         item = $('<div class="back-box"></div>');
 
-        item.append($('<h2>Informations globales</h2>'));
+        backBoxContent.append($('<h2>Informations globales</h2>'));
+        item.append(backBoxContent);
 
         var trame_data_item = $('<div class="trame-info-item"></div>');
 
@@ -168,10 +171,11 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>Flags code</span><i>'+trame.flags_code+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>TTL</span><i>'+trame.ttl+'</i></div>'));
 
-        item.append(trame_data_item);
+        backBoxContent.append(trame_data_item);
         dashboardMain.append(item);
         item = $('<div class="back-box"></div>');
-        item.append($('<h2>Protocole</h2>'));
+        backBoxContent = $('<div></div>');
+        backBoxContent.append($('<h2>Protocole</h2>'));
 
         trame_data_item = $('<div class="trame-info-item"></div>');
 
@@ -180,7 +184,8 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>Protocol port from</span><i>'+trame.protocol_ports_from+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>Protocol port dest</span><i>'+trame.protocol_ports_dest+'</i></div>'));
 
-        item.append(trame_data_item);
+        backBoxContent.append(trame_data_item);
+        item.append(backBoxContent);
         dashboardMain.append(item);
         item = $('<div class="back-box"></div>');
         item.append($('<h2>IP</h2>'));
@@ -399,11 +404,11 @@ $( document ).ready(function() {
 
     function ajax_getTrames(table, page, nbRows = 10, protocol_name = ''){
 
-        const paginator = $('#paginator-' + table.attr('id'));
+        const tableID = table.attr('id');
 
-        table.fadeOut(350, function(){
+        $('#'+tableID+' .table_body').fadeOut(350, function(){
         });
-        paginator.fadeOut(350, function(){
+        $('#paginator-' + table.attr('id') + ' .paginator-item').fadeOut(350, function(){
         });
 
         table.attr('data-protocol', protocol_name);
@@ -415,34 +420,42 @@ $( document ).ready(function() {
                 data: {page: page, nbRows: nbRows, protocolName: protocol_name},
                 success: function(response){
                     if(response.length > 1){
-                        paginator.remove();
+                        $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
                         generate_table_from_trames(table, response);
                     }
 
-                    table.fadeIn(350, function(){  });
+                    $('#'+tableID+' .table_body').fadeIn(350, function(){
+                    });
+                    $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
+                    });
                 },
                 error: function(){
-                    paginator.remove();
-                    table.fadeIn(350, function(){  });
+                    $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
+                    $('#'+tableID+' .table_body').fadeIn(350, function(){
+                    });
+                    $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
+                    });
                 }
             });
         }, 600);
     }
 
     function generate_table_from_trames(table, response){
-        const trHeader = $('<div class="table_head">');
-
         const tableID = table.attr('id');
 
-        $.each(response[0], function(k, v) {
-            if(k !== 'id'){
-                const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
-                trHeader.append(tdHeader);
-            }
-        });
+        const trHeaderExist = $('#'+tableID+' .table_head').length;
+        if(!trHeaderExist){
+            const trHeaderNew = $('<div class="table_head"></div>');
+            $.each(response[0], function(k, v) {
+                if(k !== 'id'){
+                    const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
+                    trHeaderNew.append(tdHeader);
+                }
+            });
+            table.append(trHeaderNew);
+        }
 
-        table.empty();
-        table.append(trHeader);
+        $('#'+tableID+' .table_body').remove();
 
         let cpt = 0;
         $.each(response, function() {
@@ -460,8 +473,20 @@ $( document ).ready(function() {
                 table.append(trTrame);
             }
             else{
-                // Régénération du paginator
-                const paginator = $('<div id="paginator-'+tableID+'" class="paginator"></div>');
+                // Régénération du paginator s'il n'existe pas
+                const paginator = $('#paginator-'+tableID);
+
+                var goodPaginator;
+                if(paginator.length){
+                    goodPaginator = paginator;
+                }
+                else{
+                    goodPaginator = $('<div id="paginator-'+tableID+'" class="paginator"></div>');
+                    table.after(goodPaginator);
+                }
+
+                goodPaginator.empty();
+
                 $.each(this, function(k, v) {
                     const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
                     if(v[1] === 'selected'){
@@ -474,9 +499,8 @@ $( document ).ready(function() {
                         const protocol_name = table.attr('data-protocol');
                         ajax_getTrames(table, page, 10, protocol_name);
                     });
-                    paginator.append(paginatorItem);
+                    goodPaginator.append(paginatorItem);
                 });
-                table.after(paginator);
             }
             cpt++;
         });

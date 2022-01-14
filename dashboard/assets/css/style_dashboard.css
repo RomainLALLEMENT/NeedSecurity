@@ -96,7 +96,10 @@
 
 
 /* Dashboard Table !!!*/
-#dashboard_table {
+#last-trames {
+    height: 40vh;
+}
+#same-protocol {
     height: 40vh;
 }
 
