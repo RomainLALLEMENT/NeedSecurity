@@ -104,7 +104,21 @@ INDEX  PHP
     background-color: var(--selected-item-color);
     color: var(--rouge);
 }
+/*About-us*/
+#abouts-us{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: max(1rem, 3vw);
+    gap: 4%;
+}
 
+#abouts-us h2{
+    padding-bottom: 1rem;
+}
+#abouts-us p{
+    padding-bottom: 1rem;
+}
 /* Functionality*/
 #functionality{
     display: flex;

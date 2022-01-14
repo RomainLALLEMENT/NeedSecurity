@@ -19,6 +19,18 @@ include_once ('inc/header.php');
     </div>
 </section>
 
+<section id="abouts-us">
+    <div>
+        <h2>A propos de nous...</h2>
+        <p><?= $NOM_SITE_COLORED; ?> est un projet concernant une plateforme d'analyse de trame qui permet d'éviter les attaques DDoS. Créer en janvier 2022 par l'équipe de <?= $NOM_SITE_COLORED; ?>, elle est composée de 4 développeurs qui sont :</p>
+        <ul>
+            <li>Léonard JOUEN (Chef de projet & Développeur Back-End)</li>
+            <li>Johann SIX (Développeur Back-End)</li>
+            <li>Romain LALLEMANT (Développeur Front-End)</li>
+            <li>Anthony CHEVALIER (Développeur Front-End)</li>
+        </ul>
+    </div>
+</section>
 <section id="functionality">
     <div>
     <h2>Fonctionalité</h2>
