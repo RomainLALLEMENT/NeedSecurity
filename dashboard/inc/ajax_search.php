@@ -12,10 +12,10 @@ function addItemInArrayIfNotExist($ar, $item){
     return $ar;
 }
 
-function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonne){
+function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonneAr){
 
     foreach ($trame as $key => $value){
-        if(!in_array($key, $ignoreColonne)){
+        if(!in_array($key, $ignoreColonneAr)){
             if(!str_contains($prefixe, $value)){
                 $ar = addItemInArrayIfNotExist($ar, $prefixe . ' ' . $value);
             }
@@ -64,50 +64,10 @@ $query = $pdo->prepare($sql);
 $query->execute();
 $trames = $query->fetchAll();
 
-/*$tramesFound = [];
-$tramesFound['autocompletion'] = [];
-$correspondanceLaPlusProche = '';
-$maxCorrespondances = count($search_keys);
-$cpt = 0;
-for($i = 0; $i < count($trames); $i++){
-    $trames[$i]['ip_from'] = hexadecimalCipher($trames[$i]['ip_from']);
-    $trames[$i]['ip_dest'] = hexadecimalCipher($trames[$i]['ip_dest']);
-    $trames[$i]['frame_date'] = dateToRead($trames[$i]['frame_date']);
-    $correspondances = [];
-
-    foreach($search_keys as $search_key){
-        if(str_contains($trames[$i]['frame_date'], $search_key)){
-            $correspondances['frame_date'] = $trames[$i]['frame_date'];
-        }
-        elseif(str_contains(strtolower($trames[$i]['identification']), $search_key)){
-            $correspondances['identification'] = $trames[$i]['identification'];
-        }
-        elseif(str_contains(strtolower($trames[$i]['flags_code']), $search_key)){
-            $correspondances['flags_code'] = $trames[$i]['flags_code'];
-        }
-        elseif(str_contains(strtolower($trames[$i]['protocol_name']), $search_key)){
-            $correspondances['protocol_name'] = $trames[$i]['protocol_name'];
-        }
-        elseif(str_contains(strtolower($trames[$i]['ip_from']), $search_key)){
-            $correspondances['ip_from'] = $trames[$i]['ip_from'];
-        }
-        elseif(str_contains(strtolower($trames[$i]['ip_dest']), $search_key)){
-            $correspondances['ip_dest'] = $trames[$i]['ip_dest'];
-        }
-    }
-
-    if(count($correspondances) > 0){
-        $tramesFound[] = $trames[$i];
-        $cpt++;
-        if($cpt >= $limite){
-            break;
-        }
-    }
-}*/
-
 // NOUVELLE VERSION
 $tramesFound = [];
 $tabAutoComplete = [];
+$ignoreFields = [];
 
 for($i = 0; $i < count($trames); $i++) {
     $trames[$i]['ip_from'] = hexadecimalCipher($trames[$i]['ip_from']);
@@ -116,6 +76,7 @@ for($i = 0; $i < count($trames); $i++) {
     $valide = true;
 
     $prefix = '';
+    $needIgnore = [];
     for($k = 0;$k < count($search_keys); $k++){
         $corresp = getCorrespondanceIn($trames[$i], $search_keys[$k]);
         if($corresp === '>not-found<'){
@@ -127,12 +88,18 @@ for($i = 0; $i < count($trames); $i++) {
                 $prefix .= ' ';
             }
             $prefix .= $trames[$i][$corresp];
+            $needIgnore[] = $corresp;
         }
     }
 
     if($valide){
         $tramesFound[] = $trames[$i];
         $tabAutoComplete = addItemInArrayIfNotExist($tabAutoComplete, $prefix);
+        if(count($needIgnore) > 0){
+            foreach ($needIgnore as $ni){
+                $ignoreFields = addItemInArrayIfNotExist($ignoreFields, $ni);
+            }
+        }
     }
 }
 
@@ -143,7 +110,7 @@ if(count($tramesFound) > 0){
     $prefixes = $tabAutoComplete;
     foreach ($prefixes as $prefixe){
         foreach ($trames as $trame){
-            $tabAutoComplete = cumulateDataIn($tabAutoComplete, $trame, $prefixe);
+            $tabAutoComplete = cumulateDataIn($tabAutoComplete, $trame, $prefixe, $ignoreFields);
         }
     }
 }
