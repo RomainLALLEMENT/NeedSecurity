@@ -5,7 +5,7 @@ $( document ).ready(function() {
     var searchTimer = null;
 
     // TEMPORAIRE - pour tester la recherche
-    generate_search_page();
+    //generate_search_page();
 
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));

@@ -12,6 +12,18 @@ function addItemInArrayIfNotExist($ar, $item){
     return $ar;
 }
 
+function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonne){
+
+    foreach ($trame as $key => $value){
+        if(!in_array($key, $ignoreColonne)){
+            if(!str_contains($prefixe, $value)){
+                $ar = addItemInArrayIfNotExist($ar, $prefixe . ' ' . $value);
+            }
+        }
+    }
+    return $ar;
+}
+
 function getCorrespondanceIn($trame, $search){
     if(str_contains($trame['frame_date'], $search)){
         return 'frame_date';
@@ -100,7 +112,7 @@ $tabAutoComplete = [];
 for($i = 0; $i < count($trames); $i++) {
     $trames[$i]['ip_from'] = hexadecimalCipher($trames[$i]['ip_from']);
     $trames[$i]['ip_dest'] = hexadecimalCipher($trames[$i]['ip_dest']);
-    $trames[$i]['frame_date'] = dateToRead($trames[$i]['frame_date']);
+    $trames[$i]['frame_date'] = explode(" ", dateToRead($trames[$i]['frame_date']))[0];
     $valide = true;
 
     $prefix = '';
@@ -124,12 +136,18 @@ for($i = 0; $i < count($trames); $i++) {
     }
 }
 
-$tramesFound["autocompletion"] = $tabAutoComplete;
-
 // Générer l'autocomplétion via prefix + les données des tramesFound
 // Repartir du tableau $tramesFound["autocompletion"] (préfixes) pour générer le reste des propositions
 
-
+if(count($tramesFound) > 0){
+    $prefixes = $tabAutoComplete;
+    foreach ($prefixes as $prefixe){
+        foreach ($trames as $trame){
+            $tabAutoComplete = cumulateDataIn($tabAutoComplete, $trame, $prefixe);
+        }
+    }
+}
+$tramesFound["autocompletion"] = $tabAutoComplete;
 
 $json = json_encode($tramesFound, JSON_PRETTY_PRINT);
 die($json);
