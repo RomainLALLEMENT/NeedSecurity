@@ -26,7 +26,7 @@ include_once ('inc/header.php');
         <ul>
             <li>Léonard JOUEN (Chef de projet & Développeur Back-End)</li>
             <li>Johann SIX (Développeur Back-End)</li>
-            <li>Romain LALLEMANT (Développeur Front-End)</li>
+            <li>Romain LALLEMENT (Développeur Front-End)</li>
             <li>Anthony CHEVALIER (Développeur Front-End)</li>
         </ul>
     </div>

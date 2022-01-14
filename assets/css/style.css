@@ -190,6 +190,83 @@ INDEX  PHP
     text-align: center;
     padding: 1.5rem;
 }
+/*CSS PAGE 403/404*/
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif; }
+.error-page h1 {
+    font-size: 30vh;
+    font-weight: bold;
+    position: relative;
+    margin: -8vh 0 0;
+    padding: 0; }
+.error-page h1:after {
+    content: attr(data-h1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: transparent;
+    /* webkit only for graceful degradation to IE */
+    background: -webkit-repeating-linear-gradient(-45deg, var(--header-back-color), var(--header-back-color), var(--rouge), var(--rouge), #b98acc, #69a6ce, #9b59b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+    animation: animateTextBackground 5s ease-in-out infinite; }
+.error-page h1 + p {
+    color: var(--rouge);
+    font-size: 8vh;
+    font-weight: bold;
+    line-height: 10vh;
+    max-width: 600px;
+    position: relative; }
+.error-page h1 + p:after {
+    content: attr(data-p);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: transparent;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text; }
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+/*button homepage*/
+.button-homepage{
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+.button-hp {
+    display: inline-block;
+    padding: 12px 24px;
+    line-height: 1.77;
+    border: solid 2px #fff;
+    border-radius: 15px;
+    background-color: var(--rouge);
+    color: white;
+    cursor: pointer;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+    font-size: 18px;
+    font-weight: 400;
+}
+.button-hp:hover{
+    opacity: 70%;
+}
 
 
 
