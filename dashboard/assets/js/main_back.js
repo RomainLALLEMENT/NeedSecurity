@@ -122,25 +122,18 @@ $( document ).ready(function() {
     function generate_protocol_path(protocol_name){
         container.empty();
 
-        const dashboardMain = $('<section id="dashboard-main"></section>');
-        const items = $('<div class="dashboard-items"></div>');
-        dashboardMain.append(items);
+        const dashboardMain = $('<section id="dashboard"></section>');
 
         // Ligne titre
-        const item_line_title = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_title);
-
-        var item = $('<div class="dashboard-item"></div>');
+        var item = $('<div class="back-box"></div>');
         const title = $('<h2>Protocole '+protocol_name+'</h2>');
 
         item.append(title);
-        items.append(item);
+        dashboardMain.append(item);
 
         // Ligne chemins
-        const item_line_path = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_path);
-        item = $('<div class="dashboard-item"></div>');
-        items.append(item);
+        item = $('<div class="back-box"></div>');
+        dashboardMain.append(item);
         ajax_generateProtocolPath(item, protocol_name);
 
         container.append(dashboardMain);
@@ -148,26 +141,17 @@ $( document ).ready(function() {
 
     function generate_trame_details(trame){
         container.empty();
-        const dashboardMain = $('<section id="dashboard-main"></section>');
-        const items = $('<div class="dashboard-items"></div>');
-        dashboardMain.append(items);
+        const dashboardMain = $('<section id="dashboard"></section>');
 
         // Ligne titre
-        const item_line_title = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_title);
-
-        var item = $('<div class="dashboard-item"></div>');
+        var item = $('<div class="back-box"></div>');
         const title = $('<h2>Trame <strong>'+trame.identification+'</strong> ('+trame.protocol_name+')</h2>');
 
         item.append(title);
-        items.append(item);
+        dashboardMain.append(item);
 
         // Ligne infos
-        const item_line_infos_1 = $('<div class="dashboard-items-line"></div>');
-        const item_line_infos_2 = $('<div class="dashboard-items-line"></div>');
-        const item_line_infos_3 = $('<div class="dashboard-items-line"></div>');
-
-        item = $('<div class="dashboard-item"></div>');
+        item = $('<div class="back-box"></div>');
 
         item.append($('<h2>Informations globales</h2>'));
 
@@ -181,8 +165,8 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>TTL</span><i>'+trame.ttl+'</i></div>'));
 
         item.append(trame_data_item);
-        item_line_infos_1.append(item);
-        item = $('<div class="dashboard-item"></div>');
+        dashboardMain.append(item);
+        item = $('<div class="back-box"></div>');
         item.append($('<h2>Protocole</h2>'));
 
         trame_data_item = $('<div class="trame-info-item"></div>');
@@ -193,8 +177,8 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>Protocol port dest</span><i>'+trame.protocol_ports_dest+'</i></div>'));
 
         item.append(trame_data_item);
-        item_line_infos_2.append(item);
-        item = $('<div class="dashboard-item"></div>');
+        dashboardMain.append(item);
+        item = $('<div class="back-box"></div>');
         item.append($('<h2>IP</h2>'));
         trame_data_item = $('<div class="trame-info-item"></div>');
 
@@ -205,10 +189,7 @@ $( document ).ready(function() {
 
         item.append(trame_data_item);
 
-        item_line_infos_3.append(item);
-        items.append(item_line_infos_1);
-        items.append(item_line_infos_2);
-        items.append(item_line_infos_3);
+        dashboardMain.append(item);
 
         // Ligne graphes (errors)
 
@@ -228,13 +209,13 @@ $( document ).ready(function() {
             }]
         };
 
-        const item_graphes = $('<div class="dashboard-items-line"></div>');
-        items.append(item_graphes);
-        item = $('<div class="dashboard-item"></div>');
+        const item_graphes = $('<div class="back-box"></div>');
+        dashboardMain.append(item_graphes);
+        item = $('<div class="back-box_graph"></div>');
         item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
         item.append('<p><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
         const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
-        const chartjs_canvas_parent = $('<div id="graphe_errors_parent"></div>');
+        const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
         chartjs_canvas_parent.append(chartjs_canvas);
         item.append(chartjs_canvas_parent);
 
@@ -254,18 +235,16 @@ $( document ).ready(function() {
         item_graphes.append(item);
 
         // Ligne autres trames
-        const item_autres_trames = $('<div class="dashboard-items-line"></div>');
-        items.append(item_autres_trames);
+        const item_autres_trames = $('<div class="back-box"></div>');
 
-        item = $('<div class="dashboard-item"></div>');
+        item = $('<div class="back-box_table"></div>');
 
         item.append('<h2>Trames en protocole '+trame.protocol_name+'</h2>');
 
-        const tableParent = $('<div class="table-parent"></div>');
-        const tableSameProtocol = $('<table id="trames-same-protocol"></table>');
-        tableParent.append(tableSameProtocol);
-        item.append(tableParent);
-        items.append(item);
+        const tableSameProtocol = $('<div class="table" id="same-protocol">');
+        item.append(tableSameProtocol);
+        item_autres_trames.append(item);
+        dashboardMain.append(item_autres_trames);
         ajax_getTrames(tableSameProtocol, 1, 10, trame.protocol_name);
 
         container.append(dashboardMain);
@@ -415,7 +394,12 @@ $( document ).ready(function() {
     }
 
     function ajax_getTrames(table, page, nbRows = 10, protocol_name = ''){
+
+        const paginator = $('#paginator-' + table.attr('id'));
+
         table.fadeOut(350, function(){
+        });
+        paginator.fadeOut(350, function(){
         });
 
         table.attr('data-protocol', protocol_name);
@@ -427,12 +411,14 @@ $( document ).ready(function() {
                 data: {page: page, nbRows: nbRows, protocolName: protocol_name},
                 success: function(response){
                     if(response.length > 1){
+                        paginator.remove();
                         generate_table_from_trames(table, response);
                     }
 
                     table.fadeIn(350, function(){  });
                 },
                 error: function(){
+                    paginator.remove();
                     table.fadeIn(350, function(){  });
                 }
             });
@@ -440,11 +426,13 @@ $( document ).ready(function() {
     }
 
     function generate_table_from_trames(table, response){
-        const trHeader = $('<tr class="table-header"></tr>');
+        const trHeader = $('<div class="table_head">');
+
+        const tableID = table.attr('id');
 
         $.each(response[0], function(k, v) {
             if(k !== 'id'){
-                const tdHeader = $('<td>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</td>');
+                const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
                 trHeader.append(tdHeader);
             }
         });
@@ -455,13 +443,13 @@ $( document ).ready(function() {
         let cpt = 0;
         $.each(response, function() {
             if(cpt < response.length - 1){
-                const trTrame = $('<tr class="trame-clickable" data-idtrame="' + $(this)[0]['id'] + '"></tr>').on('click', function(){
+                const trTrame = $('<div class="table_body" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function(){
                     ajax_getTrameDetail($(this).data("idtrame"));
                 });
 
                 $.each(this, function(k, v) {
                     if(k !== 'id'){
-                        const tdTrame = $('<td>'+v+'</td>');
+                        const tdTrame = $('<p>'+v+'</p>');
                         trTrame.append(tdTrame);
                     }
                 });
@@ -469,7 +457,7 @@ $( document ).ready(function() {
             }
             else{
                 // Régénération du paginator
-                const paginator = $('<div class="paginator"></div>');
+                const paginator = $('<div id="paginator-'+tableID+'" class="paginator"></div>');
                 $.each(this, function(k, v) {
                     const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
                     if(v[1] === 'selected'){
@@ -484,7 +472,7 @@ $( document ).ready(function() {
                     });
                     paginator.append(paginatorItem);
                 });
-                table.append(paginator);
+                table.after(paginator);
             }
             cpt++;
         });

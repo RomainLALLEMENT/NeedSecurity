@@ -11,45 +11,39 @@ include_once ('inc/header_back.php');
 // le container est régénéré lorsqu'on change de page
 ?>
 <div id="container">
-    <section id="dashboard-main">
-        <div class="dashboard-items">
-            <div class="dashboard-items-line">
-                <div class="dashboard-item data-item"><span class="data-name">Donnée 1</span><p>8</p></div>
-                <div class="dashboard-item data-item"><span class="data-name">Donnée 2</span><p>8</p></div>
-                <div class="dashboard-item data-item"><span class="data-name">Donnée 3</span><p>8</p></div>
-                <div class="dashboard-item data-item"><span class="data-name">Donnée 4</span><p>8</p></div>
-            </div>
+    <section id="dashboard">
 
-            <div class="dashboard-items-line">
+        <div class="back-box">
 
-                <?php
-                $sql = "SELECT protocol_name,count(id) as cpt FROM trames GROUP BY protocol_name LIMIT 4";
-                $query = $pdo->prepare($sql);
-                $query->execute();
-                $trameData = $query->fetchAll();
+            <?php
+            $sql = "SELECT protocol_name,count(id) as cpt FROM trames GROUP BY protocol_name LIMIT 4";
+            $query = $pdo->prepare($sql);
+            $query->execute();
+            $trameData = $query->fetchAll();
 
-                foreach($trameData as $trame){
-                    echo '<div class="dashboard-item data-item"><span class="data-name">'.$trame['protocol_name'].'</span><p>'.$trame['cpt'].'</p></div>';
-                }
-                ?>
-            </div>
-            <div class="dashboard-items-line">
-                <div class="dashboard-item"><h2>Trames</h2>
-                    <div id="chart-1-div">
-                        <canvas id="chart-1"></canvas>
-                    </div>
-                </div>
-                <div class="dashboard-item"><h2>Autre</h2>
-                    <div >
-                        <canvas id="chart-2"></canvas>
-                    </div>
+            $cpt = 1;
+            foreach($trameData as $trame){
+                echo '<div class="data-box" data-box="'.$cpt.'"><h3 class="data-box_name">'.$trame['protocol_name'].'</h3><p class="data-box_nb">'.$trame['cpt'].'</p></div>';
+                $cpt++;
+            }
+            ?>
+        </div>
+
+
+        <div class="back-box">
+            <div class="back-box_graph">
+                <h2>Trames graph</h2>
+                <div class="back-box_graph__chatjs">
+                    <canvas id="chart-1"></canvas>
                 </div>
             </div>
-            <div class="dashboard-items-line">
-                <div class="dashboard-item"><h2>Dernières trames</h2>
-                    <div class="table-parent">
-                        <table id="last-trames"></table>
-                    </div>
+        </div>
+
+        <div class="back-box">
+            <div class="back-box_table">
+                <h2>Dernières trames</h2>
+                <div class="table" id="last-trames">
+                    <!-- tableau généré en js -->
                 </div>
             </div>
         </div>

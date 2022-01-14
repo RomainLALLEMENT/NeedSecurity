@@ -98,105 +98,32 @@ DASHBOARD PAGE
 
  */
 
-#dashboard-main .wrap{
-    padding-top: 1rem;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-}
-
-#dashboard-main .dashboard-items-line{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    gap: 1rem;
-    padding-top: 1rem;
-}
-
-#dashboard-main .dashboard-item{
-    background-color: var(--header-back-color);
-    padding: 1rem;
-    border-radius: 3px;
-    width: 100%;
-}
-
-#dashboard-main .data-item{
-    display: flex;
-    flex-flow: column nowrap;
-    align-content: center;
-    align-items: center;
-
-}
-
-#dashboard-main .data-item .data-name{
-    color: var(--rouge);
-    font-weight: 300;
-}
-
-#dashboard-main .data-item p{
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
-}
-
-#dashboard-main .dashboard-item h2{
-    color: white;
-    font-weight: 300;
-    font-size: 1.8rem;
-}
-
-#dashboard-main .dashboard-item strong{
-    font-weight: 700;
-}
-
-#dashboard-main .dashboard-item table {
-    width: 100%;
-}
-
-#dashboard-main .dashboard-item table td{
-    padding: .5rem;
-    color: #b3b3b5;
-}
-
-#dashboard-main .dashboard-item table .table-header{
-    background-color: #191E3A;
-    border-radius: 5px;
-}
-
-#dashboard-main .dashboard-item table .table-header td{
-    color: white;
-}
-
-#dashboard-main .dashboard-item table tr:not(.table-header):nth-child(2n+1){
-    background-color: rgba(255,255,255,.1);
-}
-
-#dashboard-main .trame-info-item{
+#dashboard .trame-info-item{
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     gap: 2rem;
 }
 
-#dashboard-main .trame-info-data{
+#dashboard .trame-info-data{
     display: flex;
     flex-flow: column nowrap;
     align-content: center;
     align-items: center;
 }
 
-#dashboard-main .trame-info-data span{
+#dashboard .trame-info-data span{
     font-weight: 300;
     font-size: 1.2rem;
     color: var(--gris);
 }
 
-#dashboard-main .trame-info-data i{
+#dashboard .trame-info-data i{
     font-weight: 700;
     color: white;
 }
 
-#dashboard-main .dashboard-item p{
+#dashboard .dashboard-item p{
     color: white;
 }
 
