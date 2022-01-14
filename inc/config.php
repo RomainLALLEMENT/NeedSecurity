@@ -4,7 +4,7 @@ $NOM_SITE_COLORED = '<span class="logo_col_1">NƎƎD</span> <span class="logo_co
 
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
-$DB_PASS = 'root';
+$DB_PASS = '';
 $DB_NAME = 'needsecurity';
 
 

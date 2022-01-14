@@ -14,7 +14,12 @@ $( document ).ready(function() {
     else{
         const table = $('#last-trames');
         ajax_getTrames(table, 1);
-    };
+
+        $('.data-box').on('click', function(e){
+            e.preventDefault();
+            generate_protocol_path($(this).attr('data-protocol'));
+        });
+    }
 
     function ajax_getTrameDetail(trameid){
         setTimeout(function() {
@@ -176,15 +181,16 @@ $( document ).ready(function() {
         item.append(backBoxContent);
         dashboardMain.append(item);
         item = $('<div class="back-box"></div>');
-        item.append($('<h2>IP</h2>'));
+        backBoxContent = $('<div></div>');
+        backBoxContent.append($('<h2>IP</h2>'));
         trame_data_item = $('<div class="trame-info-item"></div>');
 
         trame_data_item.append($('<div class="trame-info-data"><span>Header checksum</span><i>'+trame.header_checksum+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>IP from</span><i>'+trame.ip_from+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>IP dest</span><i>'+trame.ip_dest+'</i></div>'));
 
-
-        item.append(trame_data_item);
+        backBoxContent.append(trame_data_item);
+        item.append(backBoxContent);
 
         dashboardMain.append(item);
 
@@ -396,8 +402,6 @@ $( document ).ready(function() {
 
         $('#'+tableID+' .table_body_row').fadeOut(350, function(){
         });
-        $('#paginator-' + table.attr('id') + ' .paginator-item').fadeOut(350, function(){
-        });
 
         table.attr('data-protocol', protocol_name);
 
@@ -414,14 +418,10 @@ $( document ).ready(function() {
 
                     $('#'+tableID+' .table_body_row').fadeIn(350, function(){
                     });
-                    $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
-                    });
                 },
                 error: function(){
                     $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
                     $('#'+tableID+' .table_body_row').fadeIn(350, function(){
-                    });
-                    $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
                     });
                 }
             });
