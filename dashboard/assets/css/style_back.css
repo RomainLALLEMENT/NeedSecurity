@@ -332,3 +332,25 @@ DASHBOARD PAGE
     right: -60%;
     color: greenyellow;
 }
+
+/* SEARCH */
+
+#autocomplete{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    overflow-x: scroll;
+    height: 150px;
+    background-color: #1f1f1f;
+    border-radius: 3px;
+}
+
+#autocomplete .autocomplete-data{
+    color: white;
+    transition: all .25s;
+    cursor: pointer;
+}
+
+#autocomplete .autocomplete-data:hover{
+    background-color: #646064;
+}

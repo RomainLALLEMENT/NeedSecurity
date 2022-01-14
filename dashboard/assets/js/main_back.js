@@ -1,8 +1,11 @@
 $( document ).ready(function() {
+    // BASES
     const container = $('#container');
+    // BASES - SEARCH
+    var searchTimer = null;
 
-    // TEMPORAIRE - pour tester l'ajax de recherche
-    ajax_search("ud 0x00");
+    // TEMPORAIRE - pour tester la recherche
+    generate_search_page();
 
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));
@@ -106,21 +109,18 @@ $( document ).ready(function() {
     }
 
     function ajax_search(search){
-        setTimeout(function() {
-            $.ajax({
-                type: "GET",
-                url: "inc/ajax_search.php",
-                data: {search: search},
-                success: function(response){
-                    console.log('search = ');
-                    console.log(response);
-                    //const trame = JSON.parse(response);
-                },
-                error: function(){
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_search.php",
+            data: {search: search},
+            success: function(response){
+                const data = JSON.parse(response);
+                update_search_page(data);
+            },
+            error: function(){
 
-                }
-            });
-        }, 600);
+            }
+        });
     }
 
     function generate_protocol_path(protocol_name){
@@ -139,6 +139,65 @@ $( document ).ready(function() {
         item = $('<div class="back-box"></div>');
         dashboardMain.append(item);
         ajax_generateProtocolPath(item, protocol_name);
+
+        container.append(dashboardMain);
+    }
+
+    function update_search_page(searchData){
+
+        // Autocomplétion
+        const _autocomplete = $('#autocomplete');
+        _autocomplete.empty();
+        $.each(searchData.autocompletion, function() {
+            const autocompleteData = $('<div class="autocomplete-data">'+this.toString()+'</div>').on('click', function(){
+                const value = $(this).text();
+                $('#input-search').val(value);
+                _autocomplete.empty();
+                _autocomplete.css('display', 'none');
+                ajax_search(value);
+            });
+            _autocomplete.append(autocompleteData);
+        });
+    }
+
+    function generate_search_page(){
+        container.empty();
+        var item, divParent;
+        const dashboardMain = $('<section id="dashboard"></section>');
+
+        item = $('<div class="back-box"></div>');
+        divParent = $('<div></div>');
+        const inputSearch = $('<input id="input-search" type="text" placeholder="Recherche...">');
+        divParent.append(inputSearch);
+        item.append(divParent);
+        dashboardMain.append(item);
+
+        const autocomplete = $('<div id="autocomplete"></div>');
+        divParent.append(autocomplete);
+        autocomplete.css('display', 'none');
+
+        inputSearch.on('input', function() {
+            const value = inputSearch.val();
+            const _autocomplete = $('#autocomplete');
+            if(value.length <= 0){
+                _autocomplete.css('display', 'none');
+            }
+            if(searchTimer){
+                clearTimeout(searchTimer);
+            }
+
+            searchTimer = setTimeout(function(){
+                _autocomplete.empty();
+
+                if(value.length > 0){
+                    _autocomplete.css('display', 'flex');
+                    ajax_search(value);
+                }
+                else{
+                    _autocomplete.css('display', 'none');
+                }
+            }, 500);
+        });
 
         container.append(dashboardMain);
     }
@@ -406,7 +465,7 @@ $( document ).ready(function() {
 
         const tableID = table.attr('id');
 
-        $('#'+tableID+' .table_body').fadeOut(350, function(){
+        $('#'+tableID+' .table_body_row').fadeOut(350, function(){
         });
         $('#paginator-' + table.attr('id') + ' .paginator-item').fadeOut(350, function(){
         });
@@ -424,14 +483,14 @@ $( document ).ready(function() {
                         generate_table_from_trames(table, response);
                     }
 
-                    $('#'+tableID+' .table_body').fadeIn(350, function(){
+                    $('#'+tableID+' .table_body_row').fadeIn(350, function(){
                     });
                     $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
                     });
                 },
                 error: function(){
                     $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
-                    $('#'+tableID+' .table_body').fadeIn(350, function(){
+                    $('#'+tableID+' .table_body_row').fadeIn(350, function(){
                     });
                     $('#paginator-' + table.attr('id') + ' .paginator-item').fadeIn(350, function(){
                     });
@@ -455,12 +514,20 @@ $( document ).ready(function() {
             table.append(trHeaderNew);
         }
 
-        $('#'+tableID+' .table_body').remove();
+        const trBodyExist = $('#'+tableID+' .table_body').length;
+        var goodBody = $('#'+tableID+' .table_body');
+        if(!trBodyExist){
+            const trBodyNew = $('<div class="table_body" id="'+tableID+'-css"></div>');
+            goodBody = trBodyNew;
+            table.append(goodBody);
+        }
+
+        $('#'+tableID+' .table_body_row').remove();
 
         let cpt = 0;
         $.each(response, function() {
             if(cpt < response.length - 1){
-                const trTrame = $('<div class="table_body" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function(){
+                const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function(){
                     ajax_getTrameDetail($(this).data("idtrame"));
                 });
 
@@ -470,7 +537,7 @@ $( document ).ready(function() {
                         trTrame.append(tdTrame);
                     }
                 });
-                table.append(trTrame);
+                goodBody.append(trTrame);
             }
             else{
                 // Régénération du paginator s'il n'existe pas
