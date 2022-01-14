@@ -36,8 +36,6 @@ function showModal(modalType, defaultEmail = ''){
 
     document.body.insertAdjacentElement("beforeend", modal);
 
-    console.log('modalType = ' + modalType);
-
     if(modalType === 'login'){
         loginModal(defaultEmail);
     }
