@@ -32,5 +32,6 @@
 <script src="../assets/js/main_js_commun.js"></script>
 <script src="./assets/js/reload-bd.js"></script>
 <script src="./assets/js/main_back.js"></script>
+<script src="./assets/js/graph.js"></script>
 </body>
 </html>

@@ -47,12 +47,18 @@ include_once ('inc/header_back.php');
                             <canvas id="chart-1"></canvas>
                         </div>
                     </div>
+                    <div class="back-box_graph">
+                        <h2>Trames graph</h2>
+                        <div class="back-box_graph__chatjs">
+                            <canvas id="chart-2"></canvas>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="back-box">
                     <div class="back-box_table">
                         <h2>Tableau log</h2>
-                            <div class="table" id="dashboard_table">
+                            <div class="table" >
                                 <div class="table_head">
                                         <p>date</p>
                                         <p>Identification</p>
@@ -60,49 +66,30 @@ include_once ('inc/header_back.php');
                                         <p>Ip from</p>
                                         <p>Ip dest</p>
                                 </div>
-                                <div class="table_body">
+                                <div class="table_body" id="dashboard_table">
+                                <div class="table_body_row">
                                         <p>02/12/2020 10:57:33</p>
                                         <p>0xa443</p>
                                         <p>ICMP</p>
                                         <p>172.217.19.227</p>
                                         <p>192.168.1.74</p>
                                 </div>
-                                <div class="table_body">
-                                    <p>02/12/2020 10:57:33</p>
-                                    <p>0xa443</p>
-                                    <p>ICMP</p>
-                                    <p>172.217.19.227</p>
-                                    <p>192.168.1.74</p>
-                                </div>
-                                <div class="table_body">
-                                    <p>02/12/2020 10:57:33</p>
-                                    <p>0xa443</p>
-                                    <p>ICMP</p>
-                                    <p>172.217.19.227</p>
-                                    <p>192.168.1.74</p>
-                                </div>
-                                <div class="table_body">
-                                    <p>02/12/2020 10:57:33</p>
-                                    <p>0xa443</p>
-                                    <p>ICMP</p>
-                                    <p>172.217.19.227</p>
-                                    <p>192.168.1.74</p>
-                                </div>
-                                <div class="table_body">
-                                    <p>02/12/2020 10:57:33</p>
-                                    <p>0xa443</p>
-                                    <p>ICMP</p>
-                                    <p>172.217.19.227</p>
-                                    <p>192.168.1.74</p>
-                                </div>
-                                <div class="table_body">
-                                    <p>02/12/2020 10:57:33</p>
-                                    <p>0xa443</p>
-                                    <p>ICMP</p>
-                                    <p>172.217.19.227</p>
-                                    <p>192.168.1.74</p>
-                                </div>
+                                    <div class="table_body_row">
+                                        <p>02/12/2020 10:57:33</p>
+                                        <p>0xa443</p>
+                                        <p>ICMP</p>
+                                        <p>172.217.19.227</p>
+                                        <p>192.168.1.74</p>
+                                    </div>
+                                    <div class="table_body_row">
+                                        <p>02/12/2020 10:57:33</p>
+                                        <p>0xa443</p>
+                                        <p>ICMP</p>
+                                        <p>172.217.19.227</p>
+                                        <p>192.168.1.74</p>
+                                    </div>
 
+                                </div>
 
                             </div>
                             <div class="paginator">
@@ -114,7 +101,10 @@ include_once ('inc/header_back.php');
         </section>
     </div>
 
-
-
+<p id="test">la</p>
+    <div>
+        <h1>Chart</h1>
+        <canvas id="Chart" width="800" height="450"></canvas>
+    </div>
 <?php
 include('inc/footer_back.php');
