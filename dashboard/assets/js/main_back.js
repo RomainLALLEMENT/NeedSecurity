@@ -114,8 +114,10 @@ $( document ).ready(function() {
             url: "inc/ajax_search.php",
             data: {search: search},
             success: function(response){
-                const data = JSON.parse(response);
-                update_search_page(data);
+                console.log('search response');
+                console.log(response);
+                //const data = JSON.parse(response);
+                //update_search_page(data);
             },
             error: function(){
 
