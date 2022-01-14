@@ -1,9 +1,12 @@
 
 $( document ).ready(function() {
+    // BASES
     const container = $('#container');
+    // BASES - SEARCH
+    var searchTimer = null;
 
-    // TEMPORAIRE - pour tester l'ajax de recherche
-    ajax_search("ud 0x00");
+    // TEMPORAIRE - pour tester la recherche
+    //generate_search_page();
 
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));
@@ -12,68 +15,11 @@ $( document ).ready(function() {
         const table = $('#last-trames');
         ajax_getTrames(table, 1);
 
-        // Graphe - Pie 1
-
-        let data = {
-            labels: [
-                'Red',
-                'Blue',
-                'Yellow'
-            ],
-            hoverOffset: 4
-        }
-
-        let config = {
-            type: 'bar',
-            data: data,
-            options: {
-                layout: {
-                    padding: 50
-                }
-            }
-        };
-
-        const chart1 = new Chart(
-            document.getElementById('chart-1'),
-            config
-        );
-
-        // Graphe - 2
-
-        const labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-        ];
-
-        data = {
-            labels: labels,
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45],
-            }]
-        };
-
-        config = {
-            type: 'line',
-            data: data,
-            options: {
-                layout: {
-                    padding: 20
-                }
-            }
-        };
-
-        const chart2 = new Chart(
-            document.getElementById('chart-2'),
-            config
-        );
-    };
+        $('.data-box').on('click', function(e){
+            e.preventDefault();
+            generate_protocol_path($(this).attr('data-protocol'));
+        });
+    }
 
     function ajax_getTrameDetail(trameid){
         setTimeout(function() {
@@ -95,74 +41,119 @@ $( document ).ready(function() {
     }
 
     function ajax_search(search){
-        setTimeout(function() {
-            $.ajax({
-                type: "GET",
-                url: "inc/ajax_search.php",
-                data: {search: search},
-                success: function(response){
-                    console.log('search = ');
-                    console.log(response);
-                    //const trame = JSON.parse(response);
-                },
-                error: function(){
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_search.php",
+            data: {search: search},
+            success: function(response){
+                console.log('search response');
+                console.log(response);
+                //const data = JSON.parse(response);
+                //update_search_page(data);
+            },
+            error: function(){
 
-                }
-            });
-        }, 600);
+            }
+        });
     }
 
     function generate_protocol_path(protocol_name){
         container.empty();
 
-        const dashboardMain = $('<section id="dashboard-main"></section>');
-        const items = $('<div class="dashboard-items"></div>');
-        dashboardMain.append(items);
+        const dashboardMain = $('<section id="dashboard"></section>');
 
         // Ligne titre
-        const item_line_title = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_title);
-
-        var item = $('<div class="dashboard-item"></div>');
+        var item = $('<div class="back-box"></div>');
         const title = $('<h2>Protocole '+protocol_name+'</h2>');
 
         item.append(title);
-        items.append(item);
+        dashboardMain.append(item);
 
         // Ligne chemins
-        const item_line_path = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_path);
-        item = $('<div class="dashboard-item"></div>');
-        items.append(item);
+        item = $('<div class="back-box"></div>');
+        dashboardMain.append(item);
         ajax_generateProtocolPath(item, protocol_name);
+
+        container.append(dashboardMain);
+    }
+
+    function update_search_page(searchData){
+
+        // Autocomplétion
+        const _autocomplete = $('#autocomplete');
+        _autocomplete.empty();
+        $.each(searchData.autocompletion, function() {
+            const autocompleteData = $('<div class="autocomplete-data">'+this.toString()+'</div>').on('click', function(){
+                const value = $(this).text();
+                $('#input-search').val(value);
+                _autocomplete.empty();
+                _autocomplete.css('display', 'none');
+                ajax_search(value);
+            });
+            _autocomplete.append(autocompleteData);
+        });
+    }
+
+    function generate_search_page(){
+        container.empty();
+        var item, divParent;
+        const dashboardMain = $('<section id="dashboard"></section>');
+
+        item = $('<div class="back-box"></div>');
+        divParent = $('<div></div>');
+        const inputSearch = $('<input id="input-search" type="text" placeholder="Recherche...">');
+        divParent.append(inputSearch);
+        item.append(divParent);
+        dashboardMain.append(item);
+
+        const autocomplete = $('<div id="autocomplete"></div>');
+        divParent.append(autocomplete);
+        autocomplete.css('display', 'none');
+
+        inputSearch.on('input', function() {
+            const value = inputSearch.val();
+            const _autocomplete = $('#autocomplete');
+            if(value.length <= 0){
+                _autocomplete.css('display', 'none');
+            }
+            if(searchTimer){
+                clearTimeout(searchTimer);
+            }
+
+            searchTimer = setTimeout(function(){
+                _autocomplete.empty();
+
+                if(value.length > 0){
+                    _autocomplete.css('display', 'flex');
+                    ajax_search(value);
+                }
+                else{
+                    _autocomplete.css('display', 'none');
+                }
+            }, 500);
+        });
 
         container.append(dashboardMain);
     }
 
     function generate_trame_details(trame){
         container.empty();
-        const dashboardMain = $('<section id="dashboard-main"></section>');
-        const items = $('<div class="dashboard-items"></div>');
-        dashboardMain.append(items);
+        const dashboardMain = $('<section id="dashboard"></section>');
 
         // Ligne titre
-        const item_line_title = $('<div class="dashboard-items-line"></div>');
-        items.append(item_line_title);
-
-        var item = $('<div class="dashboard-item"></div>');
+        var item = $('<div class="back-box"></div>');
         const title = $('<h2>Trame <strong>'+trame.identification+'</strong> ('+trame.protocol_name+')</h2>');
 
+        var backBoxContent = $('<div></div>');
+
         item.append(title);
-        items.append(item);
+        dashboardMain.append(item);
 
         // Ligne infos
-        const item_line_infos_1 = $('<div class="dashboard-items-line"></div>');
-        const item_line_infos_2 = $('<div class="dashboard-items-line"></div>');
-        const item_line_infos_3 = $('<div class="dashboard-items-line"></div>');
+        item = $('<div class="back-box"></div>');
 
-        item = $('<div class="dashboard-item"></div>');
-
-        item.append($('<h2>Informations globales</h2>'));
+        backBoxContent.append($('<h2>Informations globales</h2>'));
+        item.append(backBoxContent);
 
         var trame_data_item = $('<div class="trame-info-item"></div>');
 
@@ -173,10 +164,11 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>Flags code</span><i>'+trame.flags_code+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>TTL</span><i>'+trame.ttl+'</i></div>'));
 
-        item.append(trame_data_item);
-        item_line_infos_1.append(item);
-        item = $('<div class="dashboard-item"></div>');
-        item.append($('<h2>Protocole</h2>'));
+        backBoxContent.append(trame_data_item);
+        dashboardMain.append(item);
+        item = $('<div class="back-box"></div>');
+        backBoxContent = $('<div></div>');
+        backBoxContent.append($('<h2>Protocole</h2>'));
 
         trame_data_item = $('<div class="trame-info-item"></div>');
 
@@ -185,23 +177,22 @@ $( document ).ready(function() {
         trame_data_item.append($('<div class="trame-info-data"><span>Protocol port from</span><i>'+trame.protocol_ports_from+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>Protocol port dest</span><i>'+trame.protocol_ports_dest+'</i></div>'));
 
-        item.append(trame_data_item);
-        item_line_infos_2.append(item);
-        item = $('<div class="dashboard-item"></div>');
-        item.append($('<h2>IP</h2>'));
+        backBoxContent.append(trame_data_item);
+        item.append(backBoxContent);
+        dashboardMain.append(item);
+        item = $('<div class="back-box"></div>');
+        backBoxContent = $('<div></div>');
+        backBoxContent.append($('<h2>IP</h2>'));
         trame_data_item = $('<div class="trame-info-item"></div>');
 
         trame_data_item.append($('<div class="trame-info-data"><span>Header checksum</span><i>'+trame.header_checksum+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>IP from</span><i>'+trame.ip_from+'</i></div>'));
         trame_data_item.append($('<div class="trame-info-data"><span>IP dest</span><i>'+trame.ip_dest+'</i></div>'));
 
+        backBoxContent.append(trame_data_item);
+        item.append(backBoxContent);
 
-        item.append(trame_data_item);
-
-        item_line_infos_3.append(item);
-        items.append(item_line_infos_1);
-        items.append(item_line_infos_2);
-        items.append(item_line_infos_3);
+        dashboardMain.append(item);
 
         // Ligne graphes (errors)
 
@@ -221,13 +212,13 @@ $( document ).ready(function() {
             }]
         };
 
-        const item_graphes = $('<div class="dashboard-items-line"></div>');
-        items.append(item_graphes);
-        item = $('<div class="dashboard-item"></div>');
+        const item_graphes = $('<div class="back-box"></div>');
+        dashboardMain.append(item_graphes);
+        item = $('<div class="back-box_graph"></div>');
         item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
         item.append('<p><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
         const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
-        const chartjs_canvas_parent = $('<div id="graphe_errors_parent"></div>');
+        const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
         chartjs_canvas_parent.append(chartjs_canvas);
         item.append(chartjs_canvas_parent);
 
@@ -247,18 +238,16 @@ $( document ).ready(function() {
         item_graphes.append(item);
 
         // Ligne autres trames
-        const item_autres_trames = $('<div class="dashboard-items-line"></div>');
-        items.append(item_autres_trames);
+        const item_autres_trames = $('<div class="back-box"></div>');
 
-        item = $('<div class="dashboard-item"></div>');
+        item = $('<div class="back-box_table"></div>');
 
         item.append('<h2>Trames en protocole '+trame.protocol_name+'</h2>');
 
-        const tableParent = $('<div class="table-parent"></div>');
-        const tableSameProtocol = $('<table id="trames-same-protocol"></table>');
-        tableParent.append(tableSameProtocol);
-        item.append(tableParent);
-        items.append(item);
+        const tableSameProtocol = $('<div class="table" id="same-protocol">');
+        item.append(tableSameProtocol);
+        item_autres_trames.append(item);
+        dashboardMain.append(item_autres_trames);
         ajax_getTrames(tableSameProtocol, 1, 10, trame.protocol_name);
 
         container.append(dashboardMain);
@@ -408,7 +397,10 @@ $( document ).ready(function() {
     }
 
     function ajax_getTrames(table, page, nbRows = 10, protocol_name = ''){
-        table.fadeOut(350, function(){
+
+        const tableID = table.attr('id');
+
+        $('#'+tableID+' .table_body_row').fadeOut(350, function(){
         });
 
         table.attr('data-protocol', protocol_name);
@@ -420,49 +412,77 @@ $( document ).ready(function() {
                 data: {page: page, nbRows: nbRows, protocolName: protocol_name},
                 success: function(response){
                     if(response.length > 1){
+                        $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
                         generate_table_from_trames(table, response);
                     }
 
-                    table.fadeIn(350, function(){  });
+                    $('#'+tableID+' .table_body_row').fadeIn(350, function(){
+                    });
                 },
                 error: function(){
-                    table.fadeIn(350, function(){  });
+                    $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
+                    $('#'+tableID+' .table_body_row').fadeIn(350, function(){
+                    });
                 }
             });
         }, 600);
     }
 
     function generate_table_from_trames(table, response){
-        const trHeader = $('<tr class="table-header"></tr>');
+        const tableID = table.attr('id');
 
-        $.each(response[0], function(k, v) {
-            if(k !== 'id'){
-                const tdHeader = $('<td>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</td>');
-                trHeader.append(tdHeader);
-            }
-        });
+        const trHeaderExist = $('#'+tableID+' .table_head').length;
+        if(!trHeaderExist){
+            const trHeaderNew = $('<div class="table_head"></div>');
+            $.each(response[0], function(k, v) {
+                if(k !== 'id'){
+                    const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
+                    trHeaderNew.append(tdHeader);
+                }
+            });
+            table.append(trHeaderNew);
+        }
 
-        table.empty();
-        table.append(trHeader);
+        const trBodyExist = $('#'+tableID+' .table_body').length;
+        var goodBody = $('#'+tableID+' .table_body');
+        if(!trBodyExist){
+            const trBodyNew = $('<div class="table_body" id="'+tableID+'-css"></div>');
+            goodBody = trBodyNew;
+            table.append(goodBody);
+        }
+
+        $('#'+tableID+' .table_body_row').remove();
 
         let cpt = 0;
         $.each(response, function() {
             if(cpt < response.length - 1){
-                const trTrame = $('<tr class="trame-clickable" data-idtrame="' + $(this)[0]['id'] + '"></tr>').on('click', function(){
+                const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function(){
                     ajax_getTrameDetail($(this).data("idtrame"));
                 });
 
                 $.each(this, function(k, v) {
                     if(k !== 'id'){
-                        const tdTrame = $('<td>'+v+'</td>');
+                        const tdTrame = $('<p>'+v+'</p>');
                         trTrame.append(tdTrame);
                     }
                 });
-                table.append(trTrame);
+                goodBody.append(trTrame);
             }
             else{
-                // Régénération du paginator
-                const paginator = $('<div class="paginator"></div>');
+                // Régénération du paginator s'il n'existe pas
+                const paginator = $('#paginator-'+tableID);
+
+                var goodPaginator;
+                if(paginator.length){
+                    goodPaginator = paginator;
+                }
+                else{
+                    goodPaginator = $('<div id="paginator-'+tableID+'" class="paginator"></div>');
+                    table.after(goodPaginator);
+                }
+
+                goodPaginator.empty();
+
                 $.each(this, function(k, v) {
                     const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
                     if(v[1] === 'selected'){
@@ -475,9 +495,8 @@ $( document ).ready(function() {
                         const protocol_name = table.attr('data-protocol');
                         ajax_getTrames(table, page, 10, protocol_name);
                     });
-                    paginator.append(paginatorItem);
+                    goodPaginator.append(paginatorItem);
                 });
-                table.append(paginator);
             }
             cpt++;
         });

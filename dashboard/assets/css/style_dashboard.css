@@ -26,6 +26,15 @@
     align-items: center;
 }
 
+.back-box .data-box.clickable{
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.back-box .data-box.clickable:hover{
+    background-color: #514f51;
+}
+
  .back-box .data-box .data-box_name{
     color: var(--rouge);
     font-weight: 700;
@@ -52,12 +61,15 @@
     width: 100%;
     display: flex;
     flex-flow: nowrap column;
-    overflow: auto;
+    overflow-x: scroll;
     text-align: center;
 }
 
-
-#container .table > * {
+#container .table .table_body{
+    width: max(700px, 100%);
+    overflow-y: scroll;
+}
+#container .table .table_head, #container .table .table_body_row{
     padding: .5rem;
     color: var(--gris);
     display: grid;
@@ -74,21 +86,26 @@
 }
 
 
-#container .table .table_body:nth-child(2n+1){
+#container .table .table_body_row:nth-child(2n+1){
     background-color: rgba(255,255,255,.1);
 }
-#container .table .table_body {
+#container .table .table_body_row {
     transition: all .25s;
     cursor: pointer;
+
 }
-#container .table .table_body:hover{
+#container .table .table_body_row:hover{
     background-color: var(--selected-item-color);
 }
 
 
 /* Dashboard Table !!!*/
-#dashboard_table {
+#last-trames-css {
     height: 40vh;
+}
+#same-protocol-css {
+    height: 40vh;
+
 }
 
 /* Paginator */
