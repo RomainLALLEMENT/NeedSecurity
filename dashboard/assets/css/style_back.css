@@ -49,11 +49,9 @@ body{
 
 #header  i{
     color: var(--rouge);
+    cursor: pointer;
 }
-
-
 /* Index for multipage */
-
 #dashboard-menu{
     z-index: -1;
     position: fixed;

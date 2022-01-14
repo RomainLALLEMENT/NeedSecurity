@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style_commun.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+
 </head>
 <body>
 <header id="header">

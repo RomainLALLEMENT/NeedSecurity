@@ -16,7 +16,6 @@
     <div class="footer-bot">
         <p class="copyright">Need Security©2022</p>
         <p><a href="mentionslegales.php">Mentions légales</a></p>
-        <p><a href="#">Conditions d'utilisation</a></p>
     </div>
 </footer>
 

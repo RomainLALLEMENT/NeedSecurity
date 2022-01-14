@@ -2,6 +2,19 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Mentions légales</title>
+    </head>
+    <body>
+
+    </body>
+    </html>
     <section id="mentionslegales">
         <div class="wrap">
             <div class="ml-title">
@@ -90,17 +103,17 @@ include_once ('inc/header.php');
                     <p>Dès que <?=$NOM_SITE_COLORED;?> a connaissance du décès d’un Utilisateur et à défaut d’instructions de sa part, <?=$NOM_SITE_COLORED;?> s’engage à détruire ses données, sauf si leur conservation s’avère nécessaire à des fins probatoires ou pour répondre à une obligation légale.</p> <p>Si l’Utilisateur souhaite savoir comment <?=$NOM_SITE_COLORED;?> utilise ses Données Personnelles, demander à les rectifier ou s’oppose à leur traitement, l’Utilisateur peut contacter <?=$NOM_SITE_COLORED;?> par écrit à l’adresse suivante : </p> <?= $NOM_SITE_COLORED; ?> – DPO, <?= $NOM_SITE_COLORED; ?> <br>30 Place Henri Gadeau de Kerville 76000 Rouen. <p>Dans ce cas, l’Utilisateur doit indiquer les Données Personnelles qu’il souhaiterait que <?=$NOM_SITE_COLORED;?> corrige, mette à jour ou supprime, en s’identifiant précisément avec une copie d’une pièce d’identité (carte d’identité ou passeport). </p>
                     <p>Les demandes de suppression de Données Personnelles seront soumises aux obligations qui sont imposées à <?=$NOM_SITE_COLORED;?> par la loi, notamment en matière de conservation ou d’archivage des documents. Enfin, les Utilisateurs de <?=$NOM_SITE_COLORED;?> peuvent déposer une réclamation auprès des autorités de contrôle, et notamment de la CNIL (https://www.cnil.fr/fr/plaintes).</p>
                 </div>
-                    <div class="ml_undertitle">
-                        <h3>7.4 Non-communication des données personnelles</h3>
-                    </div>
-                    <div class="ml-text">
-                        <p><?=$NOM_SITE_COLORED;?> s’interdit de traiter, héberger ou transférer les Informations collectées sur ses Clients vers un pays situé en dehors de l’Union européenne ou reconnu comme « non adéquat » par la Commission européenne sans en informer préalablement le client. Pour autant, <?=$NOM_SITE_COLORED;?> reste libre du choix de ses sous-traitants techniques et commerciaux à la condition qu’il présentent les garanties suffisantes au regard des exigences du Règlement Général sur la Protection des Données (RGPD : n° 2016-679).</p>
-                        <p><?=$NOM_SITE_COLORED;?> s’engage à prendre toutes les précautions nécessaires afin de préserver la sécurité des Informations et notamment qu’elles ne soient pas communiquées à des personnes non autorisées. Cependant, si un incident impactant l’intégrité ou la confidentialité des Informations du Client est portée à la connaissance de <?=$NOM_SITE_COLORED;?>, celle-ci devra dans les meilleurs délais informer le Client et lui communiquer les mesures de corrections prises. Par ailleurs <?=$NOM_SITE_COLORED;?> ne collecte aucune « données sensibles ».</p>
-                        <p>Les Données Personnelles de l’Utilisateur peuvent être traitées par des filiales de <?=$NOM_SITE_COLORED;?> et des sous-traitants (prestataires de services), exclusivement afin de réaliser les finalités de la présente politique.</p><p>Dans la limite de leurs attributions respectives et pour les finalités rappelées ci-dessus, les principales personnes susceptibles d’avoir accès aux données des Utilisateurs de <?=$NOM_SITE_COLORED;?> sont principalement les agents de notre service client.</p><div ng-bind-html="rgpdHTML"></div>
-                    </div>
-                    <div class="ml-title">
-                        <h2>8. Notification d’incident</h2>
-                    </div>
+                <div class="ml_undertitle">
+                    <h3>7.4 Non-communication des données personnelles</h3>
+                </div>
+                <div class="ml-text">
+                    <p><?=$NOM_SITE_COLORED;?> s’interdit de traiter, héberger ou transférer les Informations collectées sur ses Clients vers un pays situé en dehors de l’Union européenne ou reconnu comme « non adéquat » par la Commission européenne sans en informer préalablement le client. Pour autant, <?=$NOM_SITE_COLORED;?> reste libre du choix de ses sous-traitants techniques et commerciaux à la condition qu’il présentent les garanties suffisantes au regard des exigences du Règlement Général sur la Protection des Données (RGPD : n° 2016-679).</p>
+                    <p><?=$NOM_SITE_COLORED;?> s’engage à prendre toutes les précautions nécessaires afin de préserver la sécurité des Informations et notamment qu’elles ne soient pas communiquées à des personnes non autorisées. Cependant, si un incident impactant l’intégrité ou la confidentialité des Informations du Client est portée à la connaissance de <?=$NOM_SITE_COLORED;?>, celle-ci devra dans les meilleurs délais informer le Client et lui communiquer les mesures de corrections prises. Par ailleurs <?=$NOM_SITE_COLORED;?> ne collecte aucune « données sensibles ».</p>
+                    <p>Les Données Personnelles de l’Utilisateur peuvent être traitées par des filiales de <?=$NOM_SITE_COLORED;?> et des sous-traitants (prestataires de services), exclusivement afin de réaliser les finalités de la présente politique.</p><p>Dans la limite de leurs attributions respectives et pour les finalités rappelées ci-dessus, les principales personnes susceptibles d’avoir accès aux données des Utilisateurs de <?=$NOM_SITE_COLORED;?> sont principalement les agents de notre service client.</p><div ng-bind-html="rgpdHTML"></div>
+                </div>
+                <div class="ml-title">
+                    <h2>8. Notification d’incident</h2>
+                </div>
                 <div class="ml-text">
                     <p>Quels que soient les efforts fournis, aucune méthode de transmission sur Internet et aucune méthode de stockage électronique n'est complètement sûre. Nous ne pouvons en conséquence pas garantir une sécurité absolue. Si nous prenions connaissance d'une brèche de la sécurité, nous avertirions les utilisateurs concernés afin qu'ils puissent prendre les mesures appropriées. Nos procédures de notification d’incident tiennent compte de nos obligations légales, qu'elles se situent au niveau national ou européen. Nous nous engageons à informer pleinement nos clients de toutes les questions relevant de la sécurité de leur compte et à leur fournir toutes les informations nécessaires pour les aider à respecter leurs propres obligations réglementaires en matière de reporting.</p><p>Aucune information personnelle de l'utilisateur du site <?=$NOM_SITE_COLORED;?> n'est publiée à l'insu de l'utilisateur, échangée, transférée, cédée ou vendue sur un support quelconque à des tiers. Seule l'hypothèse du rachat de <?=$NOM_SITE_COLORED;?> et de ses droits permettrait la transmission des dites informations à l'éventuel acquéreur qui serait à son tour tenu de la même obligation de conservation et de modification des données vis à vis de l'utilisateur du site <?=$NOM_SITE_COLORED;?>.</p>
                     <h3>8.1  Sécurité</h3>
@@ -109,8 +122,8 @@ include_once ('inc/header.php');
                 <div class="ml-title">
                     <h2>9. Droit applicable et attribution de juridiction.</h2>
                 </div>
-                    <p>Tout litige en relation avec l’utilisation du site <?=$NOM_SITE_COLORED;?> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de Rouen.</p>
-                </div>
+                <p>Tout litige en relation avec l’utilisation du site <?=$NOM_SITE_COLORED;?> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de Rouen.</p>
+            </div>
     </section>
 
 <?php
