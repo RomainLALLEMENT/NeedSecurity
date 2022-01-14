@@ -221,7 +221,7 @@ INDEX  PHP
     animation: animateTextBackground 5s ease-in-out infinite; }
 .error-page h1 + p {
     color: var(--rouge);
-    font-size: 8vh;
+    font-size: 7vh;
     font-weight: bold;
     line-height: 10vh;
     max-width: 600px;
