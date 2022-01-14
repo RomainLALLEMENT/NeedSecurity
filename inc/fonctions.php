@@ -138,8 +138,8 @@ function insert_json_frames($json_file): bool
             $count = $query->rowCount();
 
             if ($count == 0) {
-                $sql = "INSERT INTO trames (frame_date,version,header_length,service,identification,flags_code,ttl,protocol_name,protocol_checksum_status,protocol_ports_from,protocol_ports_dest,header_checksum,ip_from,ip_dest)
-                VALUES (:dat,:version,:header_length,:service,:identification,:flags_code,:ttl,:protocol_name,:protocol_checksum_status,:protocol_ports_from,:protocol_ports_dest,:header_checksum,:ip_from,:ip_dest)";
+                $sql = "INSERT INTO trames (frame_date,version,header_length,service,identification,flags_code,ttl,protocol_name,protocol_checksum_status,protocol_ports_from,protocol_ports_dest,header_checksum,ip_from,ip_dest,protocol_flags_code,protocol_version,protocol_contentType,protocol_checksum_code,protocol_type,protocol_code)
+                VALUES (:dat,:version,:header_length,:service,:identification,:flags_code,:ttl,:protocol_name,:protocol_checksum_status,:protocol_ports_from,:protocol_ports_dest,:header_checksum,:ip_from,:ip_dest,:protocol_flags_code,:protocol_version,:protocol_contentType,:protocol_checksum_code,:protocol_type,:protocol_code)";
                 $query = $pdo->prepare($sql);
                 $query->bindValue(':dat', $frame->date, PDO::PARAM_STR);
                 $query->bindValue(':version', $frame->version, PDO::PARAM_INT);
@@ -155,6 +155,43 @@ function insert_json_frames($json_file): bool
                 $query->bindValue(':header_checksum', $frame->headerChecksum, PDO::PARAM_STR);
                 $query->bindValue(':ip_from', $frame->ip->from, PDO::PARAM_STR);
                 $query->bindValue(':ip_dest', $frame->ip->dest, PDO::PARAM_STR);
+                // Champs facultatifs
+                if(isset($frame->protocol->flags->code)){
+                    $query->bindValue(':protocol_flags_code', $frame->protocol->flags->code, PDO::PARAM_STR);
+                }
+                else{
+                    $query->bindValue(':protocol_flags_code', '', PDO::PARAM_STR);
+                }
+                if(isset($frame->protocol->version)) {
+                    $query->bindValue(':protocol_version', $frame->protocol->version, PDO::PARAM_STR);
+                }
+                else{
+                    $query->bindValue(':protocol_version', '', PDO::PARAM_STR);
+                }
+                if(isset($frame->protocol->contentType)) {
+                    $query->bindValue(':protocol_contentType', $frame->protocol->contentType, PDO::PARAM_STR);
+                }
+                else{
+                    $query->bindValue(':protocol_contentType', '', PDO::PARAM_STR);
+                }
+                if(isset($frame->protocol->checksum->code)) {
+                    $query->bindValue(':protocol_checksum_code', $frame->protocol->checksum->code, PDO::PARAM_STR);
+                }
+                else{
+                    $query->bindValue(':protocol_checksum_code', '', PDO::PARAM_STR);
+                }
+                if(isset($frame->protocol->type)) {
+                    $query->bindValue(':protocol_type', $frame->protocol->type, PDO::PARAM_INT);
+                }
+                else{
+                    $query->bindValue(':protocol_type', -1, PDO::PARAM_INT);
+                }
+                if(isset($frame->protocol->code)) {
+                    $query->bindValue(':protocol_code', $frame->protocol->code, PDO::PARAM_INT);
+                }
+                else{
+                    $query->bindValue(':protocol_code', -1, PDO::PARAM_INT);
+                }
                 $query->execute();
             }
         }

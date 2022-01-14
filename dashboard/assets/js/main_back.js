@@ -5,9 +5,13 @@ $( document ).ready(function() {
     // BASES - SEARCH
     var searchTimer = null;
 
-    // TEMPORAIRE - pour tester la recherche
-    //generate_search_page();
+    // MENU
+    $('#page-recherche').on('click', function(){
+        console.log('click page recherche');
+        generate_search_page();
+    });
 
+    // Si on renseigne un protocole en GET
     if(findGetParameter('detail_protocol') != null){
         generate_protocol_path(findGetParameter('detail_protocol'));
     }
@@ -46,10 +50,8 @@ $( document ).ready(function() {
             url: "inc/ajax_search.php",
             data: {search: search},
             success: function(response){
-                console.log('search response');
-                console.log(response);
-                //const data = JSON.parse(response);
-                //update_search_page(data);
+                const data = JSON.parse(response);
+                update_search_page(data);
             },
             error: function(){
 
@@ -78,7 +80,6 @@ $( document ).ready(function() {
     }
 
     function update_search_page(searchData){
-
         // Autocomplétion
         const _autocomplete = $('#autocomplete');
         _autocomplete.empty();
@@ -92,6 +93,10 @@ $( document ).ready(function() {
             });
             _autocomplete.append(autocompleteData);
         });
+
+        delete searchData['autocompletion'];
+        const searchTable = $('#search-table');
+        generate_table_from_trames(searchTable, searchData);
     }
 
     function generate_search_page(){
@@ -110,7 +115,7 @@ $( document ).ready(function() {
         divParent.append(autocomplete);
         autocomplete.css('display', 'none');
 
-        inputSearch.on('input', function() {
+        inputSearch.on('input click', function() {
             const value = inputSearch.val();
             const _autocomplete = $('#autocomplete');
             if(value.length <= 0){
@@ -132,6 +137,17 @@ $( document ).ready(function() {
                 }
             }, 500);
         });
+
+        // Ligne autres trames
+        const item_autres_trames = $('<div class="back-box"></div>');
+
+        item = $('<div class="back-box_table"></div>');
+
+        const searchTable = $('<div class="table" id="search-table">');
+        item.append(searchTable);
+        item_autres_trames.append(item);
+        dashboardMain.append(item_autres_trames);
+        generate_table_from_trames(searchTable, null);
 
         container.append(dashboardMain);
     }
@@ -434,12 +450,14 @@ $( document ).ready(function() {
         const trHeaderExist = $('#'+tableID+' .table_head').length;
         if(!trHeaderExist){
             const trHeaderNew = $('<div class="table_head"></div>');
-            $.each(response[0], function(k, v) {
-                if(k !== 'id'){
-                    const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
-                    trHeaderNew.append(tdHeader);
-                }
-            });
+            if(response != null){
+                $.each(response[0], function(k, v) {
+                    if(k !== 'id'){
+                        const tdHeader = $('<p>'+ capitalizeFirstLetter(k.replaceAll('_', ' ')) + '</p>');
+                        trHeaderNew.append(tdHeader);
+                    }
+                });
+            }
             table.append(trHeaderNew);
         }
 
@@ -454,52 +472,52 @@ $( document ).ready(function() {
         $('#'+tableID+' .table_body_row').remove();
 
         let cpt = 0;
-        $.each(response, function() {
-            if(cpt < response.length - 1){
-                const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function(){
-                    ajax_getTrameDetail($(this).data("idtrame"));
-                });
-
-                $.each(this, function(k, v) {
-                    if(k !== 'id'){
-                        const tdTrame = $('<p>'+v+'</p>');
-                        trTrame.append(tdTrame);
-                    }
-                });
-                goodBody.append(trTrame);
-            }
-            else{
-                // Régénération du paginator s'il n'existe pas
-                const paginator = $('#paginator-'+tableID);
-
-                var goodPaginator;
-                if(paginator.length){
-                    goodPaginator = paginator;
-                }
-                else{
-                    goodPaginator = $('<div id="paginator-'+tableID+'" class="paginator"></div>');
-                    table.after(goodPaginator);
-                }
-
-                goodPaginator.empty();
-
-                $.each(this, function(k, v) {
-                    const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
-                    if(v[1] === 'selected'){
-                        paginatorItem.addClass('paginator-selected');
-                    }
-                    paginatorItem.text(v[0]);
-                    paginatorItem.on('click', function(){
-                        const page = parseInt($(this).text());
-                        const table = $('#' + $(this).data("tableid"));
-                        const protocol_name = table.attr('data-protocol');
-                        ajax_getTrames(table, page, 10, protocol_name);
+        if(response != null) {
+            $.each(response, function () {
+                if (cpt < response.length - 1) {
+                    const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function () {
+                        ajax_getTrameDetail($(this).data("idtrame"));
                     });
-                    goodPaginator.append(paginatorItem);
-                });
-            }
-            cpt++;
-        });
+
+                    $.each(this, function (k, v) {
+                        if (k !== 'id') {
+                            const tdTrame = $('<p>' + v + '</p>');
+                            trTrame.append(tdTrame);
+                        }
+                    });
+                    goodBody.append(trTrame);
+                } else {
+                    // Régénération du paginator s'il n'existe pas
+                    const paginator = $('#paginator-' + tableID);
+
+                    var goodPaginator;
+                    if (paginator.length) {
+                        goodPaginator = paginator;
+                    } else {
+                        goodPaginator = $('<div id="paginator-' + tableID + '" class="paginator"></div>');
+                        table.after(goodPaginator);
+                    }
+
+                    goodPaginator.empty();
+
+                    $.each(this, function (k, v) {
+                        const paginatorItem = $('<span data-tableid="' + table.attr('id') + '" class="paginator-item"></span>');
+                        if (v[1] === 'selected') {
+                            paginatorItem.addClass('paginator-selected');
+                        }
+                        paginatorItem.text(v[0]);
+                        paginatorItem.on('click', function () {
+                            const page = parseInt($(this).text());
+                            const table = $('#' + $(this).data("tableid"));
+                            const protocol_name = table.attr('data-protocol');
+                            ajax_getTrames(table, page, 10, protocol_name);
+                        });
+                        goodPaginator.append(paginatorItem);
+                    });
+                }
+                cpt++;
+            });
+        }
     }
 
     function capitalizeFirstLetter(string) {
