@@ -11,11 +11,13 @@ include_once ('inc/header_back.php');
 // le container est régénéré lorsqu'on change de page
 ?>
 <div id="container">
+
     <section id="dashboard">
 
         <div class="back-box">
 
             <?php
+
             $sql = "SELECT protocol_name,count(id) as cpt FROM trames GROUP BY protocol_name LIMIT 4";
             $query = $pdo->prepare($sql);
             $query->execute();

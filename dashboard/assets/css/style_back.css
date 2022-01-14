@@ -22,6 +22,7 @@ body{
     justify-content: space-between;
     align-content: center;
     align-items: center;
+    z-index: 5;
 }
 #header>*{
     padding: 10px;
@@ -53,7 +54,7 @@ body{
 }
 /* Index for multipage */
 #dashboard-menu{
-    z-index: -1;
+    z-index: 1;
     position: fixed;
     height: 100vh;
     width: max(8rem + 5vw, 8rem);
