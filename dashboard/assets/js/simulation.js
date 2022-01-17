@@ -1,6 +1,8 @@
 
 $( document ).ready(function() {
 
+    const container = $('#container');
+
     function generate_protocol_path(protocol_name){
         container.empty();
 

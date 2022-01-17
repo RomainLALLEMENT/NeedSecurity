@@ -33,8 +33,9 @@ function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
     }
 
     function generate_table_from_trames(table, response) {
-        console.log('generate_table_from_trames');
-        console.log(response);
+        if(response == null){
+            return;
+        }
         const tableID = table.attr('id');
 
         const trHeaderExist = $('#' + tableID + ' .table_head').length;
@@ -59,23 +60,27 @@ function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
             table.append(goodBody);
         }
 
-        $('#' + tableID + ' .table_body_row').remove();
+        goodBody.empty();
 
         let cpt = 0;
+        let data_count = 0;
         if (response != null) {
             $.each(response, function () {
                 if (cpt < response.length - 1) {
-                    const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function () {
-                        ajax_getTrameDetail($(this).data("idtrame"));
-                    });
+                    if($(this)[0]['id'] !== -1){
+                        const trTrame = $('<div class="table_body_row" data-idtrame="' + $(this)[0]['id'] + '"></div>').on('click', function () {
+                            ajax_getTrameDetail($(this).data("idtrame"));
+                        });
 
-                    $.each(this, function (k, v) {
-                        if (k !== 'id') {
-                            const tdTrame = $('<p>' + v + '</p>');
-                            trTrame.append(tdTrame);
-                        }
-                    });
-                    goodBody.append(trTrame);
+                        $.each(this, function (k, v) {
+                            if (k !== 'id') {
+                                const tdTrame = $('<p>' + v + '</p>');
+                                trTrame.append(tdTrame);
+                            }
+                        });
+                        goodBody.append(trTrame);
+                        data_count++;
+                    }
                 } else {
                     // Régénération du paginator s'il n'existe pas
                     const paginator = $('#paginator-' + tableID);
@@ -107,6 +112,13 @@ function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
                 }
                 cpt++;
             });
+
+            if(data_count == 0){
+                const trTrame = $('<div class="table_body_row""></div>');
+                const tdTrame = $('<p style="padding: 1rem; color: white;">Aucune donnée correspondante.</p>');
+                trTrame.append(tdTrame);
+                goodBody.append(tdTrame);
+            }
         }
     }
 
