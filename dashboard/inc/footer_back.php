@@ -36,7 +36,6 @@
 <script src="../assets/js/main_js_commun.js"></script>
 <script src="./assets/js/reload-bd.js"></script>
 <script type="module" src="./assets/js/home.js"></script>
-<script type="module" src="./assets/js/simulation.js"></script>
 
 </body>
 </html>
