@@ -10,13 +10,10 @@ $( document ).ready(function() {
     reloadBd();
     setInterval(reloadBd, 300000);
 
-
-
-    $('.data-box').on('click', function(e){
-        e.preventDefault();
-        generate_protocol_path($(this).attr('data-protocol'));
-    });
+    //menu
     menuBack();
+
+    //modal logout
     const showModal = document.getElementById('logout-show');
     showModal.addEventListener('click', showLogout);
 });
@@ -28,15 +25,29 @@ function menuBack(){
     //menu nav
     const home = document.getElementById('page-accueil');
     const search = document.getElementById('page-recherche');
+    const detail = document.getElementById('page-details');
 
-    home.addEventListener('click', ()=>{
+    home.addEventListener('click', (e)=>{
         console.log('page-accueil');
+        isActiveMenu(e);
         generateDashboardPage();
     })
-    search.addEventListener('click', ()=>{
+    search.addEventListener('click', (e)=>{
+        console.log('page-recherche');
+        isActiveMenu(e);
         generate_search_page();
     })
+    detail.addEventListener('click', (e)=>{
+        console.log('page-details');
+        isActiveMenu(e);
+        //generate_details_page();
+    })
 
+}
 
+function isActiveMenu(e){
+    const menuSelected = document.querySelectorAll('.li-selected');
+    menuSelected[0].classList.remove('li-selected');
+    e.target.parentElement.classList.add('li-selected');
 }
 
