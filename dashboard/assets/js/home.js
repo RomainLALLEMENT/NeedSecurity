@@ -34,7 +34,6 @@ function menuBack(){
         //function for generate page here
     })
     search.addEventListener('click', ()=>{
-        console.log('click page recherche');
         generate_search_page();
     })
 

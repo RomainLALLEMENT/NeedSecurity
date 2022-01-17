@@ -347,3 +347,23 @@ DASHBOARD PAGE
 #autocomplete .autocomplete-data:hover{
     background-color: #646064;
 }
+
+/* RECHERCHE */
+
+#input-search{
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Noto Sans Display', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+#input-search::placeholder{
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Noto Sans Display', sans-serif;
+    font-size: 1rem;
+}

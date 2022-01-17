@@ -1,9 +1,8 @@
 <?php
 require_once ('../../inc/bases.php');
-$limite = 50;
 
-function addItemInArrayIfNotExist($ar, $item){
-    if(count($ar) >= 20){
+function addItemInArrayIfNotExist($ar, $item, $search){
+    if(count($ar) >= 30 || $item === $search){
         return $ar;
     }
     if(!in_array($item, $ar)){
@@ -12,12 +11,12 @@ function addItemInArrayIfNotExist($ar, $item){
     return $ar;
 }
 
-function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonneAr){
+function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonneAr, $search){
 
     foreach ($trame as $key => $value){
-        if(!in_array($key, $ignoreColonneAr)){
+        if($key !== 'id' && !in_array($key, $ignoreColonneAr)){
             if(!str_contains($prefixe, $value)){
-                $ar = addItemInArrayIfNotExist($ar, $prefixe . ' ' . $value);
+                $ar = addItemInArrayIfNotExist($ar, $prefixe . ' ' . $value, $search);
             }
         }
     }
@@ -30,9 +29,6 @@ function getCorrespondanceIn($trame, $search){
     }
     elseif(str_contains(strtolower($trame['identification']), $search)){
         return 'identification';
-    }
-    elseif(str_contains(strtolower($trame['flags_code']), $search)){
-        return 'flags_code';
     }
     elseif(str_contains(strtolower($trame['protocol_name']), $search)){
         return 'protocol_name';
@@ -47,10 +43,12 @@ function getCorrespondanceIn($trame, $search){
 }
 
 if(empty($_GET['search'])){
-    exit;
+    $search = '';
+}
+else{
+    $search = strtolower(trim(strip_tags($_GET['search'])));
 }
 
-$search = strtolower(trim(strip_tags($_GET['search'])));
 if (str_contains($search, " ")) {
     $search_keys = explode(" ", $search);
 }
@@ -59,13 +57,12 @@ else{
     $search_keys[] = $search;
 }
 
-$sql = "SELECT frame_date,identification,flags_code,protocol_name,ip_from,ip_dest FROM trames";
+$sql = "SELECT id,frame_date,identification,ip_from,ip_dest,protocol_name FROM trames";
 $query = $pdo->prepare($sql);
 $query->execute();
 $trames = $query->fetchAll();
 
 // NOUVELLE VERSION
-$tramesFound = [];
 $tabAutoComplete = [];
 $ignoreFields = [];
 
@@ -78,43 +75,49 @@ for($i = 0; $i < count($trames); $i++) {
     $prefix = '';
     $needIgnore = [];
     for($k = 0;$k < count($search_keys); $k++){
-        $corresp = getCorrespondanceIn($trames[$i], $search_keys[$k]);
-        if($corresp === '>not-found<'){
-            $valide = false;
-            break;
-        }
-        else{
-            if(mb_strlen($prefix) > 0){
-                $prefix .= ' ';
+        if(mb_strlen($search_keys[$k]) > 0) {
+            $corresp = getCorrespondanceIn($trames[$i], $search_keys[$k]);
+            if ($corresp === '>not-found<') {
+                $valide = false;
+                break;
+            } else {
+                if (mb_strlen($prefix) > 0) {
+                    $prefix .= ' ';
+                }
+                $prefix .= $trames[$i][$corresp];
+                $needIgnore[] = $corresp;
             }
-            $prefix .= $trames[$i][$corresp];
-            $needIgnore[] = $corresp;
         }
     }
 
     if($valide){
-        $tramesFound[] = $trames[$i];
-        $tabAutoComplete = addItemInArrayIfNotExist($tabAutoComplete, $prefix);
+        $tabAutoComplete = addItemInArrayIfNotExist($tabAutoComplete, $prefix, $search);
         if(count($needIgnore) > 0){
             foreach ($needIgnore as $ni){
-                $ignoreFields = addItemInArrayIfNotExist($ignoreFields, $ni);
+                $ignoreFields = addItemInArrayIfNotExist($ignoreFields, $ni, $search);
             }
         }
+    }
+    else{
+        $trames[$i]['id'] = -1;
     }
 }
 
 // Générer l'autocomplétion via prefix + les données des tramesFound
 // Repartir du tableau $tramesFound["autocompletion"] (préfixes) pour générer le reste des propositions
 
-if(count($tramesFound) > 0){
+if(count($trames) > 0){
     $prefixes = $tabAutoComplete;
     foreach ($prefixes as $prefixe){
         foreach ($trames as $trame){
-            $tabAutoComplete = cumulateDataIn($tabAutoComplete, $trame, $prefixe, $ignoreFields);
+            if($trame['id'] !== -1){
+                $tabAutoComplete = cumulateDataIn($tabAutoComplete, $trame, $prefixe, $ignoreFields, $search);
+            }
         }
     }
 }
-$tramesFound["autocompletion"] = $tabAutoComplete;
 
-$json = json_encode($tramesFound, JSON_PRETTY_PRINT);
-die($json);
+$paginatorRebuild = [];
+$trames[] = $paginatorRebuild;
+$trames[] = $tabAutoComplete;
+showJson($trames);

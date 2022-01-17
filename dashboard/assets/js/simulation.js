@@ -1,6 +1,9 @@
 
 $( document ).ready(function() {
 
+    const container = $('#container');
+    generate_protocol_path('ICMP');
+
     function generate_protocol_path(protocol_name){
         container.empty();
 
