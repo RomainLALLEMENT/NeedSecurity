@@ -120,6 +120,7 @@ const container = $('#container');
     }
 
     function ajax_getProtocolData(chartjs_graphe, protocol_name){
+        showLoading('Récupération des informations du protocole '+protocol_name+'...');
         $.ajax({
             type: "GET",
             url: "inc/ajax_get_protocol_data.php",
@@ -134,9 +135,10 @@ const container = $('#container');
                 addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs));
                 $('#erreur-prct').text(prct + '%');
                 $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
+                hideLoading(500);
             },
             error: function(){
-
+                hideLoading(500);
             }
         });
     }

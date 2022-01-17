@@ -2,6 +2,7 @@ import {ajax_graph} from './graph.js';
 import {ajax_getTrames} from "./tableau.js";
 
 function generateDashboardPage(){
+    showLoading('Récupération des informations...');
     const container = document.getElementById('container');
     //clear container
     while(container.firstChild) {
@@ -73,7 +74,6 @@ function generateDashboardPage(){
     // Insert dynamic table
     const table = $('#last-trames');
     ajax_getTrames(table, 1);
-
 }
 
 function divGraph(title, id){
