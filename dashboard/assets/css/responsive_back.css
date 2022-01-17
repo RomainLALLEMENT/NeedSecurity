@@ -14,6 +14,13 @@
         margin-top: max(3rem + 2vh, 3rem);
         margin-left: 0;
     }
+    #dashboard .back-box{
+        flex-wrap: wrap;
+
+    }
+    #dashboard .data-box{
+    width: calc(100% / 2 - .5rem);
+    }
 }
 @media screen and (max-width: 480px){
     #dashboard-menu{
@@ -29,6 +36,13 @@
     #container{
         margin-top: max(2rem + 2vh, 2rem);
         margin-left: 0;
+    }
+    #dashboard .back-box{
+        flex-direction: column;
+
+    }
+    #dashboard .data-box{
+        width: 100%;
     }
 
 }

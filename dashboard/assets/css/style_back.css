@@ -81,6 +81,9 @@ body{
     font-weight: 700;
     background-color: var(--back-color);
 }
+#dashboard-menu ul li p {
+    margin-left: .5rem;
+}
 
 #dashboard-menu ul li:hover, #dashboard-menu ul li.li-selected {
     background-color: var(--selected-item-color);
