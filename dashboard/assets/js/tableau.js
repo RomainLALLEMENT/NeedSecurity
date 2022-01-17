@@ -1,7 +1,6 @@
-
-$( document ).ready(function() {
-
-    function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
+import {capitalizeFirstLetter} from "./utils.js";
+import {generate_trame_details} from "./detail.js";
+function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
 
         const tableID = table.attr('id');
 
@@ -111,4 +110,23 @@ $( document ).ready(function() {
         }
     }
 
-});
+function ajax_getTrameDetail(trameid){
+    setTimeout(function() {
+        $.ajax({
+            type: "GET",
+            url: "inc/ajax_get_trame_data.php",
+            data: {trameid: trameid},
+            success: function(response){
+                if(response.length > 0){
+                    const trame = JSON.parse(response);
+                    generate_trame_details(trame);
+                }
+            },
+            error: function(){
+
+            }
+        });
+    }, 600);
+}
+
+export {ajax_getTrames, generate_table_from_trames};

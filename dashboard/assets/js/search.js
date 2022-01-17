@@ -1,8 +1,7 @@
+import {generate_table_from_trames} from "./tableau.js";
 
-$( document ).ready(function() {
-
-    var searchTimer = null;
-
+var searchTimer = null;
+    const container = $('#container');
     function ajax_search(search){
         $.ajax({
             type: "GET",
@@ -90,4 +89,5 @@ $( document ).ready(function() {
 
         container.append(dashboardMain);
     }
-});
+
+    export {generate_search_page};

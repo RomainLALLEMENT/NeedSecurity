@@ -84,9 +84,4 @@ function createGraph(object, type, docId, labelT = '' ) {
     // }, 10000);
 
 
-//Graph dashboard/index.php
-//First graph
-
-ajax_graph('trames', 'protocol_name', 'pie', 'chart-pie1');
-ajax_graph('trames', 'protocol_name', 'bar', 'chart-bar1', 'hide');
-ajax_graph('trames', 'header_checksum', 'pie', 'chart-pie2', 'hide');
+export {ajax_graph};

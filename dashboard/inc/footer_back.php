@@ -31,7 +31,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="../assets/js/main_js_commun.js"></script>
 <script src="./assets/js/reload-bd.js"></script>
-<script src="./assets/js/main_back.js"></script>
-<script src="./assets/js/graph.js"></script>
+<script type="module" src="./assets/js/home.js"></script>
+
 </body>
 </html>

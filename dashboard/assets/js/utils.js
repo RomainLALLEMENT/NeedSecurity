@@ -20,3 +20,5 @@ function removeChartData(chart, nbLabels = 1) {
         chart.update();
     }
 }
+
+export {capitalizeFirstLetter, addChartData, removeChartData};

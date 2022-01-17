@@ -1,25 +1,7 @@
+import {addChartData, removeChartData} from "./utils.js";
+import {ajax_getTrames} from "./tableau.js";
 
-$( document ).ready(function() {
-
-    function ajax_getTrameDetail(trameid){
-        setTimeout(function() {
-            $.ajax({
-                type: "GET",
-                url: "inc/ajax_get_trame_data.php",
-                data: {trameid: trameid},
-                success: function(response){
-                    if(response.length > 0){
-                        const trame = JSON.parse(response);
-                        generate_trame_details(trame);
-                    }
-                },
-                error: function(){
-
-                }
-            });
-        }, 600);
-    }
-
+const container = $('#container');
     function generate_trame_details(trame){
         container.empty();
         const dashboardMain = $('<section id="dashboard"></section>');
@@ -159,4 +141,4 @@ $( document ).ready(function() {
         });
     }
 
-});
+export {generate_trame_details};

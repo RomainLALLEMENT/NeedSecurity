@@ -1,7 +1,6 @@
 
 //Show logout
-const showModal = document.getElementById('logout-show');
-showModal.addEventListener('click', showLogout);
+
 function showLogout(){
     console.log('Ask for logout');
     const modal = document.querySelector('#modal-logout');
@@ -16,3 +15,5 @@ function showLogout(){
         }
     })
 };
+
+export {showLogout};
