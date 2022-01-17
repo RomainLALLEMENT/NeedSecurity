@@ -37,6 +37,7 @@ function showModal(modalType, defaultEmail = ''){
     form.classList.add('form-modal');
     content.appendChild(form);
 
+    document.body.insertAdjacentElement("beforeend", modal);
 
 
     if(modalType === 'login'){
