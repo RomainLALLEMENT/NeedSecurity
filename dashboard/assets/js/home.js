@@ -1,4 +1,4 @@
-import {ajax_graph} from './graph.js';
+import {reloadBd} from "./reload-bd.js";
 import {showLogout} from "./modal.js";
 import {ajax_getTrames} from "./tableau.js";
 import {generate_search_page} from "./search.js";
@@ -6,15 +6,11 @@ import {generateDashboardPage} from "./dashboard.js";
 // script principal
 
 $( document ).ready(function() {
-//Graph dashboard/index.php
-//First graph
+    // reload db
+    reloadBd();
+    setInterval(reloadBd, 300000);
 
-    ajax_graph('trames', 'protocol_name', 'pie', 'chart-pie1');
-    ajax_graph('trames', 'protocol_name', 'bar', 'chart-bar1', 'hide');
-    ajax_graph('trames', 'header_checksum', 'pie', 'chart-pie2', 'hide');
 
-    const table = $('#last-trames');
-    ajax_getTrames(table, 1);
 
     $('.data-box').on('click', function(e){
         e.preventDefault();

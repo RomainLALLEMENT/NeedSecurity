@@ -12,6 +12,9 @@
     gap: 1rem;
 
 }
+ .graph-box{
+     flex-direction: column;
+ }
  .back-box > div{
     background-color: var(--header-back-color);
     border-radius: 3px;
