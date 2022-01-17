@@ -1,4 +1,5 @@
 function ajax_graph(table, column, type, docId, labelT){
+    showLoading('Récupération des données graphiques...');
     setTimeout(function() {
         $.ajax({
             type: "GET",
@@ -15,9 +16,11 @@ function ajax_graph(table, column, type, docId, labelT){
                     console.log(graph);
                     createGraph(graph, type, docId, labelT );
                 }
+                hideLoading(500);
             },
             error: function(){
                 console.log('error');
+                hideLoading(500);
             }
         });
     }, 600);

@@ -1,4 +1,5 @@
 function generateDashboardPage(){
+    showLoading('Récupération des informations...');
     const container = document.getElementById('container');
     //clear container
     while(container.firstChild) {
@@ -41,7 +42,7 @@ function generateDashboardPage(){
     }
     dashBoard.appendChild(dataDiv);
 
-
+    hideLoading(500);
 }
 
 export {generateDashboardPage};

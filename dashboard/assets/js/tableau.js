@@ -1,7 +1,7 @@
 import {capitalizeFirstLetter} from "./utils.js";
 import {generate_trame_details} from "./detail.js";
 function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
-
+        showLoading('Récupération des données du tableau...');
         const tableID = table.attr('id');
 
         $('#' + tableID + ' .table_body_row').fadeOut(350, function () {
@@ -22,11 +22,13 @@ function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
 
                     $('#' + tableID + ' .table_body_row').fadeIn(350, function () {
                     });
+                    hideLoading(100);
                 },
                 error: function () {
                     $('#paginator-' + table.attr('id') + ' .paginator-item').remove();
                     $('#' + tableID + ' .table_body_row').fadeIn(350, function () {
                     });
+                    hideLoading(100);
                 }
             });
         }, 600);
@@ -123,6 +125,7 @@ function ajax_getTrames(table, page, nbRows = 10, protocol_name = '') {
     }
 
 function ajax_getTrameDetail(trameid){
+    showLoading('Récupération des données de la trame...');
     setTimeout(function() {
         $.ajax({
             type: "GET",
@@ -132,6 +135,7 @@ function ajax_getTrameDetail(trameid){
                 if(response.length > 0){
                     const trame = JSON.parse(response);
                     generate_trame_details(trame);
+                    hideLoading(500);
                 }
             },
             error: function(){

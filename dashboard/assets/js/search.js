@@ -5,15 +5,17 @@ var searchTimer = null;
 
 const container = $('#container');
 function ajax_search(search){
+    showLoading('Actualisation des données...');
     $.ajax({
         type: "GET",
         url: "inc/ajax_search.php",
         data: {search: search},
         success: function(response){
             update_search_page(response);
+            hideLoading(100);
         },
         error: function(){
-
+            hideLoading(100);
         }
     });
 }
@@ -50,12 +52,12 @@ function update_search_page(searchData){
     }
 
     searchData.pop();
-    console.log(searchData);
     const searchTable = $('#search-table');
     generate_table_from_trames(searchTable, searchData);
 }
 
 function generate_search_page(){
+    showLoading('Récupération des informations...');
     container.empty();
     var item, divParent;
     const dashboardMain = $('<section id="dashboard"></section>');
@@ -91,7 +93,7 @@ function generate_search_page(){
                 _autocomplete.css('display', 'none');
             }
             ajax_search(value);
-        }, 500);
+        }, 800);
     });
 
     // Ligne autres trames

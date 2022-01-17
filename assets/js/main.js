@@ -257,3 +257,10 @@ function add_form_event(modalName){
         });
     }
 }
+
+$( document ).ready(function() {
+
+    setTimeout(function(){
+        hideLoading();
+    }, 500);
+});
