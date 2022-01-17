@@ -61,7 +61,7 @@ function createGraph(object, type, docId, labelT = '' ) {
         options: {
             responsive: true,
             layout: {
-                padding: 30
+                padding: 15
             }
         }
     });
@@ -89,3 +89,4 @@ function createGraph(object, type, docId, labelT = '' ) {
 
 ajax_graph('trames', 'protocol_name', 'pie', 'chart-pie1');
 ajax_graph('trames', 'protocol_name', 'bar', 'chart-bar1', 'hide');
+ajax_graph('trames', 'header_checksum', 'pie', 'chart-pie2', 'hide');

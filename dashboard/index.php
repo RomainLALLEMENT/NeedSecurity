@@ -48,6 +48,14 @@ include_once ('inc/header_back.php');
                 </div>
             </div>
         </div>
+        <div class="back-box">
+            <div class="back-box_graph">
+                <h2>Erreur</h2>
+                <div class="back-box_graph__chatjs">
+                    <canvas id="chart-pie2"></canvas>
+                </div>
+            </div>
+        </div>
 
         <div class="back-box">
             <div class="back-box_table">
