@@ -16,19 +16,9 @@ include_once ('inc/header_back.php');
 
         <div class="back-box">
 
-            <?php
 
-            $sql = "SELECT protocol_name,count(id) as cpt FROM trames GROUP BY protocol_name LIMIT 4";
-            $query = $pdo->prepare($sql);
-            $query->execute();
-            $trameData = $query->fetchAll();
+         <div class="data-box clickable" ><h3 class="data-box_name"></h3><p class="data-box_nb"></p></div>
 
-            $cpt = 1;
-            foreach($trameData as $trame){
-                echo '<div class="data-box clickable" data-box="'.$cpt.'" data-protocol="'.$trame['protocol_name'].'"><h3 class="data-box_name">'.$trame['protocol_name'].'</h3><p class="data-box_nb">'.$trame['cpt'].'</p></div>';
-                $cpt++;
-            }
-            ?>
         </div>
 
 

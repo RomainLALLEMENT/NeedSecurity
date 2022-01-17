@@ -19,13 +19,7 @@
         <p><a href="#">Conditions d'utilisation</a></p>
     </div>
 </footer>
-<div id="modal-logout" class="modal">
-    <div class="modal-content" >
-        <p id="text-logout">Voulez-vous vous déconnecter ?</p>
-        <a id="y" href="logout.php">Oui</a>
-        <p id="n">Non</p>
-    </div>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>

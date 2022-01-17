@@ -159,47 +159,22 @@ DASHBOARD PAGE
 
 /* Modal for logout*/
 
-  .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fff;
-    border-radius: 15px;
-    margin: 25% auto;
-    padding: 0.4rem max(2vw, .5rem);
-    border: 3px solid var(--rouge);
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    gap: .5rem;
-    text-align: center;
-    justify-content: center;
-}
-.modal-content > *{
-    padding: .4rem max(.6rem, 1rem + 2vw);
-}
 .modal-content #text-logout{
     font-size: 1.5rem;
     flex-grow: 2;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 .modal-content #y, .modal-content #n{
-    width: 48%;
+    width: 47%;
     display: inline-block;
     border-radius: 15px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .3s;
+    text-align: center;
+    padding: .3rem 1rem;
+    color: black;
 }
 .modal-content #y:hover, .modal-content #n:hover{
     transform: scale(1.03);

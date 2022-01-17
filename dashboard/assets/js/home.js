@@ -2,6 +2,7 @@ import {ajax_graph} from './graph.js';
 import {showLogout} from "./modal.js";
 import {ajax_getTrames} from "./tableau.js";
 import {generate_search_page} from "./search.js";
+import {generateDashboardPage} from "./dashboard.js";
 // script principal
 
 $( document ).ready(function() {
@@ -19,11 +20,14 @@ $( document ).ready(function() {
         e.preventDefault();
         generate_protocol_path($(this).attr('data-protocol'));
     });
-
+    menuBack();
+    const showModal = document.getElementById('logout-show');
+    showModal.addEventListener('click', showLogout);
 });
 
 // MENU
 function menuBack(){
+    generateDashboardPage();
     //call function for generate page home here
     //menu nav
     const home = document.getElementById('page-accueil');
@@ -31,7 +35,7 @@ function menuBack(){
 
     home.addEventListener('click', ()=>{
         console.log('page-accueil');
-        //function for generate page here
+        generateDashboardPage();
     })
     search.addEventListener('click', ()=>{
         console.log('click page recherche');
@@ -40,6 +44,4 @@ function menuBack(){
 
 
 }
-menuBack();
-const showModal = document.getElementById('logout-show');
-showModal.addEventListener('click', showLogout);
+
