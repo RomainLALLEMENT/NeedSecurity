@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/style_commun.css">
     <link rel="stylesheet" href="assets/css/style_back.css">
-    <link rel="stylesheet" href="assets/css/style_dashboard.css">
     <link rel="stylesheet" href="assets/css/responsive_back.css">
     <title><?= $NOM_SITE; ?></title>
 </head>
@@ -35,6 +34,7 @@
             ?></p>
             <i id="logout-show" class="fas fa-sign-out-alt"></i>
 </header>
+<main>
 <div id="dashboard-menu">
     <ul>
 

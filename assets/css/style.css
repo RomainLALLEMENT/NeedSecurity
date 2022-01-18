@@ -44,6 +44,7 @@ body{
 
 #header  p{
     color: white;
+    width: fit-content;
     font-weight: 300;
     font-size: 1.1rem;
     background-color: var(--rouge);
@@ -57,10 +58,6 @@ body{
     color: var(--gris);
     background-color: var(--selected-item-color);
     transform: scale(1.03);
-}
-
-#header  i{
-    color: var(--rouge);
 }
 
 

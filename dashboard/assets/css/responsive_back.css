@@ -21,8 +21,21 @@
     #dashboard .data-box{
     width: calc(100% / 2 - .5rem);
     }
+    .footer .footer-top, .footer .footer-bot{
+        flex-flow: column nowrap;
+        text-align: center;
+    }
+    .footer .social-red{
+        justify-content: center;
+    }
+    footer .contact{
+        align-items: center;
+    }
 }
 @media screen and (max-width: 480px){
+    #header p{
+        display: none;
+    }
     #dashboard-menu{
         height: max(2rem + 2vh, 2rem);
         width: 100%;

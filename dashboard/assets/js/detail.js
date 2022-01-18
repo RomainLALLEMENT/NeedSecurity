@@ -4,11 +4,11 @@ import {ajax_getTrames} from "./tableau.js";
 const container = $('#container');
     function generate_trame_details(trame){
         container.empty();
-        const dashboardMain = $('<section id="dashboard"></section>');
+        const dashboardMain = $('<section id="detail"></section>');
 
         // Ligne titre
         var item = $('<div class="back-box"></div>');
-        const title = $('<h2>Trame <strong>'+trame.identification+'</strong> ('+trame.protocol_name+')</h2>');
+        const title = $('<div><h2>Trame <strong>'+trame.identification+'</strong> ('+trame.protocol_name+')</h2></div>');
 
         var backBoxContent = $('<div></div>');
 
@@ -23,12 +23,12 @@ const container = $('#container');
 
         var trame_data_item = $('<div class="trame-info-item"></div>');
 
-        trame_data_item.append($('<div class="trame-info-data"><span>Date</span><i>'+trame.frame_date+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Version</span><i>'+trame.version+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Header length</span><i>'+trame.header_length+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Service</span><i>'+trame.service+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Flags code</span><i>'+trame.flags_code+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>TTL</span><i>'+trame.ttl+'</i></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Date</h4><p>'+trame.frame_date+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Version</h4><p>'+trame.version+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Header length</h4><p>'+trame.header_length+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Service</h4><p>'+trame.service+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Flags code</h4><p>'+trame.flags_code+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>TTL</h4><p>'+trame.ttl+'</p></div>'));
 
         backBoxContent.append(trame_data_item);
         dashboardMain.append(item);
@@ -38,10 +38,10 @@ const container = $('#container');
 
         trame_data_item = $('<div class="trame-info-item"></div>');
 
-        trame_data_item.append($('<div class="trame-info-data"><span>Protocol name</span><i>'+trame.protocol_name+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Protocol checksum status</span><i>'+trame.protocol_checksum_status+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Protocol port from</span><i>'+trame.protocol_ports_from+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>Protocol port dest</span><i>'+trame.protocol_ports_dest+'</i></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Protocol name</h4><p>'+trame.protocol_name+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Protocol checksum status</h4><p>'+trame.protocol_checksum_status+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Protocol port from</h4><p>'+trame.protocol_ports_from+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Protocol port dest</h4><p>'+trame.protocol_ports_dest+'</p></div>'));
 
         backBoxContent.append(trame_data_item);
         item.append(backBoxContent);
@@ -51,9 +51,9 @@ const container = $('#container');
         backBoxContent.append($('<h2>IP</h2>'));
         trame_data_item = $('<div class="trame-info-item"></div>');
 
-        trame_data_item.append($('<div class="trame-info-data"><span>Header checksum</span><i>'+trame.header_checksum+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>IP from</span><i>'+trame.ip_from+'</i></div>'));
-        trame_data_item.append($('<div class="trame-info-data"><span>IP dest</span><i>'+trame.ip_dest+'</i></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>Header checksum</h4><p>'+trame.header_checksum+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>IP from</h4><p>'+trame.ip_from+'</p></div>'));
+        trame_data_item.append($('<div class="trame-info-data"><h4>IP dest</h4><p>'+trame.ip_dest+'</p></div>'));
 
         backBoxContent.append(trame_data_item);
         item.append(backBoxContent);
@@ -127,6 +127,7 @@ const container = $('#container');
             data: {protocolName: protocol_name},
             success: function(response){
                 const protocol_data = JSON.parse(response);
+                console.log(protocol_data);
                 const nbErreurs = protocol_data.erreurs.length;
                 const nbData = protocol_data.paquets_count;
                 const prct = (nbErreurs / nbData) * 100;

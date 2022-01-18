@@ -16,7 +16,7 @@
 
         <p><a href="../mentionslegales.php">Mentions légales</a></p>
 
-        <p><a href="#">Conditions d'utilisation</a></p>
+        <p><a href="../aboutus.php">A propos de nous</a></p>
     </div>
 </footer>
 
