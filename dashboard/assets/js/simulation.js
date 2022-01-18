@@ -1,4 +1,4 @@
-
+import {ajax_getTrameDetail} from "./tableau.js";
 
 const container = $('#container');
 
@@ -67,49 +67,25 @@ function ajax_generateProtocolPath(element, protocol_name){
 
                     if(protocol_name === 'ICMP'){
                         const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
-                        arrow.append('<span class="chemin-code-1">0x00</span>');
                         if(this.statut.length > 0){
+                            arrow.append('<span class="chemin-code-1">' + this.statut + '</span>');
                             arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
                         }
                         else{
+                            arrow.append('<span class="chemin-code-1">0x00</span>');
                             arrow.append('<i data-trajet="aller-retour" class="fas fa-network-wired"></i>');
                         }
 
                         const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
-                        arrow_retour.append('<span class="chemin-code-2">' + this.statut + '</span>');
+                        arrow_retour.append('<span class="chemin-code-2">0x00</span>');
                         arrows.append(arrow);
                         arrows.append(arrow_retour);
                     }
                     else{
-                        if(this.trajet === 'aller-retour'){
-                            const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller)+'"></i>');
-                            arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
-                            if(this.statut === 'aller-error'){
-                                arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
-                            }
-                            else if(this.statut === 'retour-error'){
-                                arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
-                            }
-                            else{
-                                arrow.append('<i data-trajet="aller-retour" class="fas fa-network-wired"></i>');
-                            }
-
-                            const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.flags_code_retour)+'"></i>');
-                            arrow_retour.append('<span class="chemin-code-2">' + this.flags_code_retour + '</span>');
-                            arrows.append(arrow);
-                            arrows.append(arrow_retour);
-                        }
-                        else if(this.trajet === 'aller'){
-                            const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller, true)+'"></i>');
-                            arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
-                            if(this.flags_code_aller !== '0x00'){
-                                arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
-                            }
-                            else{
-                                arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
-                            }
-                            arrows.append(arrow);
-                        }
+                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-green"></i>');
+                        arrow.append('<span class="chemin-code-1">0x00</span>');
+                        arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
+                        arrows.append(arrow);
                     }
 
 

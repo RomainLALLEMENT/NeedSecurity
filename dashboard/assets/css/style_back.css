@@ -161,7 +161,7 @@ body{
     width: 100%;
     display: flex;
     flex-flow: nowrap column;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
     text-align: center;
 }
 

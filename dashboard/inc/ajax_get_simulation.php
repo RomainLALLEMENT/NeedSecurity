@@ -16,7 +16,7 @@ if($protocol_name == 'ICMP'){
 
     $sql = "SELECT id,identification,protocol_type,ip_from,ip_dest FROM trames WHERE protocol_name = :protocol_name ORDER BY frame_date";
     $query = $pdo->prepare($sql);
-    $query->bindValue('protocol_name', $protocol_name, PDO::PARAM_STR);
+    $query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
     $query->execute();
     $protocol_data = $query->fetchAll();
 
@@ -48,14 +48,14 @@ else{
 
     $sql = "SELECT id,identification,protocol_type,ip_from,ip_dest FROM trames WHERE protocol_name = :protocol_name GROUP BY identification ORDER BY frame_date";
     $query = $pdo->prepare($sql);
-    $query->bindValue('protocol_name', $protocol_name, PDO::PARAM_STR);
+    $query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
     $query->execute();
     $protocol_data = $query->fetchAll();
 
     foreach($protocol_data as $data){
         $sql = "SELECT id,flags_code,ip_from,ip_dest FROM trames WHERE identification = :id_trame ORDER BY frame_date";
         $query = $pdo->prepare($sql);
-        $query->bindValue('id_trame', $data['identification'], PDO::PARAM_STR);
+        $query->bindValue(':id_trame', $data['identification'], PDO::PARAM_STR);
         $query->execute();
         $flags_codes = $query->fetchAll();
 

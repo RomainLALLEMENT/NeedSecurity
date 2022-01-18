@@ -8,7 +8,7 @@ if(empty($_GET['trameid'])){
 $trameid = intval($_GET['trameid']);
 $sql = "SELECT * FROM trames WHERE id = :trame_id";
 $query = $pdo->prepare($sql);
-$query->bindValue('trame_id', $trameid, PDO::PARAM_INT);
+$query->bindValue(':trame_id', $trameid, PDO::PARAM_INT);
 $query->execute();
 if($query->rowCount() > 0){
     $trame = $query->fetch();

@@ -40,7 +40,7 @@ else{
     $sql = "SELECT count(id) FROM trames";
 }
 $query = $pdo->prepare($sql);
-$query->bindValue('protocol_name', $protocol_name, PDO::PARAM_STR);
+$query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
 $query->execute();
 $count = $query->fetchColumn();
 if($count <= $nbRow){

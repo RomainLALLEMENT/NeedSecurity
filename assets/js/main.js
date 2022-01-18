@@ -78,7 +78,7 @@ function loginModal(defaultEmail = ''){
 
             <input type="submit" id="submitted-login" value="Se connecter">
             <p class="error" id="error-login"></p>
-            <p class="low-focus"><a href="request_pwd.php">Mots de passe oublié</a></p>
+            <p class="low-focus"><a href="request_pwd.php">Mot de passe oublié</a></p>
 
             <p class="sub-btn-modal" id="sign-in">Inscrivez vous</p>
        `;

@@ -145,4 +145,4 @@ function ajax_getTrameDetail(trameid){
     }, 600);
 }
 
-export {ajax_getTrames, generate_table_from_trames};
+export {ajax_getTrames, generate_table_from_trames, ajax_getTrameDetail};

@@ -270,6 +270,87 @@ INDEX  PHP
 }
 
 
+/*****************************LOST PASSWORD ********************/
+#lost-pwd .wrap_contact{
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10.5rem;
+}
+#lost-pwd {
+    padding: 6rem;
+}
+/*#lost-pwd .wrap_contact{*/
+/*    text-align: left;*/
+/*}*/
+#lost-pwd .wrap_contact form{
+    display: flex;
+    flex-direction: column;
+}
+#lost-pwd .wrap_contact form label{
+    margin-bottom: 1rem;
+}
+#lost-pwd .wrap_contact form .input_email{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    border-radius: .3rem;
+    border: solid 1px grey;
+}
+#lost-pwd .wrap_contact form .submit {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: .3rem;
+    border: solid 2px var(--rouge) ;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.2rem;
+}
+#lost-pwd .wrap_contact form .submit:hover {
+    background-color: var(--rouge);
+    transition: .5s;
+    color: white;
+}
+
+#lost-token {
+    padding: 6rem;
+
+}
+#lost-token .wrap_contact{
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
 
 
+}
+#lost-token .wrap_contact form{
+    display: flex;
+    flex-direction: column;
 
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+#lost-token .wrap_contact label{
+    margin-bottom: 1rem;
+}
+#lost-token .wrap_contact input{
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2.8rem;
+}
+
+#lost-token .wrap_contact form .submit {
+    margin-bottom: 1rem;
+    width: 50%;
+    padding: 1rem;
+    border-radius: .3rem;
+    border: solid 2px var(--rouge) ;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.2rem;
+}
+#lost-token .wrap_contact form .submit:hover {
+    background-color: var(--rouge);
+    transition: .5s;
+    color: white;
+}
