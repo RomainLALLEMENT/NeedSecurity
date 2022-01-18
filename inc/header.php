@@ -20,3 +20,4 @@
     <h1 class="site_name"><?= $NOM_SITE_COLORED; ?></h1>
     <p id="btn-connection">Connexion</p>
 </header>
+<main>

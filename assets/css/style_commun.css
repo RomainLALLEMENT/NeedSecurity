@@ -9,7 +9,11 @@ body{
     font-family: 'Source Code Pro', monospace;
     width: min(100%, 1100px);
     margin-inline: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
 }
+main{ flex-grow: 2;}
 h1, h2, h3, h4, h5, h6{
     font-family: 'Noto Sans Display', sans-serif;
 }

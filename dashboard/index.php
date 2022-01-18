@@ -13,5 +13,6 @@ include_once ('inc/header_back.php');
     <div id="container">
 
     </div>
+</main>
 <?php
 include('inc/footer_back.php');

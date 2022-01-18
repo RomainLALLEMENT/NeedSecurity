@@ -60,7 +60,7 @@ function generate_search_page(){
     showLoading('Récupération des informations...');
     container.empty();
     var item, divParent;
-    const dashboardMain = $('<section id="dashboard"></section>');
+    const dashboardMain = $('<section id="search"></section>');
 
     item = $('<div class="back-box"></div>');
     divParent = $('<div></div>');

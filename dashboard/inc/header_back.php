@@ -35,6 +35,7 @@
             ?></p>
             <i id="logout-show" class="fas fa-sign-out-alt"></i>
 </header>
+<main>
 <div id="dashboard-menu">
     <ul>
 
