@@ -196,7 +196,7 @@ DASHBOARD PAGE
 .chemin-parent{
     display: flex;
     flex-flow: column nowrap;
-    gap: 2rem;
+    gap: 1rem;
     color: white;
 }
 
