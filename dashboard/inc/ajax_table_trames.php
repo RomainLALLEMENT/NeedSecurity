@@ -34,12 +34,13 @@ foreach($trames as $trame){
 }
 
 if(mb_strlen($protocol_name) > 0){
-    $sql = "SELECT count(id) FROM trames WHERE protocol_name = '".$protocol_name."'";
+    $sql = "SELECT count(id) FROM trames WHERE protocol_name = :protocol_name";
 }
 else{
     $sql = "SELECT count(id) FROM trames";
 }
 $query = $pdo->prepare($sql);
+$query->bindValue('protocol_name', $protocol_name, PDO::PARAM_STR);
 $query->execute();
 $count = $query->fetchColumn();
 if($count <= $nbRow){

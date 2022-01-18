@@ -39,11 +39,6 @@ function menuBack(){
         isActiveMenu(e);
         generate_search_page();
     })
-    detail.addEventListener('click', (e)=>{
-        console.log('page-details');
-        isActiveMenu(e);
-        //generate_details_page();
-    })
     simulation.addEventListener('click', (e)=>{
         console.log('page-simulation');
         isActiveMenu(e);

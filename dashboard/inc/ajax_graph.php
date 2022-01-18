@@ -11,8 +11,10 @@ if(empty($tableV) && empty($columnV)){
         function getDbByColumn($table, $column)
         {
             global $pdo;
-            $sql = "SELECT $column FROM  $table";
+            $sql = "SELECT :column_db FROM :table_db";
             $query = $pdo->prepare($sql);
+            $query->bindValue('column_db', $column, PDO::PARAM_STR);
+            $query->bindValue('table_db', $table, PDO::PARAM_STR);
             $query->execute();
             return $query->fetchAll(PDO::FETCH_COLUMN);
         }

@@ -109,12 +109,16 @@ function db_get_trames($fieldsArray, $page = 1, $nbRows = 10, $protocolName = ''
     }
 
     if(mb_strlen($protocolName) > 0){
-        $sql = "SELECT ".$fieldsStr." FROM trames WHERE protocol_name = '".$protocolName."' ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+        $sql = "SELECT :field_data FROM trames WHERE protocol_name = :protocol_name ORDER BY id DESC LIMIT :nbRows OFFSET :page";
     }
     else{
-        $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+        $sql = "SELECT :field_data FROM trames ORDER BY id DESC LIMIT :nbRows OFFSET :page";
     }
     $query = $pdo->prepare($sql);
+    $query->bindValue('field_data', $fieldsStr, PDO::PARAM_STR);
+    $query->bindValue('protocol_name', $protocolName, PDO::PARAM_STR);
+    $query->bindValue('nbRows', $nbRows, PDO::PARAM_INT);
+    $query->bindValue('page', (($page-1) * $nbRows), PDO::PARAM_INT);
     $query->execute();
     return $query->fetchAll();
 }

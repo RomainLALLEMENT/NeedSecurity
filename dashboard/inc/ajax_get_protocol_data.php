@@ -10,8 +10,9 @@ if(mb_strlen($protocol_name) == 0){
     exit;
 }
 
-$sql = "SELECT identification,protocol_checksum_status,header_checksum,protocol_type FROM trames WHERE protocol_name = '".$protocol_name."' ORDER BY identification";
+$sql = "SELECT identification,protocol_checksum_status,header_checksum,protocol_type FROM trames WHERE protocol_name = :protocol_name ORDER BY identification";
 $query = $pdo->prepare($sql);
+$query->bindValue('protocol_name', $protocol_name, PDO::PARAM_STR);
 $query->execute();
 $protocol_data = $query->fetchAll();
 $errors_data['paquets_count'] = $query->rowCount();

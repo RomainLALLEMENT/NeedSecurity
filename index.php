@@ -1,11 +1,6 @@
 <?php
 require_once ('inc/bases.php');
 
-if(isLoggedIn()){
-    header('Location: ./dashboard');
-    exit;
-}
-
 include_once ('inc/header.php');
 
 ?>
