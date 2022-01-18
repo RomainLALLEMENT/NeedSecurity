@@ -213,5 +213,12 @@ function isLoggedIn ():bool {
     return false;
 }
 
+function check_contains($str, $search):bool {
+    if (strpos($str, $search) !== false) {
+        return true;
+    }
+    return false;
+}
+
 
 
