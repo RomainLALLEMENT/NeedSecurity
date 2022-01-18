@@ -10,32 +10,22 @@ if(mb_strlen($protocol_name) == 0){
     exit;
 }
 
-$sql = "SELECT identification,flags_code,ip_from,ip_dest FROM trames WHERE protocol_name = '".$protocol_name."' ORDER BY identification";
+$sql = "SELECT identification,protocol_checksum_status,header_checksum,protocol_type FROM trames WHERE protocol_name = '".$protocol_name."' ORDER BY identification";
 $query = $pdo->prepare($sql);
 $query->execute();
 $protocol_data = $query->fetchAll();
+$errors_data['paquets_count'] = $query->rowCount();
+$errors_data['erreurs'] = [];
+$errors_data['unverified'] = [];
 
-$sql = "SELECT identification,flags_code,ip_from,ip_dest FROM trames WHERE protocol_name = '".$protocol_name."' GROUP BY identification";
-$query = $pdo->prepare($sql);
-$query->execute();
-$erreurs_data = $query->fetchAll();
-$protocol_data['paquets_count'] = $query->rowCount();
-
-$protocol_data['erreurs'] = [];
-foreach($erreurs_data as $tmpData){
-    $sql = "SELECT flags_code FROM trames WHERE identification = '".$tmpData['identification']."'";
-    $query = $pdo->prepare($sql);
-    $query->execute();
-    $flags_codes = $query->fetchAll();
-    if($query->rowCount() == 2){
-        if($flags_codes[0]['flags_code'] !== $flags_codes[1]['flags_code']){
-            $protocol_data['erreurs'][] = [$tmpData['identification'], 'different_code'];
-        }
+foreach($protocol_data as $tmpData){
+    if($tmpData['header_checksum'] === 'unverified'){
+        $errors_data['unverified'][] = $tmpData['identification'];
     }
-    else{
-        //$protocol_data['erreurs'][] = [$tmpData['identification'], 'no_response']; // est-ce que c'est vraiment considéré comme une erreur?
+    else if($tmpData['protocol_type'] === 8 || $tmpData['protocol_checksum_status'] === 'disabled'){
+        $errors_data['erreurs'][] = $tmpData['identification'];
     }
 }
 
-$json = json_encode($protocol_data, JSON_PRETTY_PRINT);
+$json = json_encode($errors_data, JSON_PRETTY_PRINT);
 die($json);

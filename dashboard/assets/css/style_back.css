@@ -342,3 +342,19 @@ DASHBOARD PAGE
     font-family: 'Noto Sans Display', sans-serif;
     font-size: 1rem;
 }
+
+/* Details */
+
+#error-trame-infos{
+    color: white;
+}
+
+#erreur-prct{
+    color: white;
+    font-weight: 700;
+}
+
+#erreur-paquet-count{
+    color: white;
+    font-weight: 700;
+}

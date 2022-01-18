@@ -82,7 +82,7 @@ const container = $('#container');
         dashboardMain.append(item_graphes);
         item = $('<div class="back-box_graph"></div>');
         item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-        item.append('<p><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
+        item.append('<p id="error-trame-infos"><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
         const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
         const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
         chartjs_canvas_parent.append(chartjs_canvas);
@@ -126,13 +126,20 @@ const container = $('#container');
             url: "inc/ajax_get_protocol_data.php",
             data: {protocolName: protocol_name},
             success: function(response){
+                console.log(response);
                 const protocol_data = JSON.parse(response);
                 const nbErreurs = protocol_data.erreurs.length;
                 const nbData = protocol_data.paquets_count;
-                const prct = (nbErreurs / nbData) * 100;
-                removeChartData(chartjs_graphe, 2);
-                addChartData(chartjs_graphe, "Erreurs", nbErreurs);
-                addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs));
+                const nbUnverified = protocol_data.unverified.length;
+                const prct = ((nbErreurs + nbUnverified) / nbData) * 100;
+                removeChartData(chartjs_graphe, 3);
+                addChartData(chartjs_graphe, "Erreurs", {
+                    backgroundColor: rgba(),
+                    label: "Erreurs",
+                    data: nbErreurs
+                });
+                addChartData(chartjs_graphe, "Non vérifiés", nbUnverified);
+                addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs - nbUnverified));
                 $('#erreur-prct').text(prct + '%');
                 $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
                 hideLoading(500);
