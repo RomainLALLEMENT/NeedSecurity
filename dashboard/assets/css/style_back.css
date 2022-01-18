@@ -363,7 +363,7 @@ Details of trame
 .chemin-parent{
     display: flex;
     flex-flow: column nowrap;
-    gap: 2rem;
+    gap: 1rem;
     color: white;
 }
 
@@ -508,4 +508,14 @@ Details of trame
     border-radius: 3px;
     font-family: 'Noto Sans Display', sans-serif;
     font-size: 1rem;
+}
+
+/* Details */
+
+.error-trame-infos{
+    color: white;
+}
+
+.error-trame-infos strong{
+    font-weight: 700;
 }

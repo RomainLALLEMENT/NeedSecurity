@@ -3,6 +3,7 @@ import {showLogout} from "./modal.js";
 import {ajax_getTrames} from "./tableau.js";
 import {generate_search_page} from "./search.js";
 import {generateDashboardPage} from "./dashboard.js";
+import {generate_protocol_path} from "./simulation.js";
 // script principal
 
 $( document ).ready(function() {
@@ -26,6 +27,7 @@ function menuBack(){
     const home = document.getElementById('page-accueil');
     const search = document.getElementById('page-recherche');
     const detail = document.getElementById('page-details');
+    const simulation = document.getElementById('page-simulation');
 
     home.addEventListener('click', (e)=>{
         console.log('page-accueil');
@@ -42,7 +44,11 @@ function menuBack(){
         isActiveMenu(e);
         //generate_details_page();
     })
-
+    simulation.addEventListener('click', (e)=>{
+        console.log('page-simulation');
+        isActiveMenu(e);
+        generate_protocol_path('ICMP');
+    })
 }
 
 function isActiveMenu(e){

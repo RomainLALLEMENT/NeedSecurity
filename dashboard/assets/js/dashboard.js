@@ -26,7 +26,7 @@ function generateDashboardPage(){
         //creat box
         const dataBox = document.createElement('div');
         dataBox.classList.add('data-box');
-        dataBox.classList.add('clickable');
+        //dataBox.classList.add('clickable');
         const dataBoxName = document.createElement('h3');
         dataBoxName.classList.add('data-box_name');
         dataBox.appendChild(dataBoxName);

@@ -68,8 +68,8 @@ const container = $('#container');
                 'Valides'
             ],
             datasets: [{
-                label: 'Paquets ' + trame.protocol_name,
-                data: [80,20],
+                label: 'Trames ' + trame.protocol_name,
+                data: [0,0],
                 backgroundColor: [
                     'rgb(252,66,66)',
                     'rgb(65,220,82)'
@@ -82,7 +82,8 @@ const container = $('#container');
         dashboardMain.append(item_graphes);
         item = $('<div class="back-box_graph"></div>');
         item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-        item.append('<p><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> paquet(s)</p>');
+        item.append('<p class="error-trame-infos"><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> trame(s)' +
+            '<br /><strong id="unverified-prct">0%</strong> n\'ont pas pu être vérifiées</p>');
         const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
         const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
         chartjs_canvas_parent.append(chartjs_canvas);
@@ -126,16 +127,45 @@ const container = $('#container');
             url: "inc/ajax_get_protocol_data.php",
             data: {protocolName: protocol_name},
             success: function(response){
+                console.log(response);
                 const protocol_data = JSON.parse(response);
                 console.log(protocol_data);
                 const nbErreurs = protocol_data.erreurs.length;
                 const nbData = protocol_data.paquets_count;
+                const nbUnverified = protocol_data.unverified.length;
                 const prct = (nbErreurs / nbData) * 100;
-                removeChartData(chartjs_graphe, 2);
-                addChartData(chartjs_graphe, "Erreurs", nbErreurs);
-                addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs));
+                const prctUnverif = (nbUnverified / nbData) * 100;
+
+                let data = {
+                    labels: [
+                        'Erreurs',
+                        'Valides',
+                        'Non vérifiés'
+                    ],
+                    datasets: [{
+                        label: 'Trames ' + protocol_name,
+                        data: [nbErreurs,(nbData - nbErreurs - nbUnverified), nbUnverified],
+                        backgroundColor: [
+                            'rgb(252,66,66)',
+                            'rgb(65,220,82)',
+                            'rgb(191,191,191)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                };
+                chartjs_graphe.config.data = data;
+                chartjs_graphe.update();
+
+                /*addChartData(chartjs_graphe, "Erreurs", {
+                    backgroundColor: '#CFFF0A',
+                    label: "Erreurs",
+                    data: nbErreurs
+                });
+                addChartData(chartjs_graphe, "Non vérifiés", nbUnverified);
+                addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs - nbUnverified));*/
                 $('#erreur-prct').text(prct + '%');
                 $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
+                $('#unverified-prct').text(prctUnverif + '%');
                 hideLoading(500);
             },
             error: function(){

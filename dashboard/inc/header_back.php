@@ -41,6 +41,7 @@
         <li id="page-accueil" class="dashboard-menu-item li-selected"><i class="fas fa-house-user"></i><p> Résumé</p></li>
         <li id="page-recherche" class="dashboard-menu-item"><i class="fas fa-search"></i><p> Log trame</p></li>
         <li id="page-details" class="dashboard-menu-item"><i class="fas fa-database"></i><p> Détails</p></li>
+        <li id="page-simulation" class="dashboard-menu-item"><i class="fas fa-network-wired"></i><p> Simulation</p></li>
 
         <!--<li id="page-log"><i class="fas fa-clipboard-list"></i> Logs</li>--> <!-- Utile ? car au final c'est Recherch -->
     </ul>
