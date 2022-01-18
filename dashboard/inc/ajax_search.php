@@ -15,7 +15,7 @@ function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonneAr, $search){
 
     foreach ($trame as $key => $value){
         if($key !== 'id' && !in_array($key, $ignoreColonneAr)){
-            if(!str_contains($prefixe, $value)){
+            if(!check_contains($prefixe, $value)){
                 $ar = addItemInArrayIfNotExist($ar, $prefixe . ' ' . $value, $search);
             }
         }
@@ -24,19 +24,19 @@ function cumulateDataIn($ar, $trame, $prefixe, $ignoreColonneAr, $search){
 }
 
 function getCorrespondanceIn($trame, $search){
-    if(str_contains($trame['frame_date'], $search)){
+    if(check_contains($trame['frame_date'], $search)){
         return 'frame_date';
     }
-    elseif(str_contains(strtolower($trame['identification']), $search)){
+    elseif(check_contains(strtolower($trame['identification']), $search)){
         return 'identification';
     }
-    elseif(str_contains(strtolower($trame['protocol_name']), $search)){
+    elseif(check_contains(strtolower($trame['protocol_name']), $search)){
         return 'protocol_name';
     }
-    elseif(str_contains(strtolower($trame['ip_from']), $search)){
+    elseif(check_contains(strtolower($trame['ip_from']), $search)){
         return 'ip_from';
     }
-    elseif(str_contains(strtolower($trame['ip_dest']), $search)){
+    elseif(check_contains(strtolower($trame['ip_dest']), $search)){
         return 'ip_dest';
     }
     return ">not-found<";
@@ -49,7 +49,7 @@ else{
     $search = strtolower(trim(strip_tags($_GET['search'])));
 }
 
-if (str_contains($search, " ")) {
+if (check_contains($search, " ")) {
     $search_keys = explode(" ", $search);
 }
 else{
