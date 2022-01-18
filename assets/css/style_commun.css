@@ -125,6 +125,7 @@ h1, h2, h3, h4, h5, h6{
     flex-flow: column nowrap;
     z-index: 2;
     position: relative;
+    border-top: 2px solid rgba(255,255,255,.8);
 }
 .footer .footer-bot,.footer .footer-bot a{
     color: var(--copyright-color);

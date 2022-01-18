@@ -105,6 +105,8 @@ INDEX  PHP
 #abouts-us{
     display: flex;
     flex-flow: row nowrap;
+    background-color: var(--back-color);
+    color: white;
     justify-content: space-between;
     padding: max(1rem, 3vw);
     gap: 4%;
@@ -125,6 +127,7 @@ INDEX  PHP
     color: white;
     padding: max(1rem, 3vw);
     gap: 4%;
+    height: 100%;
 }
 #functionality h2{
     font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
@@ -145,10 +148,11 @@ INDEX  PHP
 
 /* Analyse */
 #analyse{
-    background-color: var(--gris);
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row-reverse nowrap;
     justify-content: space-between;
+    background-color: var(--back-color);
+    color: white;
     padding: max(1rem, 3vw);
     gap: 4%;
 }
@@ -156,7 +160,7 @@ INDEX  PHP
     font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
     margin-bottom: .8rem;
 }
-#analyse> div{
+#analyse > div{
     width: 50%;
 }
 #analyse ul{
@@ -173,6 +177,8 @@ INDEX  PHP
 /*Mentions légales*/
 #mentionslegales{
     padding: 3rem;
+    background-color: var(--back-color);
+    color: white;
 }
 .ml-title h2 {
     font-size: 2rem;
