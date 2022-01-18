@@ -135,6 +135,7 @@ footer a{
     padding: .3rem .5rem;
     transition: all .5s;
     line-height: initial;
+    width: fit-content;
 }
 .footer a:hover{
     color: var(--rouge);
