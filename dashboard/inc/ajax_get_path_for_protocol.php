@@ -35,6 +35,7 @@ foreach($protocol_data as $data){
                     'flags_code_retour' => $flags_codes[$i+1]['flags_code'],
                     'ip_from' => hexadecimalCipher($flags_codes[$i]['ip_from']),
                     'ip_dest' => hexadecimalCipher($flags_codes[$i]['ip_dest']),
+                    'statut' => 'retour-valide',
                     'trajet' => 'aller-retour'
                 ];
             }
@@ -45,7 +46,8 @@ foreach($protocol_data as $data){
                     'flags_code_aller' => $flags_codes[$i]['flags_code'],
                     'ip_from' => hexadecimalCipher($flags_codes[$i]['ip_from']),
                     'ip_dest' => hexadecimalCipher($flags_codes[$i]['ip_dest']),
-                    'trajet' => 'aller'
+                    'statut' => 'retour-error',
+                    'trajet' => 'aller-retour'
                 ];
             }
             $last_identifiant = $data['identification'];

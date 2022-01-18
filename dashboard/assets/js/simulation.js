@@ -66,10 +66,10 @@ function ajax_generateProtocolPath(element, protocol_name){
                     if(this.trajet === 'aller-retour'){
                         const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller)+'"></i>');
                         arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
-                        if(this.flags_code_aller !== '0x00'){
+                        if(this.statut === 'aller-error'){
                             arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
                         }
-                        else if(this.flags_code_retour !== '0x00'){
+                        else if(this.statut === 'retour-error'){
                             arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
                         }
                         else{
