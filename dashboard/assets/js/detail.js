@@ -127,9 +127,7 @@ const container = $('#container');
             url: "inc/ajax_get_protocol_data.php",
             data: {protocolName: protocol_name},
             success: function(response){
-                console.log(response);
                 const protocol_data = JSON.parse(response);
-                console.log(protocol_data);
                 const nbErreurs = protocol_data.erreurs.length;
                 const nbData = protocol_data.paquets_count;
                 const nbUnverified = protocol_data.unverified.length;

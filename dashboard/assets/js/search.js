@@ -2,6 +2,7 @@ import {generate_table_from_trames} from "./tableau.js";
 import {ajax_getTrames} from "./tableau.js";
 
 var searchTimer = null;
+var lastSearch = '';
 
 const container = $('#container');
 function ajax_search(search){
@@ -26,10 +27,10 @@ function update_search_page(searchData){
     _autocomplete.empty();
     const inputSearch = $('#input-search');
 
-    if(searchData[searchData.length - 1].length > 0){
+    if(searchData[searchData.length - 2].length > 0){
         _autocomplete.css('display', 'flex');
         let count = 0;
-        $.each(searchData[searchData.length - 1], function() {
+        $.each(searchData[searchData.length - 2], function() {
             if(this.toString() !== inputSearch.val()) {
                 const autocompleteData = $('<div class="autocomplete-data">' + this.toString() + '</div>').on('click', function () {
                     const value = $(this).text();
@@ -51,6 +52,8 @@ function update_search_page(searchData){
         _autocomplete.css('display', 'none');
     }
 
+    lastSearch = searchData[searchData.length - 1];
+    searchData.pop();
     searchData.pop();
     const searchTable = $('#search-table');
     generate_table_from_trames(searchTable, searchData);
@@ -64,7 +67,7 @@ function generate_search_page(){
 
     item = $('<div class="back-box"></div>');
     divParent = $('<div></div>');
-    const inputSearch = $('<input id="input-search" type="text" placeholder="Recherche...">');
+    const inputSearch = $('<input id="input-search" type="text" value="'+lastSearch+'" placeholder="Recherche...">');
     divParent.append(inputSearch);
     item.append(divParent);
     dashboardMain.append(item);
@@ -108,7 +111,7 @@ function generate_search_page(){
     generate_table_from_trames(searchTable, null);
 
     container.append(dashboardMain);
-    ajax_search('');
+    ajax_search(lastSearch);
 }
 
 export {generate_search_page};
