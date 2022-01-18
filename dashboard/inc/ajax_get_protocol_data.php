@@ -22,7 +22,7 @@ foreach($protocol_data as $tmpData){
     if($tmpData['header_checksum'] === 'unverified'){
         $errors_data['unverified'][] = $tmpData['identification'];
     }
-    else if($tmpData['protocol_type'] === 8 || $tmpData['protocol_checksum_status'] === 'disabled'){
+    else if($tmpData['protocol_type'] == 8 || $tmpData['protocol_checksum_status'] === 'disabled'){
         $errors_data['erreurs'][] = $tmpData['identification'];
     }
 }

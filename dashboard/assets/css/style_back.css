@@ -345,16 +345,10 @@ DASHBOARD PAGE
 
 /* Details */
 
-#error-trame-infos{
+.error-trame-infos{
     color: white;
 }
 
-#erreur-prct{
-    color: white;
-    font-weight: 700;
-}
-
-#erreur-paquet-count{
-    color: white;
+.error-trame-infos strong{
     font-weight: 700;
 }
