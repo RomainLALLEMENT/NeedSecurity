@@ -18,10 +18,20 @@ include_once ('inc/header.php');
             <h2>A propos de nous...</h2>
             <p><?= $NOM_SITE_COLORED; ?> est un projet concernant une plateforme d'analyse de trame qui permet d'éviter les attaques DDoS. Créer en janvier 2022 par l'équipe de <?= $NOM_SITE_COLORED; ?>, elle est composée de 4 développeurs qui sont :</p>
             <ul>
-                <li>Léonard JOUEN (Chef de projet & Développeur Back-End)</li>
-                <li>Johann SIX (Développeur Back-End)</li>
-                <li>Romain LALLEMENT (Développeur Front-End)</li>
-                <li>Anthony CHEVALIER (Développeur Front-End)</li>
+                <li>Léonard JOUEN (Administrateur système & réseau)</li>
+                <li>Johann SIX (Analyste réseau)</li>
+                <li>Romain LALLEMENT (Ingénieur réseau)</li>
+                <li>Anthony CHEVALIER (Ingénieur réseau)</li>
+            </ul>
+
+            <h2><?= $NOM_SITE_COLORED;?> analyse quelles trames ?</h2>
+
+            <p><?= $NOM_SITE_COLORED; ?> a pour objectif d'analyser les trames réseaux comme :</p>
+            <ul>
+                <li>les trames TCP : Transmission Control Protocol </li>
+                <li>les trames UDP : User Datagram Protocol</li>
+                <li>les trames ICMP : Internet Control Message Protocol </li>
+                <li>les trames TLS : Transport Layer Security</li>
             </ul>
         </div>
     </section>

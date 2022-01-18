@@ -267,6 +267,10 @@ INDEX  PHP
 .button-hp:hover{
     opacity: 70%;
 }
+/*about us*/
+#abouts-us h2{
+    padding: 1rem 0;
+}
 
 
 

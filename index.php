@@ -34,7 +34,7 @@ include_once ('inc/header.php');
 </section>
 
 <section id="analyse">
-    <div><img src="assets/img/orga.png" alt=""></div>
+    <div><img src="assets/img/orga.svg" alt=""></div>
     <div>
         <h2>Analyse </h2>
         <ul id="list-analyse">
