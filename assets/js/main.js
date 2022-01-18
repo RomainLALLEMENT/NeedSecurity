@@ -264,3 +264,24 @@ $( document ).ready(function() {
         hideLoading();
     }, 500);
 });
+
+
+//Change content on media query
+const smallDevice = window.matchMedia("(max-width: 480px)");
+const connection = document.getElementById('btn-connection');
+smallDevice.addEventListener('change', changeContent);
+function changeContent(e) {
+    // Check if the media query is true
+    if (e.matches) {
+        const i = document.createElement('i');
+        i.classList.add('fas');
+        i.classList.add('fa-sign-in-alt');
+        connection.innerText = '';
+        connection.appendChild(i);
+    } else {
+        connection.innerText = '';
+        connection.innerText = 'Connexion';
+    }
+}
+// Run it at the init
+changeContent(smallDevice);

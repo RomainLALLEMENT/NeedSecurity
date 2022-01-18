@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style_commun.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive_commun.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
 <body>
