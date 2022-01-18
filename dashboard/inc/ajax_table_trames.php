@@ -33,16 +33,20 @@ foreach($trames as $trame){
     $cptTrame++;
 }
 
+$count = 0;
 if(mb_strlen($protocol_name) > 0){
     $sql = "SELECT count(id) FROM trames WHERE protocol_name = :protocol_name";
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
+    $query->execute();
+    $count = $query->fetchColumn();
 }
 else{
     $sql = "SELECT count(id) FROM trames";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    $count = $query->fetchColumn();
 }
-$query = $pdo->prepare($sql);
-$query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
-$query->execute();
-$count = $query->fetchColumn();
 if($count <= $nbRow){
     $pages = 1;
 }
