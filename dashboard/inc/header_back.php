@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../assets/css/style_commun.css">
     <link rel="stylesheet" href="assets/css/style_back.css">
     <link rel="stylesheet" href="assets/css/responsive_back.css">
+    <link rel="stylesheet" href="../assets/css/responsive_commun.css">
     <title><?= $NOM_SITE; ?></title>
 </head>
 <body>
