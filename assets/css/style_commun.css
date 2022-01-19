@@ -17,6 +17,9 @@ main{ flex-grow: 2;}
 h1, h2, h3, h4, h5, h6{
     font-family: 'Noto Sans Display', sans-serif;
 }
+input:focus-visible{
+    outline-color: var(--rouge);
+}
 :root{
     --rouge: #FF2525;
     --back-color: rgb(34, 37, 51);

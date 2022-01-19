@@ -265,102 +265,111 @@ INDEX  PHP
 
 
 /*****************************LOST PASSWORD ********************/
-#lost-pwd .wrap_contact{
-    max-width: 600px;
+/* Request PWD */
+#lost-pwd , #lost-token{
+    width: min(95%, 600px);
+    margin: 10% auto 0 auto;
+    text-align: center;
+}
+#lost-pwd form, #lost-token form{
+    display: flex;
+    flex-direction: column;
+}
+#lost-pwd form > *, #lost-token form > *{
+    margin-bottom: 1rem;
+}
+#lost-pwd form input,
+#lost-token form input{
+    padding: 1rem;
     width: 100%;
-    margin: 0 auto;
-    margin-bottom: 10.5rem;
+    border-radius: .3rem;
 }
-#lost-pwd {
-    padding: 6rem;
+#lost-pwd form .input_email,
+#lost-token form .input_email{
+    border: solid 1px var(--gris);
 }
-/*#lost-pwd .wrap_contact{*/
-/*    text-align: left;*/
+#lost-pwd form .submit ,
+#lost-token form .submit {
+    border: solid 2px var(--rouge) ;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.2rem;
+    transition: all .5s;
+}
+#lost-pwd form .submit:hover,
+#lost-token form .submit:hover {
+    background-color: var(--rouge);
+    color: white;
+}
+#lost-pwd #token{
+    width: 90%;
+    margin: 1rem auto 0 auto;
+    border-radius: .3rem;
+    border: solid 2px var(--rouge);
+    padding: .3rem;
+    cursor: pointer;
+    transition: all .3s;
+}
+#lost-pwd #token p{
+    word-break: break-all;
+}
+#lost-pwd #token:hover{
+    background-color: var(--selected-item-color);
+}
+#lost-pwd #token:hover a{
+    color: var(--rouge);
+}
+
+/*Recup PWD */
+/*#lost-token {*/
+/*    width: min(95%, 600px);*/
+/*    margin: 10% auto 0 auto;*/
+/*    text-align: center;*/
+
 /*}*/
-#lost-pwd .wrap_contact form{
-    display: flex;
-    flex-direction: column;
-}
-#lost-pwd .wrap_contact form label{
-    margin-bottom: 1rem;
-}
-#lost-pwd .wrap_contact form .input_email{
-    padding: 1rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    border-radius: .3rem;
-    border: solid 1px grey;
-}
-#lost-pwd .wrap_contact form .submit {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: .3rem;
-    border: solid 2px var(--rouge) ;
-    cursor: pointer;
-    background-color: transparent;
-    font-size: 1.2rem;
-}
-#lost-pwd .wrap_contact form .submit:hover {
-    background-color: var(--rouge);
-    transition: .5s;
-    color: white;
-}
 
-#lost-token {
-    padding: 6rem;
+/*#lost-token  form{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
 
-}
-#lost-token .wrap_contact{
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
+/*    !*justify-content: center;*!*/
+/*    !*align-items: center;*!*/
+/*}*/
+/*#lost-token  label{*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+/*#lost-token input{*/
+/*    width: 100%;*/
+/*    padding: 1rem;*/
+/*    margin-bottom: 2.8rem;*/
+/*}*/
 
-
-}
-#lost-token .wrap_contact form{
-    display: flex;
-    flex-direction: column;
-
-    /*justify-content: center;*/
-    /*align-items: center;*/
-}
-#lost-token .wrap_contact label{
-    margin-bottom: 1rem;
-}
-#lost-token .wrap_contact input{
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 2.8rem;
-}
-
-#lost-token .wrap_contact form .submit {
-    margin-bottom: 1rem;
-    width: 50%;
-    padding: 1rem;
-    border-radius: .3rem;
-    border: solid 2px var(--rouge) ;
-    cursor: pointer;
-    background-color: transparent;
-    font-size: 1.2rem;
-}
-#lost-token .wrap_contact form .submit:hover {
-    background-color: var(--rouge);
-    transition: .5s;
-    color: white;
-}
+/*#lost-token  form .submit {*/
+/*    margin-bottom: 1rem;*/
+/*    width: 50%;*/
+/*    padding: 1rem;*/
+/*    border-radius: .3rem;*/
+/*    border: solid 2px var(--rouge) ;*/
+/*    cursor: pointer;*/
+/*    background-color: transparent;*/
+/*    font-size: 1.2rem;*/
+/*}*/
+/*#lost-token  form .submit:hover {*/
+/*    background-color: var(--rouge);*/
+/*    transition: .5s;*/
+/*    color: white;*/
+/*}*/
 
 /*About-us*/
 #abouts-us{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
     padding: max(1rem, 3vw);
-    gap: 4%;
+    margin-bottom: 1rem;
 }
 
 #abouts-us h2{
-    padding-bottom: 1rem;
+    margin: 1rem auto;
+    font-size: clamp(.7rem, .7rem + 2vw, 1.2rem);
 }
 #abouts-us p{
-    padding-bottom: 1rem;
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
 }

@@ -26,13 +26,15 @@ if (!empty($token) && !empty($email)) {
             $password = cleanXss($_POST['pwd']);
             $password_confirm = cleanXss($_POST['pwd_confirmed']);
 
-            $password_valid = samePassword($error,$password, $password_confirm, 'pwd_confirmed');
+            $error = samePassword($error,$password, $password_confirm, 'pwd_confirmed');
             // Error
             $error = emailValidation($error, $email, 'email');
-            $error = validInput($error,$password_confirm, 'password_confirm', 3, 255);
+            $error = validInput($error, $password, 'pwd_confirmed', 3, 255);
+            $error = validInput($error, $password_confirm, 'pwd_confirmed', 3, 255);
+
             /*If not error*/
             if (count($error) == 0) {
-                $password_valid = password_hash($password_confirm, PASSWORD_DEFAULT);
+                $password_verify = password_hash($password_confirm , PASSWORD_DEFAULT);
                 $sql = "UPDATE users 
                 SET password = :password,token= '', modified_at = NOW() 
                 WHERE email = :email";
@@ -41,7 +43,7 @@ if (!empty($token) && !empty($email)) {
                 $query = $pdo->prepare($sql);
                 // Injection SQL
                 $query->bindValue(':email', $email, PDO::PARAM_STR);
-                $query->bindValue(':password', $password_valid, PDO::PARAM_STR);
+                $query->bindValue(':password', $password_verify, PDO::PARAM_STR);
 
                 //executer la query
                 $query->execute();
@@ -59,7 +61,6 @@ include_once ('inc/header.php');
 
 ?>
 <section id="lost-token">
-    <div class="wrap_contact">
         <?php if ($succes) { ?>
             <div class="msg">
                 <p>Mot de passe modifié</p>
@@ -70,13 +71,11 @@ include_once ('inc/header.php');
                 <label for="pwd">Saisissez votre nouveau mot de passe :</label>
                 <input type="password" name="pwd" id="pwd" placeholder="">
                 <label for="pwd_confirmed">Saisissez à nouveau votre mot de passe :</label>
-                <input type="password" name="pwd_confirmed" id="pwd_confirmed"
-                       placeholder="">
+                <input type="password" name="pwd_confirmed" id="pwd_confirmed" placeholder="">
                 <span class="error"><?= returnError($error, 'pwd_confirmed'); ?></span>
                 <input type="submit" class="submit" name="submitted" value="Valider">
             </form>
         <?php } ?>
-    </div>
 </section>
 
 <?php
