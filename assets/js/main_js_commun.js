@@ -12,6 +12,8 @@ function generate_loader(){
 
 showLoading();
 
+Chart.defaults.color = "#fff";
+
 function showLoading(msg = ''){
     if(!$('#loader').length){
         const tmp_loader = $('<div id="loader"></div>');

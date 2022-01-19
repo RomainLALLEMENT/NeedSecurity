@@ -154,13 +154,6 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
             chartjs_graphe.config.data = data;
             chartjs_graphe.update();
 
-            /*addChartData(chartjs_graphe, "Erreurs", {
-                backgroundColor: '#CFFF0A',
-                label: "Erreurs",
-                data: nbErreurs
-            });
-            addChartData(chartjs_graphe, "Non vérifiés", nbUnverified);
-            addChartData(chartjs_graphe, "Valides", (nbData - nbErreurs - nbUnverified));*/
             $('#erreur-prct').text(prct + '%');
             $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
             $('#unverified-prct').text(prctUnverif + '%');
@@ -180,7 +173,7 @@ function generate_details_protocol_page(protocole){
     const item_graphes = $('<div class="back-box"></div>');
     dashboardMain.append(item_graphes);
     let item = $('<div class="back-box_graph"></div>');
-    item.append('<h2>'+protocole+'</h2>');
+    /*item.append('<h2>'+protocole+'</h2>');*/
 
     const chartjs_canvas = $('<canvas id="graphe_days"></canvas>');
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_days_parent"></div>');
@@ -191,42 +184,96 @@ function generate_details_protocol_page(protocole){
     let config = {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            labels: [],
+            datasets: []
         }
     };
 
     const chartjs_graphe_days = new Chart(chartjs_canvas, config);
-    //ajax_getProtocolData(chartjs_graphe_days, trame.protocol_name);
+    ajax_getDaysData(chartjs_graphe_days);
 
     container.append(dashboardMain);
 }
+
+
+function ajax_getDaysData(chartjs_graphe){
+    showLoading('Récupération des informations...');
+    $.ajax({
+        type: "GET",
+        url: "inc/ajax_get_days_data.php",
+        data: {},
+        success: function(response){
+            const days_data = JSON.parse(response);
+
+            let cpt = 0;
+            let jour_icmp = [];
+            let jour_tcp = [];
+            let jour_udp = [];
+            let jour_tls = [];
+            $.each(days_data, function() {
+                if(cpt > 0){
+                    if(this.ICMP != null) {
+                        jour_icmp[cpt-1] = this.ICMP;
+                    }
+                    else{
+                        jour_icmp[cpt-1] = 0;
+                    }
+                    if(this.TCP != null) {
+                        jour_tcp[cpt-1] = this.TCP;
+                    }
+                    else{
+                        jour_tcp[cpt-1] = 0;
+                    }
+                    if(this.UDP != null) {
+                        jour_udp[cpt-1] = this.UDP;
+                    }
+                    else{
+                        jour_udp[cpt-1] = 0;
+                    }
+                    if(this['TLSv1.2'] != null) {
+                        jour_tls[cpt-1] = this['TLSv1.2'];
+                    }
+                    else{
+                        jour_tls[cpt-1] = 0;
+                    }
+                }
+                cpt++;
+            });
+
+            let data = {
+                labels: days_data[0],
+                datasets: [
+                    {
+                        label: 'ICMP',
+                        data: jour_icmp,
+                        backgroundColor: '#D6E9C6'
+                    },
+                    {
+                        label: 'TCP',
+                        data: jour_tcp,
+                        backgroundColor: '#FAEBCC'
+                    },
+                    {
+                        label: 'UDP',
+                        data: jour_udp,
+                        backgroundColor: '#EBCCD1'
+                    },
+                    {
+                        label: 'TLSv1.2',
+                        data: jour_tls,
+                        backgroundColor: '#ef526c'
+                    }
+                ]
+            };
+            chartjs_graphe.config.data = data;
+            chartjs_graphe.update();
+            hideLoading(500);
+        },
+        error: function(){
+            hideLoading(500);
+        }
+    });
+}
+
 
 export {generate_trame_details, generate_details_protocol_page};
