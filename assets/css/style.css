@@ -265,7 +265,7 @@ INDEX  PHP
 
 
 /*****************************LOST PASSWORD ********************/
-/* Request PWD */
+/* Request PWD And Recup PWD */
 #lost-pwd , #lost-token{
     width: min(95%, 600px);
     margin: 10% auto 0 auto;
@@ -320,45 +320,7 @@ INDEX  PHP
     color: var(--rouge);
 }
 
-/*Recup PWD */
-/*#lost-token {*/
-/*    width: min(95%, 600px);*/
-/*    margin: 10% auto 0 auto;*/
-/*    text-align: center;*/
 
-/*}*/
-
-/*#lost-token  form{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-
-/*    !*justify-content: center;*!*/
-/*    !*align-items: center;*!*/
-/*}*/
-/*#lost-token  label{*/
-/*    margin-bottom: 1rem;*/
-/*}*/
-/*#lost-token input{*/
-/*    width: 100%;*/
-/*    padding: 1rem;*/
-/*    margin-bottom: 2.8rem;*/
-/*}*/
-
-/*#lost-token  form .submit {*/
-/*    margin-bottom: 1rem;*/
-/*    width: 50%;*/
-/*    padding: 1rem;*/
-/*    border-radius: .3rem;*/
-/*    border: solid 2px var(--rouge) ;*/
-/*    cursor: pointer;*/
-/*    background-color: transparent;*/
-/*    font-size: 1.2rem;*/
-/*}*/
-/*#lost-token  form .submit:hover {*/
-/*    background-color: var(--rouge);*/
-/*    transition: .5s;*/
-/*    color: white;*/
-/*}*/
 
 /*About-us*/
 #abouts-us{
