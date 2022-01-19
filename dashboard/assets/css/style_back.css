@@ -130,6 +130,10 @@ body{
     transition: all .25s;
 }
 
+.back-box .data-box.selected{
+    background-color: #adb4c0;
+}
+
 .back-box .data-box.clickable:hover{
     background-color: var(--selected-item-color);
 }
@@ -517,4 +521,13 @@ Details of trame
 
 .error-trame-infos strong{
     font-weight: 700;
+}
+
+#descriptionContainer{
+    min-height: 300px;
+}
+
+#descriptionContainer p{
+    color: white;
+    padding: .2rem;
 }
