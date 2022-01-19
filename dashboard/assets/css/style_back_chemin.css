@@ -1,0 +1,186 @@
+/* ways */
+:root{
+    --green-good: greenyellow;
+    --red-bad: #FF2525FF;
+}
+.way-list{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    color: white;
+}
+
+.way-box{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .3rem;
+    justify-content: center;
+    text-align: center;
+}
+.way-box h4{
+    font-size: 1.1rem;
+}
+.way-box .bold-id{
+    font-weight: 700;
+}
+.way{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    transition: all .25s;
+    cursor: pointer;
+    padding: min(.7rem, .7rem + 3vw);
+}
+.way:hover{
+    background-color: var(--back-color);
+}
+.way > div{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: .3rem;
+    padding: .3rem;
+}
+.way .way-ip{
+    font-size: clamp(.6rem, .6rem + 1vw, 1.1rem);
+}
+.way .way-paquet{
+    /*Make responsive !*/
+    font-size: clamp(1.5rem, 1.5rem + 3vw, 3rem);
+}
+.way .transit-box{
+    flex-grow: 2;
+    position: relative;
+}
+.way .way-code{
+    font-size: .8rem;
+    font-weight: 300;
+    font-family: 'Noto Sans Display', sans-serif;
+}
+
+/* Class to aply for color*/
+.way .return-green{
+    color: #53c159;
+}
+
+.way .return-red{
+    color: var(--rouge);
+}
+
+.way .return-blue{
+    color: #2ac1b4;
+}
+
+
+.data-transit{
+    position: absolute;
+    visibility: hidden;
+    top: 5%;
+    left: 5%;
+}
+.way .data-transit{
+    font-size: 1rem;
+    z-index: 1;
+}
+.way .one-way{
+    animation: moveOneWay 10s steps(10) infinite;
+}
+.way .with-return {
+    animation: moveWithReturn 10s steps(10) infinite;
+}
+.way:hover .data-transit{
+    animation-play-state: paused;
+}
+.way .data-transit:after {
+      position: absolute;
+        bottom: -50%;
+        right: -50%;
+      content: "";
+      font-size: 1.5rem;
+        z-index: 5;
+  }
+.way:hover .data-transit:after{
+    animation-play-state: paused;
+}
+ .good:after {
+    animation: good 10s steps(10) infinite;
+}
+.bad:after {
+    animation: bad 10s steps(10) infinite;
+}
+@keyframes moveWithReturn {
+    0% {
+        visibility: visible;
+        top: 5%;
+        left: 5%;
+    }
+    25%  {
+        top: 5%;
+        left: 90%;
+    }
+    50% {
+        top: 45%;
+        left: 90%;
+    }
+    75%{
+        top: 90%;
+        left: 90%;
+    }
+    100% {
+        top: 90%;
+        left: 5%;
+    }
+}
+@keyframes moveOneWay {
+    from {
+        visibility: visible;
+        top: 45%;
+        left: 5%;
+    }
+
+    to {
+        top: 45%;
+        left: 95%;
+    }
+}
+@keyframes good {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f00c";
+        color: var(--green-good);
+    }
+}
+
+@keyframes bad {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f00d";
+        color: var(--red-bad);
+    }
+}
+
+
+
+
+
+
+
+.way .arrows .fas .fa-times{
+    position: absolute;
+    bottom: -60%;
+    right: -60%;
+    color: var(--rouge);
+}
+
+.way .arrows .fas .fa-check{
+    position: absolute;
+    bottom: -60%;
+    right: -60%;
+    color: greenyellow;
+}

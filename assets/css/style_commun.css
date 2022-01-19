@@ -128,7 +128,6 @@ input:focus-visible{
     flex-flow: column nowrap;
     z-index: 2;
     position: relative;
-    border-top: 2px solid rgba(255,255,255,.8);
 }
 .footer .footer-bot,.footer .footer-bot a{
     color: var(--copyright-color);

@@ -10,7 +10,7 @@ function generate_loader(){
     return loaderContainer;
 }*/
 
-showLoading();
+//showLoading();
 
 Chart.defaults.color = "#fff";
 
