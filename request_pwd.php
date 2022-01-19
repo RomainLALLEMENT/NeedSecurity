@@ -38,13 +38,13 @@ include_once ('inc/header.php');
 ?>
 
     <section id="lost-pwd">
-        <div class="wrap_contact">
             <?php if ($succes){ ?>
                 <div class="msg">
                     <p>L'email a bien été envoyé.</p>
                     <div class="back">
                         <p><a href="index.php">Retour à l'accueil</a></p>
-                        <p><a href="recup_pwd.php?token=<?= urlencode($token); ?>&email=<?= urlencode($verifEmail['email']); ?>">Cliquez ici pour modifier votre mot de passe</a></p>
+
+                        <div id="token"><p><a href="recup_pwd.php?token=<?= urlencode($token); ?>&email=<?= urlencode($verifEmail['email']); ?>"><?= $token; ?></a></p></div>
                     </div>
 
                 </div>
@@ -57,7 +57,6 @@ include_once ('inc/header.php');
                     <input type="submit" class="submit" name="submitted" value="Envoyer">
                 </form>
             <?php }?>
-        </div>
     </section>
 
 <?php

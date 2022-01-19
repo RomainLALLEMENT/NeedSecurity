@@ -18,10 +18,10 @@ include_once ('inc/header.php');
         <div>
             <h2>Fonctionnalités</h2>
             <ul id="list-func">
-                <li><i class="fas fa-database"></i>Accès aux données du réseau et données graphiques sur vos trames</li>
-                <li><i class="fas fa-server"></i>Protection et anticipation des attaques</li>
-                <li><i class="fas fa-chart-pie"></i>Analyse de vos trames réseau et synthèse des données réseau</li>
-                <li><i class="fas fa-search"></i>Recherche rapide et intuitive</li>
+                <li><i class="fas fa-database"></i><p>Accès aux données du réseau et données graphiques sur vos trames</p></li>
+                <li><i class="fas fa-server"></i><p>Protection et anticipation des attaques</p></li>
+                <li><i class="fas fa-chart-pie"></i><p>Analyse de vos trames réseau et synthèse des données réseau</p></li>
+                <li><i class="fas fa-search"></i><p>Recherche rapide et intuitive</p></li>
             </ul>
         </div>
         <div>
@@ -33,10 +33,10 @@ include_once ('inc/header.php');
         <div>
             <h2>Analyse des paquets</h2>
             <ul id="list-func">
-                <li><i class="fas fa-table-tennis"></i>Récupération des données des pings</li>
-                <li><i class="fas fa-compress-arrows-alt"></i>Simulation du trajet parcouru par les paquets</li>
-                <li><i class="fas fa-chart-area"></i>Représentation graphique par protocole</li>
-                <li><i class="fas fa-file"></i>Synthèse complète des données classées par protocole</li>
+                <li><i class="fas fa-table-tennis"></i><p>Récupération des données des pings</p></li>
+                <li><i class="fas fa-compress-arrows-alt"></i><p>Simulation du trajet parcouru par les paquets</p></li>
+                <li><i class="fas fa-chart-area"></i><p>Représentation graphique par protocole</p></li>
+                <li><i class="fas fa-file"></i><p>Synthèse complète des données classées par protocole</p></li>
             </ul>
         </div>
         <div>

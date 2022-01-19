@@ -130,7 +130,6 @@ function signModal(){
 // Requête de login
 function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 0){ // (rememberMe 0 ou 1)
     const loginError = $('#error-login');
-    const form = $('.form-modal');
 
     setTimeout(function() {
         $.ajax({
@@ -144,16 +143,13 @@ function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 
                     }
                     else{
                         loginError.text(response);
-                        form.css('display', 'block');
                     }
                 }
                 else{
                     loginError.text('Une erreur s\'est produite');
-                    form.css('display', 'block');
                 }
             },
             error: function(){
-                form.css('display', 'block');
             }
         });
     }, 500);
@@ -163,7 +159,6 @@ function ajax_requestLogin(email, pass, connectionType = 'normal', rememberMe = 
 function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // champs facultatifs nom et prenom
 
     const registerError = $('#error-register');
-    const formRegister = $('#register-form');
 
     setTimeout(function() {
         $.ajax({
@@ -177,16 +172,13 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
                     }
                     else{
                         registerError.text(response);
-                        formRegister.css('display', 'block');
                     }
                 }
                 else{
                     registerError.text('Une erreur s\'est produite');
-                    formRegister.css('display', 'block');
                 }
             },
             error: function(){
-                formRegister.css('display', 'block');
             }
         });
     }, 200);
@@ -195,7 +187,6 @@ function ajax_requestRegister(email, pass, confPass, prenom = '', nom = ''){ // 
 function add_form_event(modalName){
     //connexion
     if(modalName === 'login'){
-        const loginError = $('#error-login');
         const form = $('#login-form');
 
         form.on( "submit", function(e) {

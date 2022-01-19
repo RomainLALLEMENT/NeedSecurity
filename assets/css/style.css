@@ -1,6 +1,8 @@
 /*Front only*/
 body{
     background-color: var(--gris );
+    -webkit-box-shadow: -15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4);
+    box-shadow: -15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4);
 }
 
 /* LOGIN */
@@ -101,46 +103,33 @@ INDEX  PHP
     background-color: var(--selected-item-color);
     color: var(--rouge);
 }
-/*About-us*/
-#abouts-us{
-    display: flex;
-    flex-flow: row nowrap;
-    background-color: var(--back-color);
-    color: white;
-    justify-content: space-between;
-    padding: max(1rem, 3vw);
-    gap: 4%;
-}
 
-#abouts-us h2{
-    padding-bottom: 1rem;
-}
-#abouts-us p{
-    padding-bottom: 1rem;
-}
 /* Functionality*/
 #functionality{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--back-color);
     color: white;
     padding: max(1rem, 3vw);
-    gap: 4%;
-    height: 100%;
+    gap: 2%;
 }
 #functionality h2{
-    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    font-size: clamp(1rem, 1.5rem + 3vw , 3rem);
     margin-bottom: .8rem;
 }
 #functionality > div{
-    width: 50%;
+    width: clamp(300px, 100%, 700px);
 }
 #functionality ul{
     display: flex;
     flex-flow: column nowrap;
     gap: .5rem;
-    font-size: 1.1rem;
+}
+#functionality ul li p {
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
+    display: inline;
 }
 #functionality ul li i{
     margin-right: 1rem;
@@ -151,23 +140,25 @@ INDEX  PHP
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
-    background-color: var(--back-color);
-    color: white;
+    align-items: center;
     padding: max(1rem, 3vw);
-    gap: 4%;
+    gap: 2%;
 }
 #analyse h2{
-    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    font-size: clamp(1rem, 1.5rem + 3vw , 3rem);
     margin-bottom: .8rem;
 }
 #analyse > div{
-    width: 50%;
+    width: clamp(300px, 100%, 700px);
 }
 #analyse ul{
     display: flex;
     flex-flow: column nowrap;
     gap: .5rem;
-    font-size: 1.1rem;
+}
+#analyse ul li p {
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
+    display: inline;
 }
 #analyse ul li i{
     margin-right: 1rem;
@@ -176,23 +167,24 @@ INDEX  PHP
 
 /*Mentions légales*/
 #mentionslegales{
-    padding: 3rem;
-    background-color: var(--back-color);
-    color: white;
+    width: 95%;
+    margin-inline: auto;
+    margin-bottom: 1rem;
 }
-.ml-title h2 {
-    font-size: 2rem;
+
+#mentionslegales h2, #mentionslegales h3 {
+    font-size: clamp(1rem, 1rem + 3vw, 2rem);
     text-align: center;
-    padding: 2rem;
+    padding: max(.5rem, .5rem + 3vw);
 }
-.ml-text p {
+#mentionslegales h3{
+    text-decoration: underline;
+}
+#mentionslegales p {
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
     text-align: justify;
 }
-#mentionslegales h3 {
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 1.5rem;
-}
+
 /*CSS PAGE 403/404*/
 .error-page {
     display: flex;
@@ -270,93 +262,76 @@ INDEX  PHP
 .button-hp:hover{
     opacity: 70%;
 }
-/*about us*/
-#abouts-us h2{
-    padding: 1rem 0;
-}
 
 
 /*****************************LOST PASSWORD ********************/
-#lost-pwd .wrap_contact{
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    margin-bottom: 10.5rem;
+/* Request PWD And Recup PWD */
+#lost-pwd , #lost-token{
+    width: min(95%, 600px);
+    margin: 10% auto 0 auto;
+    text-align: center;
 }
-#lost-pwd {
-    padding: 6rem;
-}
-/*#lost-pwd .wrap_contact{*/
-/*    text-align: left;*/
-/*}*/
-#lost-pwd .wrap_contact form{
+#lost-pwd form, #lost-token form{
     display: flex;
     flex-direction: column;
 }
-#lost-pwd .wrap_contact form label{
+#lost-pwd form > *, #lost-token form > *{
     margin-bottom: 1rem;
 }
-#lost-pwd .wrap_contact form .input_email{
+#lost-pwd form input,
+#lost-token form input{
     padding: 1rem;
-    margin-bottom: 1rem;
     width: 100%;
     border-radius: .3rem;
-    border: solid 1px grey;
 }
-#lost-pwd .wrap_contact form .submit {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: .3rem;
+#lost-pwd form .input_email,
+#lost-token form .input_email{
+    border: solid 1px var(--gris);
+}
+#lost-pwd form .submit ,
+#lost-token form .submit {
     border: solid 2px var(--rouge) ;
     cursor: pointer;
     background-color: transparent;
     font-size: 1.2rem;
+    transition: all .5s;
 }
-#lost-pwd .wrap_contact form .submit:hover {
+#lost-pwd form .submit:hover,
+#lost-token form .submit:hover {
     background-color: var(--rouge);
-    transition: .5s;
     color: white;
 }
-
-#lost-token {
-    padding: 6rem;
-
-}
-#lost-token .wrap_contact{
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-
-
-}
-#lost-token .wrap_contact form{
-    display: flex;
-    flex-direction: column;
-
-    /*justify-content: center;*/
-    /*align-items: center;*/
-}
-#lost-token .wrap_contact label{
-    margin-bottom: 1rem;
-}
-#lost-token .wrap_contact input{
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 2.8rem;
-}
-
-#lost-token .wrap_contact form .submit {
-    margin-bottom: 1rem;
-    width: 50%;
-    padding: 1rem;
+#lost-pwd #token{
+    width: 90%;
+    margin: 1rem auto 0 auto;
     border-radius: .3rem;
-    border: solid 2px var(--rouge) ;
+    border: solid 2px var(--rouge);
+    padding: .3rem;
     cursor: pointer;
-    background-color: transparent;
-    font-size: 1.2rem;
+    transition: all .3s;
 }
-#lost-token .wrap_contact form .submit:hover {
-    background-color: var(--rouge);
-    transition: .5s;
-    color: white;
+#lost-pwd #token p{
+    word-break: break-all;
+}
+#lost-pwd #token:hover{
+    background-color: var(--selected-item-color);
+}
+#lost-pwd #token:hover a{
+    color: var(--rouge);
+}
+
+
+
+/*About-us*/
+#abouts-us{
+    padding: max(1rem, 3vw);
+    margin-bottom: 1rem;
+}
+
+#abouts-us h2{
+    margin: 1rem auto;
+    font-size: clamp(.7rem, .7rem + 2vw, 1.2rem);
+}
+#abouts-us p{
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
 }

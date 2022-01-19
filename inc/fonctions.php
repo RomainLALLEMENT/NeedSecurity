@@ -26,9 +26,7 @@ function cleanXss($string)
 }
 
 function samePassword($error, $password1, $password2, $key){
-    if ($password1 === $password2){
-        return $password1;
-    }else {
+    if ($password1 !== $password2){
         $error[$key] = 'Mots de passe différents';
     }
     return $error;
@@ -47,9 +45,9 @@ function generateRandomString($length = 10) {
 function validInput($error, $value, $key, $min, $max){
     if (!empty($value)){
         if (mb_strlen($value) < $min){
-            $error[$key] = 'Erreur, Veuillez remplir le champ'.$key.' avec un contenu entre  '.$min.' et '.$max.' caractere !';
+            $error[$key] = 'Erreur, Veuillez remplir ce champ avec un contenu entre  '.$min.' et '.$max.' caractere !';
         } elseif (mb_strlen($value) > $max){
-            $error[$key] = 'Erreur, Veuillez remplir le champ'.$key.' avec un contenu entre  '.$min.' et '.$max.' caractere !';
+            $error[$key] = 'Erreur, Veuillez remplir ce champ avec un contenu entre  '.$min.' et '.$max.' caractere !';
         }
     } else {
         $error[$key] = 'Veuillez remplir ce champ !';

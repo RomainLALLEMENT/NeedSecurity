@@ -5,7 +5,7 @@ include_once ('inc/header.php');
     <section id="abouts-us">
         <div>
             <h2>A propos de nous...</h2>
-            <p><?= $NOM_SITE_COLORED; ?> est un projet concernant une plateforme d'analyse de trame qui permet d'éviter les attaques DDoS. Créer en janvier 2022 par l'équipe de <?= $NOM_SITE_COLORED; ?>, elle est composée de 4 développeurs qui sont :</p>
+            <p><?= $NOM_SITE_COLORED; ?> est un projet concernant une plateforme d'analyse de trame qui permet d'éviter les attaques DDoS. Créer en janvier 2022 par l'équipe de <?= $NOM_SITE_COLORED; ?>, elle est composée d'une équipe de 4 personnes qui sont :</p>
             <ul>
                 <li>Léonard JOUEN (Administrateur système & réseau)</li>
                 <li>Johann SIX (Analyste réseau)</li>
