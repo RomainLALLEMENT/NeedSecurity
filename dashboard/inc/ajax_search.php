@@ -127,5 +127,10 @@ if(count($trames) > 0){
 $paginatorRebuild = [];
 $trames[] = $paginatorRebuild;
 $trames[] = $tabAutoComplete;
-$trames[] = $_SESSION['search'];
+if(!empty($_SESSION['search'])){
+    $trames[] = $_SESSION['search'];
+}
+else{
+    $trames[] = '';
+}
 showJson($trames);
