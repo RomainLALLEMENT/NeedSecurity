@@ -46,7 +46,7 @@ if($protocol_name == 'ICMP'){
 }
 else{
 
-    $sql = "SELECT id,identification,protocol_type,ip_from,ip_dest FROM trames WHERE protocol_name = :protocol_name GROUP BY identification ORDER BY frame_date";
+    $sql = "SELECT id,identification,protocol_type,ip_from,ip_dest FROM trames WHERE protocol_name = :protocol_name GROUP BY identification ASC, frame_date ASC";
     $query = $pdo->prepare($sql);
     $query->bindValue(':protocol_name', $protocol_name, PDO::PARAM_STR);
     $query->execute();
