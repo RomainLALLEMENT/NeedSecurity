@@ -2,19 +2,7 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Mentions légales</title>
-    </head>
-    <body>
 
-    </body>
-    </html>
     <section id="mentionslegales">
         <div class="wrap">
             <div class="ml-title">
@@ -27,7 +15,7 @@ include_once ('inc/header.php');
                 </div>
                 <div class="ml-text">
                     <p>Le Site constitue une œuvre de l’esprit protégée par les dispositions du Code de la Propriété Intellectuelle et des Réglementations Internationales applicables. Le Client ne peut en aucune manière réutiliser, céder ou exploiter pour son propre compte tout ou partie des éléments ou travaux du Site.</p>
-                    <p>L’utilisation du site <?=$NOM_SITE_COLORED;?> implique l’acceptation pleine et entière des conditions générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment, les utilisateurs du site <?=$NOM_SITE_COLORED;?> sont donc invités à les consulter de manière régulière.</p>
+                    <p>L’utilisation du site <?= $NOM_SITE_COLORED;?> implique l’acceptation pleine et entière des conditions générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment, les utilisateurs du site <?=$NOM_SITE_COLORED;?> sont donc invités à les consulter de manière régulière.</p>
                     <p>Ce site internet est normalement accessible à tout moment aux utilisateurs. Une interruption pour raison de maintenance technique peut être toutefois décidée par <?=$NOM_SITE_COLORED;?>, qui s’efforcera alors de communiquer préalablement aux utilisateurs les dates et heures de l’intervention.Le site web <?=$NOM_SITE_COLORED;?> est mis à jour régulièrement par <?=$NOM_SITE_COLORED;?> responsable. De la même façon, les mentions légales peuvent être modifiées à tout moment : elles s’imposent néanmoins à l’utilisateur qui est invité à s’y référer le plus souvent possible afin d’en prendre connaissance.</p>
                 </div>
                 <div class="ml-title">

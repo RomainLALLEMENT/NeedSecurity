@@ -7,19 +7,14 @@ function ajax_graph(table, column, type, docId, labelT){
             data: {table: table,
                 column:  column},
             success: function(response){
-                console.log('sucess');
                 if(response.length > 0){
-                    console.log('response');
-                    console.log(response);
                     const graph = JSON.parse(response);
                     //generate graph
-                    console.log(graph);
                     createGraph(graph, type, docId, labelT );
                 }
                 hideLoading(500);
             },
             error: function(){
-                console.log('error');
                 hideLoading(500);
             }
         });
@@ -38,9 +33,6 @@ function createGraph(object, type, docId, labelT = '' ) {
         dataT.push(object[key]);
         randomColor.push(color());
     }
-    console.log(keyT);
-    console.log(dataT);
-    console.log(randomColor);
 //func for colos
     function color(){
         let randomColor = Math.floor(Math.random()*16777215).toString(16);

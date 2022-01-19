@@ -1,6 +1,5 @@
 import {reloadBd} from "./reload-bd.js";
 import {showLogout} from "./modal.js";
-import {ajax_getTrames} from "./tableau.js";
 import {generate_search_page} from "./search.js";
 import {generateDashboardPage} from "./dashboard.js";
 import {generate_protocol_path} from "./simulation.js";
