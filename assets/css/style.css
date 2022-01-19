@@ -1,6 +1,8 @@
 /*Front only*/
 body{
     background-color: var(--gris );
+    -webkit-box-shadow: -15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4);
+    box-shadow: -15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4), 15px 0px 15px -8px rgba(0,0,0,0.4);
 }
 
 /* LOGIN */
@@ -101,46 +103,33 @@ INDEX  PHP
     background-color: var(--selected-item-color);
     color: var(--rouge);
 }
-/*About-us*/
-#abouts-us{
-    display: flex;
-    flex-flow: row nowrap;
-    background-color: var(--back-color);
-    color: white;
-    justify-content: space-between;
-    padding: max(1rem, 3vw);
-    gap: 4%;
-}
 
-#abouts-us h2{
-    padding-bottom: 1rem;
-}
-#abouts-us p{
-    padding-bottom: 1rem;
-}
 /* Functionality*/
 #functionality{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--back-color);
     color: white;
     padding: max(1rem, 3vw);
-    gap: 4%;
-    height: 100%;
+    gap: 2%;
 }
 #functionality h2{
-    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    font-size: clamp(1rem, 1.5rem + 3vw , 3rem);
     margin-bottom: .8rem;
 }
 #functionality > div{
-    width: 50%;
+    width: clamp(300px, 100%, 700px);
 }
 #functionality ul{
     display: flex;
     flex-flow: column nowrap;
     gap: .5rem;
-    font-size: 1.1rem;
+}
+#functionality ul li p {
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
+    display: inline;
 }
 #functionality ul li i{
     margin-right: 1rem;
@@ -151,23 +140,25 @@ INDEX  PHP
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
-    background-color: var(--back-color);
-    color: white;
+    align-items: center;
     padding: max(1rem, 3vw);
-    gap: 4%;
+    gap: 2%;
 }
 #analyse h2{
-    font-size: clamp(1.8rem, 2rem + 3vw , 3rem);
+    font-size: clamp(1rem, 1.5rem + 3vw , 3rem);
     margin-bottom: .8rem;
 }
 #analyse > div{
-    width: 50%;
+    width: clamp(300px, 100%, 700px);
 }
 #analyse ul{
     display: flex;
     flex-flow: column nowrap;
     gap: .5rem;
-    font-size: 1.1rem;
+}
+#analyse ul li p {
+    font-size: clamp(.6rem, .6rem + 2vw, 1.1rem);
+    display: inline;
 }
 #analyse ul li i{
     margin-right: 1rem;
@@ -359,4 +350,22 @@ INDEX  PHP
     background-color: var(--rouge);
     transition: .5s;
     color: white;
+}
+
+/*About-us*/
+#abouts-us{
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: var(--back-color);
+    color: white;
+    justify-content: space-between;
+    padding: max(1rem, 3vw);
+    gap: 4%;
+}
+
+#abouts-us h2{
+    padding-bottom: 1rem;
+}
+#abouts-us p{
+    padding-bottom: 1rem;
 }
