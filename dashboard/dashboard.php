@@ -28,7 +28,7 @@ include_once ('inc/header_back.php');
             <div class="back-box">
                 <div class="way-list">
                     <h2>Protocole ICMP</h2>
-                    <div id="good" data-trameid="111" class="way-box">
+                    <div  data-trameid="111" class="way-box">
                         <h4 class="way-title">Paquet <span class="bold-id">0xa443</span></h4>
 
                         <div class="way">
@@ -40,7 +40,7 @@ include_once ('inc/header_back.php');
 
                             <div class="transit-box">
 <!--                                Add class keyframe -->
-                                <i data-trajet="aller-retour" class="fas fa-network-wired data-transit good" ></i>
+                                <i  class="fas fa-network-wired data-transit with-return good" ></i>
                                 <span class="way-code way-code-1">0x00</span>
                                 <i class="fas fa-long-arrow-alt-right way-paquet "></i>
 
@@ -67,7 +67,7 @@ include_once ('inc/header_back.php');
 
                             <div class="transit-box">
                                 <!--                                Add class keyframe -->
-                                <i data-trajet="aller-retour" class="fas fa-network-wired data-transit bad" ></i>
+                                <i data-trajet="aller-retour" class="fas fa-network-wired data-transit with-return bad" ></i>
                                 <span class="way-code way-code-1">0x00</span>
                                 <i class="fas fa-long-arrow-alt-right way-paquet "></i>
 
@@ -82,7 +82,60 @@ include_once ('inc/header_back.php');
 
                         </div>
                     </div>
-            </div>
+<!--for other than ICMP-->
+                    <div  data-trameid="112" class="way-box">
+                        <h4 class="way-title">Paquet <span class="bold-id">0xa444</span></h4>
+
+                        <div class="way">
+
+                            <div class="way-from">
+                                <i class="fas fa-laptop-code way-paquet"></i>
+                                <p class="way-ip way-ip-from">172.217.19.227</p>
+                            </div>
+
+                            <div class="transit-box">
+                                <!--                                Add class keyframe -->
+                                <i data-trajet="aller-retour" class="fas fa-network-wired data-transit one-way good" ></i>
+                                <span class="way-code way-code-1">0x00</span>
+                                <i class="fas fa-long-arrow-alt-right way-paquet "></i>
+
+                            </div>
+
+                            <div class="way-from">
+                                <i class="fas fa-laptop-code way-paquet"></i>
+                                <p class="way-ip way-ip-dest">192.168.1.74</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div  data-trameid="112" class="way-box">
+                        <h4 class="way-title">Paquet <span class="bold-id">0xa444</span></h4>
+
+                        <div class="way">
+
+                            <div class="way-from">
+                                <i class="fas fa-laptop-code way-paquet"></i>
+                                <p class="way-ip way-ip-from">172.217.19.227</p>
+                            </div>
+
+                            <div class="transit-box">
+                                <!--                                Add class keyframe -->
+                                <i data-trajet="aller-retour" class="fas fa-network-wired data-transit one-way bad" ></i>
+                                <span class="way-code way-code-1">0x00</span>
+                                <i class="fas fa-long-arrow-alt-right way-paquet "></i>
+
+                            </div>
+
+                            <div class="way-from">
+                                <i class="fas fa-laptop-code way-paquet"></i>
+                                <p class="way-ip way-ip-dest">192.168.1.74</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
         </section>
     </div>
     </main>

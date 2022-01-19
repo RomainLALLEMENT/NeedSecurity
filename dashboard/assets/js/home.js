@@ -12,7 +12,7 @@ $( document ).ready(function() {
     setInterval(reloadBd, 300000);
 
     //menu
-    //menuBack();
+    menuBack();
 
     //modal logout
     const showModal = document.getElementById('logout-show');

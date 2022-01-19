@@ -78,12 +78,20 @@
     top: 5%;
     left: 5%;
 }
-.way:hover .data-transit{
-    animation: moveWithReturn 10s steps(10) infinite;
+.way .data-transit{
     font-size: 1rem;
     z-index: 1;
 }
-.way:hover .data-transit:after {
+.way .one-way{
+    animation: moveOneWay 10s steps(10) infinite;
+}
+.way .with-return {
+    animation: moveWithReturn 10s steps(10) infinite;
+}
+.way:hover .data-transit{
+    animation-play-state: paused;
+}
+.way .data-transit:after {
       position: absolute;
         bottom: -50%;
         right: -50%;
@@ -91,6 +99,9 @@
       font-size: 1.5rem;
         z-index: 5;
   }
+.way:hover .data-transit:after{
+    animation-play-state: paused;
+}
  .good:after {
     animation: good 10s steps(10) infinite;
 }
@@ -118,6 +129,18 @@
     100% {
         top: 90%;
         left: 5%;
+    }
+}
+@keyframes moveOneWay {
+    from {
+        visibility: visible;
+        top: 45%;
+        left: 5%;
+    }
+
+    to {
+        top: 45%;
+        left: 95%;
     }
 }
 @keyframes good {
