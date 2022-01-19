@@ -82,8 +82,8 @@ function generate_trame_details(trame){
     dashboardMain.append(item_graphes);
     item = $('<div class="back-box_graph"></div>');
     item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-    item.append('<p class="error-trame-infos"><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> trame(s)' +
-        '<br /><strong id="unverified-prct">0%</strong> n\'ont pas pu être vérifiées</p>');
+    item.append('<p class="error-trame-infos"><strong id="erreur-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> d\'erreurs, <strong id="erreur-paquet-count-'+trame.protocol_name.replaceAll('.', '')+'">0/0</strong> trame(s)' +
+        '<br /><strong id="unverified-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> n\'ont pas pu être vérifiées</p>');
     const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
     chartjs_canvas_parent.append(chartjs_canvas);
@@ -127,6 +127,7 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
         url: "inc/ajax_get_protocol_data.php",
         data: {protocolName: protocol_name},
         success: function(response){
+            console.log(response);
             const protocol_data = JSON.parse(response);
             const nbErreurs = protocol_data.erreurs.length;
             const nbData = protocol_data.paquets_count;
@@ -154,9 +155,10 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
             chartjs_graphe.config.data = data;
             chartjs_graphe.update();
 
-            $('#erreur-prct').text(prct + '%');
-            $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
-            $('#unverified-prct').text(prctUnverif + '%');
+            $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
+            $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
+            $('#erreur-paquet-count-' + protocol_name.replaceAll('.', '')).text(nbErreurs + '/' + nbData);
+            $('#unverified-prct-' + protocol_name.replaceAll('.', '')).text(prctUnverif + '%');
             hideLoading(500);
         },
         error: function(){
@@ -243,7 +245,7 @@ function generate_details_protocol_page(protocole){
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_days_parent"></div>');
     chartjs_canvas_parent.append(chartjs_canvas);
     item.append(chartjs_canvas_parent);
-    dashboardMain.append(item);
+    item_graphes.append(item);
 
     let config = {
         type: 'bar',
@@ -255,6 +257,52 @@ function generate_details_protocol_page(protocole){
 
     const chartjs_graphe_days = new Chart(chartjs_canvas, config);
     ajax_getDaysData(chartjs_graphe_days);
+
+    // Ligne graphes (errors)
+
+    let data = {
+        labels: [
+            'Erreurs',
+            'Valides'
+        ],
+        datasets: [{
+            label: 'Trames',
+            data: [0,0],
+            backgroundColor: [
+                'rgb(252,66,66)',
+                'rgb(65,220,82)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    config = {
+        type: 'pie',
+        data: data,
+        options: {
+            maintainAspectRatio: false,
+        }
+    };
+
+    let proto = ['ICMP', 'UDP', 'TCP', 'TLSv1.2'];
+    for(let i=0; i<proto.length;i++){
+        let item_graphes_er = $('<div class="back-box"></div>');
+        item = $('<div class="back-box_graph"></div>');
+        item.append('<h2>Erreurs '+proto[i]+'</h2>');
+        item.append('<p class="error-trame-infos"><strong id="erreur-prct-'+proto[i].replaceAll('.', '')+'">0%</strong> d\'erreurs, <strong id="erreur-paquet-count-'+proto[i].replaceAll('.', '')+'">0/0</strong> trame(s)' +
+            '<br /><strong id="unverified-prct-'+proto[i].replaceAll('.', '')+'">0%</strong> n\'ont pas pu être vérifiées</p>');
+        const chartjs_canvas = $('<canvas id="graphe_errors_'+proto[i].replaceAll('.', '')+'"></canvas>');
+        const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
+        chartjs_canvas_parent.append(chartjs_canvas);
+        item.append(chartjs_canvas_parent);
+
+        const chartjs_graphe_errors = new Chart(chartjs_canvas, config);
+        chartjs_graphe_errors.resize(200,200);
+        ajax_getProtocolData(chartjs_graphe_errors, proto[i]);
+
+        item_graphes_er.append(item);
+        dashboardMain.append(item_graphes_er);
+    }
 
     container.append(dashboardMain);
     update_details_protocol_desc('ICMP');

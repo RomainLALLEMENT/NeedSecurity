@@ -55,16 +55,13 @@ function ajax_generateProtocolPath(element, protocol_name){
         url: "inc/ajax_get_simulation.php",
         data: {protocolName: protocol_name},
         success: function(response){
-            console.log(response);
             const chemins = JSON.parse(response);
-            console.log(chemins);
             const divCheminParent = $('<div class="chemin-parent">');
             divCheminParent.append('<h2>Protocole '+protocol_name+'</h2>');
             $.each(chemins, function() {
                 $.each(this, function() {
                     const divCheminItem = $('<div data-trameid="'+this.id+'" class="chemin">').on('click', function(){
                         const trameid = $(this).data('trameid');
-                        console.log('click ' + trameid);
                         ajax_getTrameDetail(trameid);
                     });
 

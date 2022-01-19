@@ -43,10 +43,10 @@ function generateDashboardPage(){
         let type = objectList.filter(object => (object.protocol_type == '8')).length;
 
         let info = {
-            'Total trame': totalTrame,
+            'Total de trames': totalTrame,
             'TTL sans perte': ttl,
             'Protocole status Disable': disable,
-            'Nombre de requete': type
+            'Nombre de requêtes': type
         }
 
         return info;
