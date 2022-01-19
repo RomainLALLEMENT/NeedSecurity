@@ -3,6 +3,7 @@ import {showLogout} from "./modal.js";
 import {generate_search_page} from "./search.js";
 import {generateDashboardPage} from "./dashboard.js";
 import {generate_protocol_path} from "./simulation.js";
+import {generate_details_protocol_page} from "./detail.js";
 // script principal
 
 $( document ).ready(function() {
@@ -41,7 +42,7 @@ function menuBack(){
     detail.addEventListener('click', (e)=>{
         console.log('page-details');
         isActiveMenu(e);
-        //generate_details_page();
+        generate_details_protocol_page('UDP');
     })
     simulation.addEventListener('click', (e)=>{
         console.log('page-simulation');

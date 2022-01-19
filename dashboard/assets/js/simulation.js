@@ -1,11 +1,11 @@
-
+import {ajax_getTrameDetail} from "./tableau.js";
 
 const container = $('#container');
 
 function generate_protocol_path(protocol_name){
     container.empty();
 
-    const dashboardMain = $('<section id="dashboard"></section>');
+    const dashboardMain = $('<section id="simulation"></section>');
 
     // Ligne titre
     var item = $('<div class="back-box"></div>');
@@ -43,9 +43,10 @@ function ajax_generateProtocolPath(element, protocol_name){
     showLoading('Récupération des données...');
     $.ajax({
         type: "GET",
-        url: "inc/ajax_get_path_for_protocol.php",
+        url: "inc/ajax_get_simulation.php",
         data: {protocolName: protocol_name},
         success: function(response){
+            console.log(response);
             const chemins = JSON.parse(response);
             console.log(chemins);
             const divCheminParent = $('<div class="chemin-parent">');
@@ -63,35 +64,31 @@ function ajax_generateProtocolPath(element, protocol_name){
                     paquet.append('<span class="chemin-identifiant">Paquet <strong>' + this.identification + '</strong></span>');
                     divCheminItem.append(paquet);
                     const arrows = $('<div class="arrows">');
-                    if(this.trajet === 'aller-retour'){
-                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller)+'"></i>');
-                        arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
-                        if(this.statut === 'aller-error'){
-                            arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
-                        }
-                        else if(this.statut === 'retour-error'){
+
+                    if(protocol_name === 'ICMP'){
+                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
+                        if(this.statut.length > 0){
+                            arrow.append('<span class="chemin-code-1">' + this.statut + '</span>');
                             arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
                         }
                         else{
+                            arrow.append('<span class="chemin-code-1">0x00</span>');
                             arrow.append('<i data-trajet="aller-retour" class="fas fa-network-wired"></i>');
                         }
 
-                        const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.flags_code_retour)+'"></i>');
-                        arrow_retour.append('<span class="chemin-code-2">' + this.flags_code_retour + '</span>');
+                        const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
+                        arrow_retour.append('<span class="chemin-code-2">0x00</span>');
                         arrows.append(arrow);
                         arrows.append(arrow_retour);
                     }
-                    else if(this.trajet === 'aller'){
-                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.flags_code_aller, true)+'"></i>');
-                        arrow.append('<span class="chemin-code-1">' + this.flags_code_aller + '</span>');
-                        if(this.flags_code_aller !== '0x00'){
-                            arrow.append('<i data-trajet="aller-error" class="fas fa-network-wired"></i>');
-                        }
-                        else{
-                            arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
-                        }
+                    else{
+                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-green"></i>');
+                        arrow.append('<span class="chemin-code-1">0x00</span>');
+                        arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
                         arrows.append(arrow);
                     }
+
+
                     divCheminItem.append(arrows);
 
                     const paquet_destination = $('<i class="fas fa-laptop-code chemin-paquet"></i>');
@@ -164,11 +161,11 @@ function ajax_generateProtocolPath(element, protocol_name){
 }
 
 function getClassForCode(code, allerOnly = false){
-    if(code === '0x00'){
-        if(allerOnly){
-            return 'blue';
-        }
+    if(code.length == 0){
         return 'green';
+    }
+    else if(code === 'unverified'){
+        return 'blue';
     }
     else{
         return 'red';

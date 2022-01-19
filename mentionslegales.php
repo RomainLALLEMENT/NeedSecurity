@@ -2,7 +2,6 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
-
     <section id="mentionslegales">
         <div class="wrap">
             <div class="ml-title">

@@ -2,12 +2,6 @@
 require_once ('inc/bases.php');
 include_once ('inc/header.php');
 ?>
-    <head>
-        <title>404 not found</title>
-    </head>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/style_commun.css">
-
     <div class="error-page">
         <div>
             <h1 data-h1="403">403</h1>

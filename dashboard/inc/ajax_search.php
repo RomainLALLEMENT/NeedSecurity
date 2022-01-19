@@ -1,6 +1,10 @@
 <?php
 require_once ('../../inc/bases.php');
 
+if(!isLoggedIn()){
+    die();
+}
+
 function addItemInArrayIfNotExist($ar, $item, $search){
     if(count($ar) >= 30 || $item === $search){
         return $ar;
@@ -47,6 +51,9 @@ if(empty($_GET['search'])){
 }
 else{
     $search = strtolower(trim(strip_tags($_GET['search'])));
+    if(mb_strlen($search) > 0){
+        $_SESSION['search'] = $search;
+    }
 }
 
 if (check_contains($search, " ")) {
@@ -120,4 +127,10 @@ if(count($trames) > 0){
 $paginatorRebuild = [];
 $trames[] = $paginatorRebuild;
 $trames[] = $tabAutoComplete;
+if(!empty($_SESSION['search'])){
+    $trames[] = $_SESSION['search'];
+}
+else{
+    $trames[] = '';
+}
 showJson($trames);

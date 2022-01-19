@@ -25,6 +25,38 @@ function cleanXss($string)
     return trim(strip_tags($string));
 }
 
+function samePassword($error, $password1, $password2, $key){
+    if ($password1 === $password2){
+        return $password1;
+    }else {
+        $error[$key] = 'Mots de passe différents';
+    }
+    return $error;
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+function validInput($error, $value, $key, $min, $max){
+    if (!empty($value)){
+        if (mb_strlen($value) < $min){
+            $error[$key] = 'Erreur, Veuillez remplir le champ'.$key.' avec un contenu entre  '.$min.' et '.$max.' caractere !';
+        } elseif (mb_strlen($value) > $max){
+            $error[$key] = 'Erreur, Veuillez remplir le champ'.$key.' avec un contenu entre  '.$min.' et '.$max.' caractere !';
+        }
+    } else {
+        $error[$key] = 'Veuillez remplir ce champ !';
+    }
+    return $error;
+}
+
 
 function textValid($err,$value,$key,$min,$max,$empty = true)
 {
@@ -40,6 +72,12 @@ function textValid($err,$value,$key,$min,$max,$empty = true)
         }
     }
     return $err;
+}
+
+function returnError($error, $id){
+    if (!empty($error[$id])){
+        return $error[$id];
+    }
 }
 
 function emailValidation($err,$mail,$key)
@@ -109,10 +147,10 @@ function db_get_trames($fieldsArray, $page = 1, $nbRows = 10, $protocolName = ''
     }
 
     if(mb_strlen($protocolName) > 0){
-        $sql = "SELECT ".$fieldsStr." FROM trames WHERE protocol_name = '".$protocolName."' ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+        $sql = "SELECT $fieldsStr FROM trames WHERE protocol_name = '$protocolName' ORDER BY id DESC LIMIT $nbRows OFFSET ".(($page-1) * $nbRows);
     }
     else{
-        $sql = "SELECT ".$fieldsStr." FROM trames ORDER BY id DESC LIMIT ".$nbRows." OFFSET " . (($page-1) * $nbRows);
+        $sql = "SELECT $fieldsStr FROM trames ORDER BY id DESC LIMIT $nbRows OFFSET ".(($page-1) * $nbRows);
     }
     $query = $pdo->prepare($sql);
     $query->execute();
