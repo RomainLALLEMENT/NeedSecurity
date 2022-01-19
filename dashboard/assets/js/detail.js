@@ -82,8 +82,8 @@ function generate_trame_details(trame){
     dashboardMain.append(item_graphes);
     item = $('<div class="back-box_graph"></div>');
     item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-    item.append('<p class="error-trame-infos"><strong id="erreur-prct">0%</strong> d\'erreurs, <strong id="erreur-paquet-count">0/0</strong> trame(s)' +
-        '<br /><strong id="unverified-prct">0%</strong> n\'ont pas pu être vérifiées</p>');
+    item.append('<p class="error-trame-infos"><strong id="erreur-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> d\'erreurs, <strong id="erreur-paquet-count-'+trame.protocol_name.replaceAll('.', '')+'">0/0</strong> trame(s)' +
+        '<br /><strong id="unverified-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> n\'ont pas pu être vérifiées</p>');
     const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
     chartjs_canvas_parent.append(chartjs_canvas);
@@ -127,6 +127,7 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
         url: "inc/ajax_get_protocol_data.php",
         data: {protocolName: protocol_name},
         success: function(response){
+            console.log(response);
             const protocol_data = JSON.parse(response);
             const nbErreurs = protocol_data.erreurs.length;
             const nbData = protocol_data.paquets_count;
@@ -154,9 +155,10 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
             chartjs_graphe.config.data = data;
             chartjs_graphe.update();
 
-            $('#erreur-prct').text(prct + '%');
-            $('#erreur-paquet-count').text(nbErreurs + '/' + nbData);
-            $('#unverified-prct').text(prctUnverif + '%');
+            $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
+            $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
+            $('#erreur-paquet-count-' + protocol_name.replaceAll('.', '')).text(nbErreurs + '/' + nbData);
+            $('#unverified-prct-' + protocol_name.replaceAll('.', '')).text(prctUnverif + '%');
             hideLoading(500);
         },
         error: function(){
@@ -165,21 +167,85 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
     });
 }
 
+function update_details_protocol_desc(protocole){
+
+    $("#detail-protocole .data-box").each(function() {
+        if($(this).data('protocol') == protocole){
+            $(this).addClass('selected');
+        }
+        else{
+            $(this).removeClass('selected');
+        }
+    });
+
+    const descContainerTitle = $('#descriptionContainer h2');
+    descContainerTitle.text(protocole);
+
+    const descContainerInfos = $('#descriptionContainer p');
+
+    if(protocole === 'ICMP'){
+        descContainerInfos.text('L’ICMP (Internet Control Message Protocol) est un protocole de signalement d’erreurs que les appareils de réseau comme les routeurs utilisent pour générer des messages d’erreur à l’adresse IP source lorsque des problèmes de réseau empêchent la livraison de paquets IP. L’Internet Control Message Protocol crée et envoie des messages à l’adresse IP source indiquant qu’une passerelle vers l’internet qu’un routeur, un service ou un hôte ne peut pas être atteint pour la livraison de paquets. Tout dispositif de réseau IP a la capacité d’envoyer, de recevoir ou de traiter des messages ICMP.');
+    }
+    else if(protocole === 'UDP'){
+        descContainerInfos.text('UDP (User Datagram Protocol) est un protocole de communication qui est principalement utilisé pour établir des connexions à faible latence et à tolérance de perte entre les applications sur l’internet. Il accélère les transmissions en permettant le transfert de données avant qu’un accord ne soit fourni par la partie destinataire. L’UDP est donc utile pour les communications sensibles au temps, notamment la voix sur IP (VoIP), la consultation du domain name system (DNS) et la lecture vidéo ou audio. L’UDP est une alternative au protocole de contrôle de transmission (TCP).');
+    }
+    else if(protocole === 'TCP'){
+        descContainerInfos.text('TCP/IP, ou Transmission Control Protocol/Internet Protocol, est une suite de protocoles de communication utilisés pour interconnecter des dispositifs de réseau sur internet. Le TCP/IP peut également être utilisé comme protocole de communication dans un réseau local (LAN).');
+    }
+    else if(protocole === 'TLSv1.2'){
+        descContainerInfos.text('La Transport Layer Security (TLS) est un protocole qui assure l’authentification, la confidentialité et l’intégrité des données entre deux applications informatiques communicantes. Il s’agit du protocole de sécurité le plus largement déployé à l’heure actuelle. Il est utilisé pour les navigateurs web et d’autres applications qui nécessitent l’échange sécurisé de données sur un réseau, comme les sessions de navigation sur le web, les transferts de fichiers, les connexions VPN, les sessions de bureau à distance et la voix sur IP (VoIP).');
+    }
+    else{
+        descContainerInfos.text('');
+    }
+}
+
 /* Page détails */
 function generate_details_protocol_page(protocole){
     container.empty();
     const dashboardMain = $('<section id="detail-protocole"></section>');
 
+    // Ligne titre
+    let item = $('<div class="back-box"></div>');
+    let box_clickable = $('<div data-protocol="ICMP" class="data-box clickable selected"></div>');
+    box_clickable.append($('<h3 class="data-box_name">ICMP</h3>')).on('click', function(){
+        update_details_protocol_desc('ICMP');
+    });
+    item.append(box_clickable);
+    box_clickable = $('<div data-protocol="UDP" class="data-box clickable"></div>');
+    box_clickable.append($('<h3 class="data-box_name">UDP</h3>')).on('click', function(){
+        update_details_protocol_desc('UDP');
+    });
+    item.append(box_clickable);
+    box_clickable = $('<div data-protocol="TCP" class="data-box clickable"></div>');
+    box_clickable.append($('<h3 class="data-box_name">TCP</h3>')).on('click', function(){
+        update_details_protocol_desc('TCP');
+    });
+    item.append(box_clickable);
+    box_clickable = $('<div data-protocol="TLSv1.2" class="data-box clickable"></div>');
+    box_clickable.append($('<h3 class="data-box_name">TLSv1.2</h3>')).on('click', function(){
+        update_details_protocol_desc('TLSv1.2');
+    });
+    item.append(box_clickable);
+    dashboardMain.append(item);
+
+    item = $('<div class="back-box"></div>');
+    const descriptionContainer = $('<div id="descriptionContainer"></div>');
+    descriptionContainer.append($('<h2>ICMP</h2>'));
+    descriptionContainer.append($('<p></p>'));
+    item.append(descriptionContainer);
+    dashboardMain.append(item);
+
     const item_graphes = $('<div class="back-box"></div>');
     dashboardMain.append(item_graphes);
-    let item = $('<div class="back-box_graph"></div>');
+    item = $('<div class="back-box_graph"></div>');
     /*item.append('<h2>'+protocole+'</h2>');*/
 
     const chartjs_canvas = $('<canvas id="graphe_days"></canvas>');
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_days_parent"></div>');
     chartjs_canvas_parent.append(chartjs_canvas);
     item.append(chartjs_canvas_parent);
-    dashboardMain.append(item);
+    item_graphes.append(item);
 
     let config = {
         type: 'bar',
@@ -192,7 +258,55 @@ function generate_details_protocol_page(protocole){
     const chartjs_graphe_days = new Chart(chartjs_canvas, config);
     ajax_getDaysData(chartjs_graphe_days);
 
+    // Ligne graphes (errors)
+
+    let data = {
+        labels: [
+            'Erreurs',
+            'Valides'
+        ],
+        datasets: [{
+            label: 'Trames',
+            data: [0,0],
+            backgroundColor: [
+                'rgb(252,66,66)',
+                'rgb(65,220,82)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    config = {
+        type: 'pie',
+        data: data,
+        options: {
+            maintainAspectRatio: false,
+        }
+    };
+
+    let proto = ['ICMP', 'UDP', 'TCP', 'TLSv1.2'];
+    for(let i=0; i<proto.length;i++){
+        let item_graphes_er = $('<div class="back-box"></div>');
+        item = $('<div class="back-box_graph"></div>');
+        item.append('<h2>Erreurs '+proto[i]+'</h2>');
+        item.append('<p class="error-trame-infos"><strong id="erreur-prct-'+proto[i].replaceAll('.', '')+'">0%</strong> d\'erreurs, <strong id="erreur-paquet-count-'+proto[i].replaceAll('.', '')+'">0/0</strong> trame(s)' +
+            '<br /><strong id="unverified-prct-'+proto[i].replaceAll('.', '')+'">0%</strong> n\'ont pas pu être vérifiées</p>');
+        const chartjs_canvas = $('<canvas id="graphe_errors_'+proto[i].replaceAll('.', '')+'"></canvas>');
+        const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
+        chartjs_canvas_parent.append(chartjs_canvas);
+        item.append(chartjs_canvas_parent);
+
+        const chartjs_graphe_errors = new Chart(chartjs_canvas, config);
+        chartjs_graphe_errors.resize(200,200);
+        ajax_getProtocolData(chartjs_graphe_errors, proto[i]);
+
+        item_graphes_er.append(item);
+        dashboardMain.append(item_graphes_er);
+    }
+
     container.append(dashboardMain);
+    update_details_protocol_desc('ICMP');
+    hideLoading(200);
 }
 
 

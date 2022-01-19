@@ -9,22 +9,22 @@ function generate_protocol_path(protocol_name){
 
     // Ligne titre
     var item = $('<div class="back-box"></div>');
-    var box_clickable = $('<div class="data-box clickable"></div>');
+    var box_clickable = $('<div data-protocol="ICMP" class="data-box clickable selected"></div>');
     box_clickable.append($('<h3 class="data-box_name">ICMP</h3>')).on('click', function(){
        generate_protocol_path('ICMP');
     });
     item.append(box_clickable);
-    box_clickable = $('<div class="data-box clickable"></div>');
+    box_clickable = $('<div data-protocol="UDP" class="data-box clickable"></div>');
     box_clickable.append($('<h3 class="data-box_name">UDP</h3>')).on('click', function(){
         generate_protocol_path('UDP');
     });
     item.append(box_clickable);
-    box_clickable = $('<div class="data-box clickable"></div>');
+    box_clickable = $('<div data-protocol="TCP" class="data-box clickable"></div>');
     box_clickable.append($('<h3 class="data-box_name">TCP</h3>')).on('click', function(){
         generate_protocol_path('TCP');
     });
     item.append(box_clickable);
-    box_clickable = $('<div class="data-box clickable"></div>');
+    box_clickable = $('<div data-protocol="TLSv1.2" class="data-box clickable"></div>');
     box_clickable.append($('<h3 class="data-box_name">TLSv1.2</h3>')).on('click', function(){
         generate_protocol_path('TLSv1.2');
     });
@@ -37,6 +37,15 @@ function generate_protocol_path(protocol_name){
     ajax_generateProtocolPath(item, protocol_name);
 
     container.append(dashboardMain);
+
+    $("#simulation .data-box").each(function() {
+        if($(this).data('protocol') == protocol_name){
+            $(this).addClass('selected');
+        }
+        else{
+            $(this).removeClass('selected');
+        }
+    });
 }
 
 function ajax_generateProtocolPath(element, protocol_name){
@@ -46,16 +55,13 @@ function ajax_generateProtocolPath(element, protocol_name){
         url: "inc/ajax_get_simulation.php",
         data: {protocolName: protocol_name},
         success: function(response){
-            console.log(response);
             const chemins = JSON.parse(response);
-            console.log(chemins);
             const divCheminParent = $('<div class="chemin-parent">');
             divCheminParent.append('<h2>Protocole '+protocol_name+'</h2>');
             $.each(chemins, function() {
                 $.each(this, function() {
                     const divCheminItem = $('<div data-trameid="'+this.id+'" class="chemin">').on('click', function(){
                         const trameid = $(this).data('trameid');
-                        console.log('click ' + trameid);
                         ajax_getTrameDetail(trameid);
                     });
 
