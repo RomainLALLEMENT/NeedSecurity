@@ -5,11 +5,12 @@ if(empty($_GET['protocolName'])){
     exit;
 }
 
-$protocol_name = trim(strip_tags($_GET['protocolName']));
+$protocol_name = cleanXss($_GET['protocolName']);
 if(mb_strlen($protocol_name) == 0){
     exit;
 }
 
+$limite = 30;
 $chemins = [];
 $cpt = 0;
 if($protocol_name == 'ICMP'){
@@ -53,7 +54,7 @@ else{
     $protocol_data = $query->fetchAll();
 
     foreach($protocol_data as $data){
-        $sql = "SELECT id,flags_code,ip_from,ip_dest FROM trames WHERE identification = :id_trame ORDER BY frame_date";
+        $sql = "SELECT id,ip_from,ip_dest FROM trames WHERE identification = :id_trame ORDER BY frame_date";
         $query = $pdo->prepare($sql);
         $query->bindValue(':id_trame', $data['identification'], PDO::PARAM_STR);
         $query->execute();
@@ -66,29 +67,28 @@ else{
                     $chemins[$cpt][] = [
                         'id' => $flags_codes[$i]['id'],
                         'identification' => $data['identification'],
-                        'flags_code_aller' => $flags_codes[$i]['flags_code'],
-                        'flags_code_retour' => $flags_codes[$i+1]['flags_code'],
                         'ip_from' => hexadecimalCipher($flags_codes[$i]['ip_from']),
                         'ip_dest' => hexadecimalCipher($flags_codes[$i]['ip_dest']),
-                        'statut' => 'retour-valide',
-                        'trajet' => 'aller-retour'
+                        'statut' => '',
                     ];
                 }
                 else{
                     $chemins[$cpt][] = [
                         'id' => $flags_codes[$i]['id'],
                         'identification' => $data['identification'],
-                        'flags_code_aller' => $flags_codes[$i]['flags_code'],
                         'ip_from' => hexadecimalCipher($flags_codes[$i]['ip_from']),
                         'ip_dest' => hexadecimalCipher($flags_codes[$i]['ip_dest']),
-                        'statut' => 'retour-error',
-                        'trajet' => 'aller-retour'
+                        'statut' => ''
                     ];
                 }
                 $last_identifiant = $data['identification'];
             }
         }
         $cpt++;
+
+        if($cpt >= $limite){
+            break;
+        }
     }
 }
 

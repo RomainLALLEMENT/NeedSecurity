@@ -14,7 +14,7 @@ if(!empty($_GET['nbRows'])){
 }
 
 if(!empty($_GET['protocolName'])){
-    $protocol_name = trim(strip_tags($_GET['protocolName']));
+    $protocol_name = cleanXss($_GET['protocolName']);
 }
 
 $trames = db_get_trames(['id', 'frame_date', 'identification', 'protocol_name', 'ip_from', 'ip_dest'], $page, $nbRow, $protocol_name);
