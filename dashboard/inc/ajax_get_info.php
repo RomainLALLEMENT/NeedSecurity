@@ -1,6 +1,6 @@
 <?php
 require_once ('../../inc/bases.php');
-$table = trim(strip_tags($_GET['table']));
+$table = cleanXss($_GET['table']);
 if(empty($table)){
     exit;
 } else {

@@ -5,7 +5,7 @@ if(empty($_GET['protocolName'])){
     exit;
 }
 
-$protocol_name = trim(strip_tags($_GET['protocolName']));
+$protocol_name = cleanXss($_GET['protocolName']);
 if(mb_strlen($protocol_name) == 0){
     exit;
 }

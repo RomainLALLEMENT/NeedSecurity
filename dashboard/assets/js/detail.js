@@ -60,50 +60,6 @@ function generate_trame_details(trame){
 
     dashboardMain.append(item);
 
-    // Ligne graphes (errors)
-
-    let data = {
-        labels: [
-            'Erreurs',
-            'Valides'
-        ],
-        datasets: [{
-            label: 'Trames ' + trame.protocol_name,
-            data: [0,0],
-            backgroundColor: [
-                'rgb(252,66,66)',
-                'rgb(65,220,82)'
-            ],
-            hoverOffset: 4
-        }]
-    };
-
-    const item_graphes = $('<div class="back-box"></div>');
-    dashboardMain.append(item_graphes);
-    item = $('<div class="back-box_graph"></div>');
-    item.append('<h2>Erreurs '+trame.protocol_name+'</h2>');
-    item.append('<p class="error-trame-infos"><strong id="erreur-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> d\'erreurs, <strong id="erreur-paquet-count-'+trame.protocol_name.replaceAll('.', '')+'">0/0</strong> trame(s)' +
-        '<br /><strong id="unverified-prct-'+trame.protocol_name.replaceAll('.', '')+'">0%</strong> n\'ont pas pu être vérifiées</p>');
-    const chartjs_canvas = $('<canvas id="graphe_errors"></canvas>');
-    const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_errors_parent"></div>');
-    chartjs_canvas_parent.append(chartjs_canvas);
-    item.append(chartjs_canvas_parent);
-
-
-    let config = {
-        type: 'pie',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-        }
-    };
-
-    const chartjs_graphe_errors = new Chart(chartjs_canvas, config);
-    chartjs_graphe_errors.resize(200,200);
-    ajax_getProtocolData(chartjs_graphe_errors, trame.protocol_name);
-
-    item_graphes.append(item);
-
     // Ligne autres trames
     const item_autres_trames = $('<div class="back-box"></div>');
 
@@ -239,7 +195,7 @@ function generate_details_protocol_page(protocole){
     const item_graphes = $('<div class="back-box"></div>');
     dashboardMain.append(item_graphes);
     item = $('<div class="back-box_graph"></div>');
-    /*item.append('<h2>'+protocole+'</h2>');*/
+    item.append('<h2>Trames des 7 derniers jours</h2>');
 
     const chartjs_canvas = $('<canvas id="graphe_days"></canvas>');
     const chartjs_canvas_parent = $('<div class="back-box_graph__chatjs" id="graphe_days_parent"></div>');

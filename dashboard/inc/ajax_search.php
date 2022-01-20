@@ -50,7 +50,7 @@ if(empty($_GET['search'])){
     $search = '';
 }
 else{
-    $search = strtolower(trim(strip_tags($_GET['search'])));
+    $search = strtolower(cleanXss($_GET['search']));
     if(mb_strlen($search) > 0){
         $_SESSION['search'] = $search;
     }
