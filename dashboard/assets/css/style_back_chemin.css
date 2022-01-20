@@ -2,6 +2,7 @@
 :root{
     --green-good: greenyellow;
     --red-bad: #FF2525FF;
+    --blue-unverified: #2ac1b4;
 }
 .way-list{
     display: flex;
@@ -41,6 +42,9 @@
     gap: .3rem;
     padding: .3rem;
 }
+.way-to, .way-from{
+    width: clamp(130px, 35%, 200px);
+}
 .way .way-ip{
     font-size: clamp(.6rem, .6rem + 1vw, 1.1rem);
 }
@@ -58,17 +62,17 @@
     font-family: 'Noto Sans Display', sans-serif;
 }
 
-/* Class to aply for color*/
-.way .return-green{
-    color: #53c159;
+/* Class to apply for color*/
+.way .send-good{
+    color: var(--green-good);
 }
 
-.way .return-red{
-    color: var(--rouge);
+.way .send-bad{
+    color: var(--red-bad);
 }
 
-.way .return-blue{
-    color: #2ac1b4;
+.way .send-unverified{
+    color: var(--blue-unverified);
 }
 
 
@@ -107,6 +111,9 @@
 }
 .bad:after {
     animation: bad 10s steps(10) infinite;
+}
+.unverified:after {
+    animation: unverified 10s steps(10) infinite;
 }
 @keyframes moveWithReturn {
     0% {
@@ -164,23 +171,16 @@
         color: var(--red-bad);
     }
 }
-
-
-
-
-
-
-
-.way .arrows .fas .fa-times{
-    position: absolute;
-    bottom: -60%;
-    right: -60%;
-    color: var(--rouge);
+@keyframes unverified {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f128";
+        color: var(--blue-unverified);
+    }
 }
 
-.way .arrows .fas .fa-check{
-    position: absolute;
-    bottom: -60%;
-    right: -60%;
-    color: greenyellow;
-}
+
+

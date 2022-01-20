@@ -64,7 +64,7 @@ function ajax_generateProtocolPath(element, protocol_name){
                     divCheminItem.append(way);
 
                     //Div to
-                    const divTo = $(`<div class="way-from"></div>`);
+                    const divTo = $(`<div class="way-to"></div>`);
                     const paquetTo = $('<i class="fas fa-laptop-code way-paquet"></i>');
                     const pTo =$(`<span class="way-ip way-ip-from">${this.ip_from }</span>`);
                     divTo.append(paquetTo);
@@ -84,20 +84,28 @@ function ajax_generateProtocolPath(element, protocol_name){
                     arrows.append(codeTo);
                     arrows.append(arrowR);
                     if(protocol_name === 'ICMP'){
-                        const codeFrom = $(`<span class="way-code way-code-2">${statusCode(this.statut)}</span>`);
+                        const codeFrom = $(`<span class="way-code way-code-2">0x00</span>`);
                         const arrowL = $(`<i class="fas fa-long-arrow-alt-left way-paquet "></i>`);
 
                         arrows.append(arrowL);
                         arrows.append(codeFrom);
                         animate.addClass('with-return');
+                        if (this.statut.length > 0){
+                            animate.addClass('bad');
+                            arrowR.addClass('send-bad');
+                            arrowL.addClass('send-bad');
+                        } else {
+                            animate.addClass('good');
+                            arrowR.addClass('send-good');
+                            arrowL.addClass('send-good');
+                        }
                     } else {
                         animate.addClass('one-way');
+                        //Because we don't have any information to verify
+                        animate.addClass('unverified');
+                        arrowR.addClass('send-unverified');
                     }
-                    if (this.statut.length > 0){
-                        animate.addClass('bad');
-                    } else {
-                        animate.addClass('good');
-                    }
+
 
                     way.append(arrows);
 
