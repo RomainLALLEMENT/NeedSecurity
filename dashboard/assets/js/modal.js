@@ -2,8 +2,6 @@
 //Show logout
 
 function showLogout(){
-    console.log('Ask for logout');
-    // const closeModal = document.querySelector('#n');
     const modal = document.createElement('div');
     modal.classList.add('modal');
     modal.id = 'modal-logout';
@@ -29,16 +27,13 @@ function showLogout(){
 
     const n = document.getElementById('n');
     n.addEventListener('click', ()=>{
-        console.log('n');
         modal.remove();
     })
     closeModal.addEventListener('click', ()=>{
-        console.log('close modal');
         modal.remove();
     })
     window.addEventListener('click', (event) =>{
         if (event.target == modal) {
-            console.log('window')
             modal.remove();
         }
     })

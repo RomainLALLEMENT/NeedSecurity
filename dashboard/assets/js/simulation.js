@@ -55,9 +55,7 @@ function ajax_generateProtocolPath(element, protocol_name){
         url: "inc/ajax_get_simulation.php",
         data: {protocolName: protocol_name},
         success: function(response){
-            console.log(response);
             const chemins = JSON.parse(response);
-            console.log(chemins);
             const divCheminParent = $('<div class="way-list">');
             divCheminParent.append('<h2>Protocole '+protocol_name+'</h2>');
             $.each(chemins, function() {

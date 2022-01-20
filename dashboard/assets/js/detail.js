@@ -83,7 +83,6 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
         url: "inc/ajax_get_protocol_data.php",
         data: {protocolName: protocol_name},
         success: function(response){
-            console.log(response);
             const protocol_data = JSON.parse(response);
             const nbErreurs = protocol_data.erreurs.length;
             const nbData = protocol_data.paquets_count;

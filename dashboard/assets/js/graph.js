@@ -72,11 +72,4 @@ function createGraph(object, type, docId, labelT = '' ) {
         chart.update();
     }
 
-    /*Updating the bar chart with updated data in every second. */
-    // setInterval(function () {
-    //     updatedDataSet = [Math.random(), Math.random(), Math.random(), Math.random()];
-    //     updateBarGraph(chart, 'Prediction', colouarray, updatedDataSet);
-    // }, 10000);
-
-
 export {ajax_graph};

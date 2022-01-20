@@ -22,16 +22,13 @@ function generateDashboardPage(){
                 url: "inc/ajax_get_info.php",
                 data: {table: table},
                 success: function(response){
-                    console.log('sucess');
                     if(response.length > 0){
-                        console.log('response');
                         const json = JSON.parse(response);
                         const info = getInfo(json);
                         creatBoxData(info);
                     }
                 },
                 error: function(){
-                    console.log('error');
                 }
             });
         }, 600);

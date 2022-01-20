@@ -4,7 +4,6 @@
 const showConnect = document.getElementById('btn-connection');
 const showLogin = document.getElementById('btn-login');
 if (showLogin != null){
-    console.log('btn is present');
     showLogin.addEventListener('click', function(){
         showModal('login');
     });
@@ -19,7 +18,6 @@ function showModal(modalType, defaultEmail = ''){
         actual_modal.remove();
     }
 
-    console.log('Ask for connection');
     const modal = document.createElement('div');
     modal.classList.add('modal');
     const content = document.createElement('div');
