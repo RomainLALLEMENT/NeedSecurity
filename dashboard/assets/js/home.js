@@ -30,30 +30,28 @@ function menuBack(){
     const simulation = document.getElementById('page-simulation');
 
     home.addEventListener('click', (e)=>{
-        console.log('page-accueil');
-        isActiveMenu(e);
+        isActiveMenu('page-accueil');
         generateDashboardPage();
     })
     search.addEventListener('click', (e)=>{
-        console.log('page-recherche');
-        isActiveMenu(e);
+        isActiveMenu('page-recherche');
         generate_search_page();
     })
     detail.addEventListener('click', (e)=>{
-        console.log('page-details');
-        isActiveMenu(e);
+        isActiveMenu('page-details');
         generate_details_protocol_page('UDP');
     })
     simulation.addEventListener('click', (e)=>{
-        console.log('page-simulation');
-        isActiveMenu(e);
+        isActiveMenu('page-simulation');
         generate_protocol_path('ICMP');
     })
 }
 
-function isActiveMenu(e){
-    const menuSelected = document.querySelectorAll('.li-selected');
-    menuSelected[0].classList.remove('li-selected');
-    e.target.parentElement.classList.add('li-selected');
+function isActiveMenu(menuID){
+    if(document.querySelector('.li-selected') != null){
+        document.querySelector('.li-selected').classList.remove('li-selected');
+    }
+    if(document.getElementById(menuID) != null) {
+        document.getElementById(menuID).classList.add('li-selected');
+    }
 }
-

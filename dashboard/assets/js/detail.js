@@ -101,15 +101,28 @@ function ajax_getProtocolData(chartjs_graphe, protocol_name){
                     label: 'Trames ' + protocol_name,
                     data: [nbErreurs,(nbData - nbErreurs - nbUnverified), nbUnverified],
                     backgroundColor: [
-                        'rgb(252,66,66)',
-                        'rgb(65,220,82)',
-                        'rgb(191,191,191)'
+                        $(':root').css('--red-bad'),
+                        $(':root').css('--green-good'),
+                        $(':root').css('--blue-unverified')
                     ],
                     hoverOffset: 4
                 }]
             };
-            chartjs_graphe.config.data = data;
-            chartjs_graphe.update();
+
+            let config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    layout: {
+                        padding: 15
+                    }
+                }
+            };
+
+            const chartjs_graphe_errors = new Chart(chartjs_graphe, config);
+            chartjs_graphe_errors.resize(200,200);
 
             $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
             $('#erreur-prct-' + protocol_name.replaceAll('.', '')).text(prct + '%');
@@ -216,30 +229,6 @@ function generate_details_protocol_page(protocole){
 
     // Ligne graphes (errors)
 
-    let data = {
-        labels: [
-            'Erreurs',
-            'Valides'
-        ],
-        datasets: [{
-            label: 'Trames',
-            data: [0,0],
-            backgroundColor: [
-                'rgb(252,66,66)',
-                'rgb(65,220,82)'
-            ],
-            hoverOffset: 4
-        }]
-    };
-
-    config = {
-        type: 'pie',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-        }
-    };
-
     let proto = ['ICMP', 'UDP', 'TCP', 'TLSv1.2'];
     for(let i=0; i<proto.length;i++){
         let item_graphes_er = $('<div class="back-box"></div>');
@@ -252,9 +241,7 @@ function generate_details_protocol_page(protocole){
         chartjs_canvas_parent.append(chartjs_canvas);
         item.append(chartjs_canvas_parent);
 
-        const chartjs_graphe_errors = new Chart(chartjs_canvas, config);
-        chartjs_graphe_errors.resize(200,200);
-        ajax_getProtocolData(chartjs_graphe_errors, proto[i]);
+        ajax_getProtocolData(chartjs_canvas, proto[i]);
 
         item_graphes_er.append(item);
         dashboardMain.append(item_graphes_er);
