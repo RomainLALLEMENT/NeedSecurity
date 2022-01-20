@@ -2,7 +2,7 @@
 require_once ('../inc/bases.php');
 
 if(!isLoggedIn()){
-    header('Location: ../');
+    header('Location: ../403.php');
     exit;
 }
 
