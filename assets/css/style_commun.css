@@ -27,6 +27,11 @@ input:focus-visible{
     --selected-item-color: #6D778A;
     --gris: #C4C4C4;
     --copyright-color: #737373;
+
+/*    Back simulation and error only*/
+    --green-good: #ADFF2FFF;
+    --red-bad: #FF2525FF;
+    --blue-unverified: #2ac1b4;
 }
 
 /*LOGO mame*/

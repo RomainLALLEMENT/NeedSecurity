@@ -9,9 +9,9 @@ function generate_protocol_path(protocol_name){
 
     // Ligne titre
     var item = $('<div class="back-box"></div>');
-    var box_clickable = $('<div data-protocol="ICMP" class="data-box clickable selected"></div>');
+    var box_clickable = $('<div data-protocol="ICMP" class="data-box clickable"></div>');
     box_clickable.append($('<h3 class="data-box_name">ICMP</h3>')).on('click', function(){
-       generate_protocol_path('ICMP');
+        generate_protocol_path('ICMP');
     });
     item.append(box_clickable);
     box_clickable = $('<div data-protocol="UDP" class="data-box clickable"></div>');
@@ -55,104 +55,76 @@ function ajax_generateProtocolPath(element, protocol_name){
         url: "inc/ajax_get_simulation.php",
         data: {protocolName: protocol_name},
         success: function(response){
+            console.log(response);
             const chemins = JSON.parse(response);
-            const divCheminParent = $('<div class="chemin-parent">');
+            console.log(chemins);
+            const divCheminParent = $('<div class="way-list">');
             divCheminParent.append('<h2>Protocole '+protocol_name+'</h2>');
             $.each(chemins, function() {
                 $.each(this, function() {
-                    const divCheminItem = $('<div data-trameid="'+this.id+'" class="chemin">').on('click', function(){
+                    const divCheminItem = $('<div data-trameid="'+this.id+'" class="way-box"></div>').on('click', function(){
                         const trameid = $(this).data('trameid');
                         ajax_getTrameDetail(trameid);
                     });
+                    const h4 = $(`<h4 class="way-title">Paquet <span class="bold-id">${this.identification}</span></h4>`);
+                    const way = $(`<div class="way">`);
+                    divCheminItem.append(h4);
+                    divCheminItem.append(way);
 
-                    const paquet = $('<i class="fas fa-laptop-code chemin-paquet"></i>');
-                    paquet.append('<span class="chemin-ip">' + this.ip_from + '</span>');
-                    paquet.append('<span class="chemin-identifiant">Paquet <strong>' + this.identification + '</strong></span>');
-                    divCheminItem.append(paquet);
-                    const arrows = $('<div class="arrows">');
+                    //Div to
+                    const divTo = $(`<div class="way-to"></div>`);
+                    const paquetTo = $('<i class="fas fa-laptop-code way-paquet"></i>');
+                    const pTo =$(`<span class="way-ip way-ip-from">${this.ip_from }</span>`);
+                    divTo.append(paquetTo);
+                    divTo.append(pTo);
+                    way.append(divTo);
 
+                    //Div transit
+
+                    const arrows = $('<div class="transit-box">');
+                    const animate = $(` <i  class="fas fa-network-wired data-transit" ></i>`);
+                    arrows.append(animate);
+                    //Add function for add the class
+
+                    const codeTo = $(`<span class="way-code way-code-1">${statusCode(this.statut)}</span>`);
+                    const arrowR = $(`<i class="fas fa-long-arrow-alt-right way-paquet "></i>`);
+
+                    arrows.append(codeTo);
+                    arrows.append(arrowR);
                     if(protocol_name === 'ICMP'){
-                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
-                        if(this.statut.length > 0){
-                            arrow.append('<span class="chemin-code-1">' + this.statut + '</span>');
-                            arrow.append('<i data-trajet="retour-error" class="fas fa-network-wired"></i>');
-                        }
-                        else{
-                            arrow.append('<span class="chemin-code-1">0x00</span>');
-                            arrow.append('<i data-trajet="aller-retour" class="fas fa-network-wired"></i>');
-                        }
+                        const codeFrom = $(`<span class="way-code way-code-2">0x00</span>`);
+                        const arrowL = $(`<i class="fas fa-long-arrow-alt-left way-paquet "></i>`);
 
-                        const arrow_retour = $('<i class="fas fa-long-arrow-alt-left chemin-paquet return-'+getClassForCode(this.statut)+'"></i>');
-                        arrow_retour.append('<span class="chemin-code-2">0x00</span>');
-                        arrows.append(arrow);
-                        arrows.append(arrow_retour);
+                        arrows.append(arrowL);
+                        arrows.append(codeFrom);
+                        animate.addClass('with-return');
+                        if (this.statut.length > 0){
+                            animate.addClass('bad');
+                            arrowR.addClass('send-bad');
+                            arrowL.addClass('send-bad');
+                        } else {
+                            animate.addClass('good');
+                            arrowR.addClass('send-good');
+                            arrowL.addClass('send-good');
+                        }
+                    } else {
+                        animate.addClass('one-way');
+                        //Because we don't have any information to verify
+                        animate.addClass('unverified');
+                        arrowR.addClass('send-unverified');
                     }
-                    else{
-                        const arrow = $('<i class="fas fa-long-arrow-alt-right chemin-paquet return-green"></i>');
-                        arrow.append('<span class="chemin-code-1">0x00</span>');
-                        arrow.append('<i data-trajet="aller" class="fas fa-network-wired"></i>');
-                        arrows.append(arrow);
-                    }
 
 
-                    divCheminItem.append(arrows);
+                    way.append(arrows);
 
-                    const paquet_destination = $('<i class="fas fa-laptop-code chemin-paquet"></i>');
-                    paquet_destination.append('<span class="chemin-ip-dest">' + this.ip_dest + '</span>');
-                    divCheminItem.append(paquet_destination);
+                    //Div from
+                    const divFrom = $(`<div class="way-from"></div>`);
+                    const paquetFrom = $('<i class="fas fa-laptop-code way-paquet"></i>');
+                    const pFrom =$(`<span class="way-ip way-ip-dest">${this.ip_dest }</span>`);
+                    divFrom.append(paquetFrom);
+                    divFrom.append(pFrom);
+                    way.append(divFrom);
 
-                    divCheminItem.on('mouseenter', function() {
-                        const icon = $(this).find('.fa-network-wired');
-                        icon.empty();
-                        const type_trajet = icon.data('trajet');
-                        icon.stop();
-                        icon.css('top', 0);
-                        icon.css('left', -100);
-
-                        // Aller
-                        if(type_trajet === 'aller' || type_trajet === 'aller-error'){
-                            icon.animate({
-                                opacity: 0.5,
-                                left: "+=250",
-                            }, 2000, function() {
-                                icon.animate({
-                                    opacity: 1,
-                                    top: "+=30",
-                                }, 2000, function() {
-                                    if(type_trajet === 'aller-error'){
-                                        icon.append('<i class="fas fa-times"></i>');
-                                    }
-                                    else{
-                                        icon.append('<i class="fas fa-check"></i>');
-                                    }
-                                });
-                            });
-                        }
-                        // Aller-retour
-                        else{
-                            icon.animate({
-                                opacity: 0.5,
-                                left: "+=250",
-                            }, 2000, function() {
-                                icon.animate({
-                                    top: "+=60"
-                                }, 2000, function() {
-
-                                    icon.animate({
-                                        opacity: 1,
-                                        left: "-=300"
-                                    }, 2000, function(){
-                                        if(type_trajet === 'retour-error'){
-                                            icon.append('<i class="fas fa-times"></i>');
-                                        }
-                                        else{
-                                            icon.append('<i class="fas fa-check"></i>');
-                                        }
-                                    });
-                                });
-                            });
-                        }
-                    });
 
                     divCheminParent.append(divCheminItem);
                 });
@@ -165,17 +137,13 @@ function ajax_generateProtocolPath(element, protocol_name){
         }
     });
 }
-
-function getClassForCode(code, allerOnly = false){
-    if(code.length == 0){
-        return 'green';
+function statusCode(status){
+    if(status != ''){
+        return status;
     }
-    else if(code === 'unverified'){
-        return 'blue';
-    }
-    else{
-        return 'red';
-    }
+    return '0x00';
 }
+
+
 
 export {generate_protocol_path};
