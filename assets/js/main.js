@@ -112,6 +112,8 @@ function signModal(){
 
             <label for="pwd-confirm">Confirmer votre mots de passe</label>
             <input type="password" name="pwd-confirm" id="pwd-confirm">
+            
+            <p>En vous inscrivant, vous acceptez les <a href="#">Conditions d'Utilisation</a> et la <a href="#">Politique de confidentialité</a></p>
 
             <input type="submit" id="submitted-sign" value="S'inscrire">
             <p class="error" id="error-register"></p>
