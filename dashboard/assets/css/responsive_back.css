@@ -19,11 +19,10 @@
         margin-top: max(3rem + 2vh, 3rem);
         margin-left: 0;
     }
-    #dashboard .back-box{
+    .back-box{
         flex-wrap: wrap;
-
     }
-    #dashboard .data-box{
+    .back-box .data-box{
     width: calc(100% / 2 - .5rem);
     }
     .footer .footer-top, .footer .footer-bot{
@@ -55,11 +54,11 @@
         margin-top: max(2rem + 2vh, 2rem);
         margin-left: 0;
     }
-    #dashboard .back-box{
+    .back-box{
         flex-direction: column;
 
     }
-    #dashboard .data-box{
+    .back-box .data-box{
         width: 100%;
     }
 

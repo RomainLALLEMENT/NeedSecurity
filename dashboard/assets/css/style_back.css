@@ -361,114 +361,183 @@ Details of trame
     background-color: var(--gris);
 }
 
-/* Chemins */
-
-.chemin-parent{
+/* ways */
+#simulation .way-list{
     display: flex;
     flex-flow: column nowrap;
     gap: 1rem;
     color: white;
 }
 
-.chemin .return-green{
-    color: #53c159;
+#simulation .way-box{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .3rem;
+    justify-content: center;
+    text-align: center;
 }
-
-.chemin .return-red{
-    color: var(--rouge);
+#simulation .way-box h4{
+    font-size: 1.1rem;
 }
-
-.chemin .return-blue{
-    color: #2ac1b4;
+#simulation .way-box .bold-id{
+    font-weight: 700;
 }
-
-.chemin .chemin-paquet{
-    font-size: 3rem;
+#simulation .way{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    transition: all .25s;
+    cursor: pointer;
+    padding: min(.7rem, .7rem + 3vw);
+}
+#simulation .way:hover{
+    background-color: var(--back-color);
+}
+#simulation .way > div{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: .3rem;
+    padding: .3rem;
+}
+#simulation .way-to, .way-from{
+    width: clamp(130px, 35%, 200px);
+}
+#simulation .way .way-ip{
+    font-size: clamp(.5rem, .5rem + 1vw, 1rem);
+}
+#simulation .way .way-paquet{
+    /*Make responsive !*/
+    font-size: clamp(1.5rem, 1.5rem + 3vw, 3rem);
+}
+#simulation .way .transit-box{
+    flex-grow: 2;
     position: relative;
 }
-
-.chemin span{
+#simulation .way .way-code{
     font-size: .8rem;
     font-weight: 300;
     font-family: 'Noto Sans Display', sans-serif;
 }
 
-.chemin strong{
-    font-weight: 700;
+/* Class to apply for color*/
+#simulation .way .send-good{
+    color: var(--green-good);
 }
 
-.chemin{
-    padding: 1rem;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    gap: 10rem;
-    transition: all .25s;
-    cursor: pointer;
+#simulation .way .send-bad{
+    color: var(--red-bad);
 }
 
-.chemin:hover{
-    background-color: var(--back-color);
+#simulation .way .send-unverified{
+    color: var(--blue-unverified);
 }
 
-.chemin .chemin-ip{
+
+#simulation .data-transit{
     position: absolute;
-    top: -8%; left: 60px;
+    visibility: hidden;
+    top: 5%;
+    left: 5%;
 }
-
-.chemin .chemin-ip-dest{
+#simulation .way .data-transit{
+    font-size: 1rem;
+    z-index: 1;
+}
+#simulation .way .one-way{
+    animation: moveOneWay 10s steps(10) infinite;
+}
+#simulation .way .with-return {
+    animation: moveWithReturn 10s steps(10) infinite;
+}
+#simulation .way:hover .data-transit{
+    animation-play-state: paused;
+}
+#simulation .way .data-transit:after {
     position: absolute;
-    top: -8%; left: -90px;
+    bottom: -50%;
+    right: -50%;
+    content: "";
+    font-size: 1.5rem;
+    z-index: 5;
+}
+#simulation .way:hover .data-transit:after{
+    animation-play-state: paused;
+}
+#simulation .good:after {
+    animation: good 10s steps(10) infinite;
+}
+#simulation .bad:after {
+    animation: bad 10s steps(10) infinite;
+}
+#simulation .unverified:after {
+    animation: unverified 10s steps(10) infinite;
+}
+@keyframes moveWithReturn {
+    0% {
+        visibility: visible;
+        top: 5%;
+        left: 5%;
+    }
+    25%  {
+        top: 5%;
+        left: 90%;
+    }
+    50% {
+        top: 45%;
+        left: 90%;
+    }
+    75%{
+        top: 90%;
+        left: 90%;
+    }
+    100% {
+        top: 90%;
+        left: 5%;
+    }
+}
+@keyframes moveOneWay {
+    from {
+        visibility: visible;
+        top: 45%;
+        left: 5%;
+    }
+
+    to {
+        top: 45%;
+        left: 95%;
+    }
+}
+@keyframes good {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f00c";
+        color: var(--green-good);
+    }
 }
 
-.chemin .chemin-identifiant{
-    position: absolute;
-    top: 35%; left: -100px;
-    font-size: .8rem;
+@keyframes bad {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f00d";
+        color: var(--red-bad);
+    }
 }
-
-.chemin .chemin-code-1{
-    position: absolute;
-    top: -10%; left: 80%;
-    font-size: .8rem;
-}
-
-.chemin .chemin-code-2{
-    position: absolute;
-    bottom: -10%; left: 0%;
-    font-size: .8rem;
-}
-
-.chemin .arrows{
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-}
-
-.chemin .arrows .fas .fa-network-wired{
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: white;
-    font-size: .8rem;
-}
-
-.chemin .arrows .fas .fa-times{
-    position: absolute;
-    bottom: -60%;
-    right: -60%;
-    color: var(--rouge);
-}
-
-.chemin .arrows .fas .fa-check{
-    position: absolute;
-    bottom: -60%;
-    right: -60%;
-    color: greenyellow;
+@keyframes unverified {
+    0%, 25%, 50%{
+        content: " ";
+        color: white;
+    }
+    50%, 75%, 100% {
+        content: "\f128";
+        color: var(--blue-unverified);
+    }
 }
 
 /* SEARCH */
@@ -515,19 +584,20 @@ Details of trame
 
 /* Details */
 
-.error-trame-infos{
+#detail-protocole .error-trame-infos{
     color: white;
 }
 
-.error-trame-infos strong{
+#detail-protocole .error-trame-infos strong{
     font-weight: 700;
 }
 
 #descriptionContainer{
-    min-height: 300px;
+    min-height: 40vh;
 }
 
-#descriptionContainer p{
+#detail-protocole p{
     color: white;
     padding: .2rem;
+    font-size: clamp(.6rem, .6rem + 1vw, 1.1rem);
 }
