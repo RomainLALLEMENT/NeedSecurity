@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
 
 /*
 
@@ -10,10 +17,15 @@ body{
     width: min(100%, 1100px);
     margin-inline: auto;
     min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
 }
-main{ flex-grow: 2;}
+main{ -webkit-box-flex: 2; -ms-flex-positive: 2; flex-grow: 2;}
 h1, h2, h3, h4, h5, h6{
     font-family: 'Noto Sans Display', sans-serif;
 }
@@ -28,7 +40,7 @@ input:focus-visible{
     --gris: #C4C4C4;
     --copyright-color: #737373;
 
-/*    Back simulation and error only*/
+    /*    Back simulation and error only*/
     --green-good: #ADFF2FFF;
     --red-bad: #FF2525FF;
     --blue-unverified: #2ac1b4;
@@ -53,6 +65,8 @@ input:focus-visible{
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -78,13 +92,25 @@ input:focus-visible{
 .loader-container-child{
     position: absolute;
     top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
+    -ms-flex-line-pack: center;
     align-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     gap: 1rem;
 }
@@ -95,6 +121,7 @@ input:focus-visible{
     height: 50px;
     border-radius: 15px;
     background-color: white;
+    -webkit-animation: rotation 2s infinite linear;
     animation: rotation 2s infinite linear;
 }
 
@@ -103,6 +130,8 @@ input:focus-visible{
     width: 25px;
     height: 25px;
     top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background: url('../../assets/img/logo.png');
     background-size: cover;
@@ -115,11 +144,24 @@ input:focus-visible{
     color: white;
 }
 
-@keyframes rotation {
+@-webkit-keyframes rotation {
     from {
+        -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
     to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
 }
@@ -129,7 +171,12 @@ input:focus-visible{
 .footer{
     background-color: var(--back-color);
     padding: 1rem max(1rem, 1.5rem + 3vw);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     z-index: 2;
     position: relative;
@@ -141,20 +188,36 @@ footer a{
     color: white;
     cursor: pointer;
     padding: .3rem .5rem;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
     transition: all .5s;
     line-height: initial;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 .footer a:hover{
     color: var(--rouge);
 }
 .footer .contact{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
 }
 .footer .footer-top, .footer .footer-bot{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 .footer .footer-top{
@@ -163,9 +226,18 @@ footer a{
 }
 .footer .social-red{
     font-size: 3rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
 }
@@ -195,8 +267,15 @@ footer a{
     position: relative;
 }
 .modal-content .form-modal{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
 }
@@ -215,6 +294,8 @@ footer a{
     color: white;
     font-weight: bold;
     font-size: 1.1rem;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
     transition: all .25s;
     border: 1px solid var(--rouge);
     cursor: pointer;
@@ -228,6 +309,8 @@ footer a{
     border-radius: 21px;
     background: var(--header-back-color);
     color: white;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
     transition: all .25s;
     border: 1px solid var(--header-back-color);
     cursor: pointer;
@@ -235,6 +318,7 @@ footer a{
 .modal-content .form-modal .sub-btn-modal:hover{
     background: var(--selected-item-color);
     color: white;
+    -webkit-box-shadow: inset  0 3px 10px var(--back-color);
     box-shadow: inset  0 3px 10px var(--back-color);
 }
 .modal-content .form-modal .low-focus a{

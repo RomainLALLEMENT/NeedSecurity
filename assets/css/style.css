@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
 /*Front only*/
 body{
     background-color: var(--gris );
@@ -19,12 +26,24 @@ body{
     position: sticky;
     top: 0;
     /*background-color: var(--gris);*/
+    background: -webkit-gradient(linear , left top, left bottom , from(var(--gris)) , to(rgba(196, 196, 196, 0)));
+    background: -o-linear-gradient(var(--gris) , rgba(196, 196, 196, 0));
     background: linear-gradient(var(--gris) , rgba(196, 196, 196, 0));
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
     padding: .5rem max(1rem, 1.5rem + 3vw);
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -ms-flex-line-pack: center;
     align-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 #header>*{
@@ -36,6 +55,8 @@ body{
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
+    -webkit-box-flex: 2;
+    -ms-flex-positive: 2;
     flex-grow: 2;
 }
 
@@ -46,6 +67,8 @@ body{
 
 #header  p{
     color: white;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     font-weight: 300;
     font-size: 1.1rem;
@@ -53,12 +76,16 @@ body{
     border-radius: 15px;
     border: solid 2px #ffffff;
     cursor: pointer;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
     transition: all .25s;
     padding: .5rem 1.2rem;
 }
 #header p:hover{
     color: var(--gris);
     background-color: var(--selected-item-color);
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
     transform: scale(1.03);
 }
 
@@ -72,7 +99,11 @@ INDEX  PHP
     background: url("../img/background.png")  no-repeat center/cover fixed;
     min-height: 60vh;
     padding: max(1.5rem,  5vw);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 #hero-banner #box-hero{
@@ -93,12 +124,17 @@ INDEX  PHP
     background-color: var(--rouge);
     border-radius: 5px;
     cursor: pointer;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
     transition: all .25s;
     padding: .5rem 1.2rem;
     font-size: 1rem;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 #hero-banner #box-hero #btn-login:hover{
+    -webkit-box-shadow: inset  0 3px 10px var(--back-color);
     box-shadow: inset  0 3px 10px var(--back-color);
     background-color: var(--selected-item-color);
     color: var(--rouge);
@@ -106,9 +142,18 @@ INDEX  PHP
 
 /* Functionality*/
 #functionality{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-color: var(--back-color);
     color: white;
@@ -123,7 +168,12 @@ INDEX  PHP
     width: clamp(300px, 100%, 700px);
 }
 #functionality ul{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     gap: .5rem;
 }
@@ -137,9 +187,18 @@ INDEX  PHP
 
 /* Analyse */
 #analyse{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-flow: row-reverse nowrap;
     flex-flow: row-reverse nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding: max(1rem, 3vw);
     gap: 2%;
@@ -152,7 +211,12 @@ INDEX  PHP
     width: clamp(300px, 100%, 700px);
 }
 #analyse ul{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     gap: .5rem;
 }
@@ -187,8 +251,14 @@ INDEX  PHP
 
 /*CSS PAGE 403/404*/
 .error-page {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     text-align: center;
     height: 100%;
@@ -213,6 +283,7 @@ INDEX  PHP
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+    -webkit-animation: animateTextBackground 5s ease-in-out infinite;
     animation: animateTextBackground 5s ease-in-out infinite; }
 .error-page h1 + p {
     color: var(--rouge);
@@ -241,7 +312,11 @@ INDEX  PHP
     left: 0; }
 /*button homepage*/
 .button-homepage{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     padding: 2rem 0;
 }
@@ -255,6 +330,7 @@ INDEX  PHP
     color: white;
     cursor: pointer;
     -o-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
     transition: all .3s ease;
     font-size: 18px;
     font-weight: 400;
@@ -272,7 +348,12 @@ INDEX  PHP
     text-align: center;
 }
 #lost-pwd form, #lost-token form{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 #lost-pwd form > *, #lost-token form > *{
@@ -294,6 +375,8 @@ INDEX  PHP
     cursor: pointer;
     background-color: transparent;
     font-size: 1.2rem;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
     transition: all .5s;
 }
 #lost-pwd form .submit:hover,
@@ -308,6 +391,8 @@ INDEX  PHP
     border: solid 2px var(--rouge);
     padding: .3rem;
     cursor: pointer;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
     transition: all .3s;
 }
 #lost-pwd #token p{
