@@ -1,5 +1,6 @@
 <?php
 require_once ('inc/bases.php');
+killSession();
 include_once ('inc/header.php');
 ?>
     <section id="mentionslegales">

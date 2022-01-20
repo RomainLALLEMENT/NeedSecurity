@@ -255,6 +255,15 @@ function check_contains($str, $search):bool {
     }
     return false;
 }
+/* Return error 404*/
+function abort404(){
+    header('HTTP/1.1 404 Not Found');
+    header('Location: 404.php');
+}
 
+function killSession(){
+    $_SESSION = array();
+    session_destroy();
+}
 
 
